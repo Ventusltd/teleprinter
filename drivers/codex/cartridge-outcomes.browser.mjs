@@ -19,7 +19,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
    record.localToolCapsules=true;
    await page.route('**/tool-layers/*.js',async route=>{
     const name=new URL(route.request().url()).pathname.split('/').at(-1);
-    if(!['host.js','dismissal.js','focus-boundary.js','readiness.js'].includes(name))return route.continue();
+    if(!['host.js','dismissal.js','focus-boundary.js','readiness.js','viewport.js'].includes(name))return route.continue();
     await route.fulfill({body:await fs.readFile(path.join('C:/Users/vikra/testcode-source-publication/sandbox/capsules/tool-layers',name)),contentType:'text/javascript'});
    });
   }
@@ -87,6 +87,13 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.ok(record.cableCanvases.every(c=>c.opaque>100&&c.colors>4),'Cable canvases must contain drawn geometry');
      await page.screenshot({path:path.join(output,`${viewport.width}-${tool.id}-open.png`)});
     }
+    if(process.argv.includes('--viewport')) {
+     const boxes=await dialog.evaluate(layer=>Object.fromEntries(['header','strong','[data-tool-readiness]','header button','iframe'].map(selector=>{const r=layer.querySelector(selector).getBoundingClientRect();return [selector,{x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom}];})));
+     for(const box of Object.values(boxes))assert.ok(box.x>=0&&box.right<=viewport.width+1,'Tool header or frame overflows horizontally');
+     assert.ok(boxes.iframe.height>100&&boxes.iframe.bottom<=viewport.height+1,'Tool iframe must fit viewport');
+     assert.ok(boxes['header button'].height>=44,'Close target must stay touch sized');
+     assert.ok(boxes.strong.right<=boxes['header button'].x,'Title and close must not overlap');
+    }
     if(process.argv.includes('--readiness')) {
      const ready=dialog.locator('[data-tool-readiness]');
      await ready.locator('xpath=self::*[@data-interface="loaded"]').waitFor({timeout:35000});
@@ -111,7 +118,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.equal(await page.locator('#codex-tool-layers').getByRole('button',{name:tool.title,exact:true}).evaluate(n=>n===document.activeElement),true,'Escape must return focus');
      assert.deepEqual(await states(),beforePanel,'Escape changed Atlas layers');
     } else await dialog.getByRole('button',{name:/Close.*return to GridAtlas/}).click();
-    record.tools.push({id:tool.id,opened:true,closed:true,escape:process.argv.includes('--escape'),focusBoundary:process.argv.includes('--focus'),readiness:process.argv.includes('--readiness')});
+    record.tools.push({id:tool.id,opened:true,closed:true,escape:process.argv.includes('--escape'),focusBoundary:process.argv.includes('--focus'),readiness:process.argv.includes('--readiness'),viewport:process.argv.includes('--viewport')});
    }
   } else if(Number(release.generation)>=202609051850) {
    await page.locator('.neon-layout').first().waitFor({state:'attached',timeout:30000});
