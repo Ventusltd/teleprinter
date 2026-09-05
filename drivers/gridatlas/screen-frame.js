@@ -116,7 +116,24 @@ async function fromDisplay() {
     const directTrack = stream.getVideoTracks()[0];
     if (typeof ImageCapture === 'function' && directTrack) {
       try {
-        const grabbed = await new ImageCapture(directTrack).grabFrame();
+        /* RETRY WHILE THE TRACK RAMPS.
+           The ramp wait further down applies only to the <video> fallback, and
+           grabFrame() runs FIRST -- so the very first frame, which is the
+           reduced one, was the frame that got printed. Measured: 786x1704 out
+           of 1179x2556 and honestly reported as 67% of the screen, but still a
+           reduction. Asking again while the track climbs to its own declared
+           size is the fix. */
+        const first = typeof directTrack.getSettings === 'function'
+          ? directTrack.getSettings() : {};
+        const target = Math.max(Number(first.width) || 0, wantWidth);
+        const capture = new ImageCapture(directTrack);
+        let grabbed = await capture.grabFrame();
+        const rampEnd = Date.now() + 5000;
+        while (grabbed.width < target && Date.now() < rampEnd) {
+          if (typeof grabbed.close === 'function') grabbed.close();
+          await new Promise(resolve => setTimeout(resolve, 200));
+          grabbed = await capture.grabFrame();
+        }
         try {
           const settings = typeof directTrack.getSettings === 'function'
             ? directTrack.getSettings() : {};
