@@ -2,18 +2,63 @@
 
 **Emit the record exactly as it was.**
 
-A teleprinter did not summarise, reflow or improve the message. It printed what
-came down the wire. This does the same for a screen: it takes what the reader is
-actually looking at and writes it out as a file, at the resolution they are
-looking at it, in the shape they are looking at it.
+*Teleprint*, because it is printed on a **telephone**. The reader is standing
+somewhere with a phone in their hand, and what is on that screen has to come off
+it as a file they can send, attach or keep. The name is from the teleprinters,
+which printed what came down the wire and did not improve it.
 
-No paper. No page sizes. No reflow. No clever processing.
+That is the whole design rule, and it is why this repository refuses so much: no
+paper, no page sizes, no reflow, no summarising, no clever processing.
+
+## What this is part of, and what it is emphatically not
+
+This belongs to an open, public layer for the power grid — **the Linux of the
+power grid**, in the sense that the map and the working are public rather than
+locked inside one organisation.
+
+**That layer describes what talks to what: the connections between substations
+and power plants.** Where a project is, which substation is near it, at what
+voltage class, how far, and what the published record says. Network-level facts,
+of the kind a planner, a journalist, a landowner or a developer has a legitimate
+reason to see.
+
+**It does not expose the internal workings, and it must not pretend to.**
+Protection schemes, switchgear internals, fault studies, earthing, stability,
+constructability, connection design — those are specialised skills far beyond
+any AI agent, and they belong to engineers with deep applied electrical
+experience. Nothing printed from here is a connection offer, a constructability
+assessment or a consenting design, and no output of this tooling should ever be
+read as engineering. It is a public record of a public map.
+
+That boundary is the reason the record has to be exact. An engineer who is
+handed a screengrab and the source that produced it can see precisely what was
+claimed and on what basis, and can say it is wrong. A summary cannot be
+challenged that way.
+
+## Why it matters more than a print button
+
+A screen you cannot get off your phone is a screen only its owner can act on. If
+a reader can teleprint what they are looking at, and teleprint the code that
+produced it, then the working and the reasoning both leave the building: they
+can be attached to a message, handed to a regulator, put in front of an AI that
+will argue with them, or kept as a dated record of what a system claimed on a
+given afternoon.
+
+Two buttons, and neither asks the reader to know anything:
+
+| button | what the reader gets |
+|---|---|
+| **Print** | what is on the screen right now, as a PDF at 1:1 |
+| **Print source code** | the code behind it, as a `.txt` they can attach in ChatGPT on the same phone |
 
 ```js
-import { teleprint } from './teleprinter.js';
+import { mount } from './index.js';
+mount();                                 // both buttons, thumb-sized, phone-first
 
+import { teleprint, printSourceCode } from './index.js';
 await teleprint();                       // capture the screen, save a 1:1 PDF
 await teleprint({ format: 'png' });      // the same frame, as an image
+await printSourceCode();                 // the running source, as plain text
 ```
 
 ---
@@ -112,10 +157,20 @@ paths produced it. A record you cannot trace is not evidence.
 ## Files
 
 ```
-teleprinter.js   the engine - capture, compose, emit
+index.js         the one entry point: mount(), and both engines re-exported
+teleprinter.js   Print - capture the screen, compose if it must, emit
+source.js        Print source code - the running source as attachable plain text
 pdf.js           a minimal single-image PDF writer, no dependencies
 demo.html        open it, press the button, inspect what comes out
 test/            outcome tests: a real download, decoded and measured
+```
+
+An application does not have to use `mount()`. Anything satisfying these two
+shapes can be swapped in for either engine - that is the entire contract:
+
+```
+teleprint()        -> {method,width,height,orientation,bytes,filename,blob}
+printSourceCode()  -> {text,filename,files,bytes,missing,commit}
 ```
 
 ## Limits, stated plainly
