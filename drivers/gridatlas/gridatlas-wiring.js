@@ -98,15 +98,25 @@ function install() {
           ).filter(Boolean).join(' | ')
         }
       }).then(function (receipt) {
-        /* Never the words "1:1" unless the capture really did hold every
-           pixel that was on the screen. It said 1:1 while holding 44% of a
-           phone screen, which is precisely the claim the architect rejected
-           in the first place. */
-        var scale = receipt.captureScale;
-        var fidelity = scale === null ? ''
-          : (scale >= 0.999 ? ' · every screen pixel'
-            : ' · ' + Math.round(scale * 100) + '% of the screen: '
-              + receipt.screenWidth + '×' + receipt.screenHeight + ' pixels');
+        /* REPORT THE MEASUREMENT, DO NOT GRADE IT.
+           ------------------------------------------------------------------
+           This read `scale >= 0.999 ? 'every screen pixel'`. An ultrawide
+           capture measured 2326 of 2327 columns -- 0.99957 -- so the sheet
+           announced "every screen pixel" for a record that was one pixel
+           column short. A threshold dressed as a fact is exactly the habit
+           this estate has a rule against, and I wrote the rule.
+
+           It also read width only, so a frame that was full width and short in
+           height reported as complete. The claim is now an integer equality on
+           BOTH axes, decided in screen-frame.js where the numbers are, and
+           anything less prints the pixel counts rather than a verdict. */
+        var fidelity = '';
+        if (receipt.everyScreenPixel) {
+          fidelity = ' · every screen pixel';
+        } else if (receipt.screenWidth) {
+          fidelity = ' · ' + receipt.width + '×' + receipt.height + ' of '
+            + receipt.screenWidth + '×' + receipt.screenHeight + ' screen pixels';
+        }
         say('PDF · ' + receipt.width + '×' + receipt.height + ' px, page '
           + receipt.pageWidth + '×' + receipt.pageHeight + fidelity
           + ' · via ' + receipt.method);

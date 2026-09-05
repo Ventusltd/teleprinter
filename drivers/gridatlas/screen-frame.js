@@ -123,19 +123,32 @@ async function fromDisplay() {
     if (typeof ImageCapture === 'function' && directTrack) {
       try {
         /* RETRY WHILE THE TRACK RAMPS.
-           The ramp wait further down applies only to the <video> fallback, and
-           grabFrame() runs FIRST -- so the very first frame, which is the
-           reduced one, was the frame that got printed. Measured: 786x1704 out
-           of 1179x2556 and honestly reported as 67% of the screen, but still a
-           reduction. Asking again while the track climbs to its own declared
-           size is the fix. */
-        const first = typeof directTrack.getSettings === 'function'
-          ? directTrack.getSettings() : {};
-        const target = Math.max(Number(first.width) || 0, wantWidth);
+           WAIT FOR THE FRAME TO STOP CHANGING, NOT FOR A SIZE IT WILL NEVER
+           REACH. The first version of this loop waited until the frame matched
+           track.getSettings().width, and the comment it carried -- that the
+           track "climbs to its own declared size" -- IS CONTRADICTED BY
+           MEASUREMENT. On a display track Chrome reports
+           `resizeMode: "crop-and-scale", width: 1179, height: 2556`: those are
+           the values that were ASKED FOR, echoed back, not the frames being
+           produced. It delivered 786x1704 throughout. So the exit condition was
+           unsatisfiable, the loop burned its whole timeout on every print, and
+           accepted the first frame anyway. There is no ramp on this track.
+
+           Waiting for stability is the honest version: grab until two
+           consecutive frames are the same size, which exits immediately when
+           the first frame is already final and still catches a source that
+           genuinely does climb. It also removes a five-second stall paid on
+           every print whose width is odd -- 2326 never reaches 2327. */
         const capture = new ImageCapture(directTrack);
         let grabbed = await capture.grabFrame();
         const rampEnd = Date.now() + 5000;
-        while (grabbed.width < target && Date.now() < rampEnd) {
+        let previousWidth = -1;
+        let previousHeight = -1;
+        while ((grabbed.width !== previousWidth || grabbed.height !== previousHeight)
+          && (grabbed.width < wantWidth || grabbed.height < wantHeight)
+          && Date.now() < rampEnd) {
+          previousWidth = grabbed.width;
+          previousHeight = grabbed.height;
           if (typeof grabbed.close === 'function') grabbed.close();
           await new Promise(resolve => setTimeout(resolve, 200));
           grabbed = await capture.grabFrame();
@@ -150,7 +163,13 @@ async function fromDisplay() {
             screenHeight: wantHeight,
             trackWidth: Number(settings.width) || null,
             trackHeight: Number(settings.height) || null,
-            captureScale: wantWidth ? grabbed.width / wantWidth : null
+            /* BOTH AXES. captureScale was width-only, so a frame that was
+               full width and short in height reported as complete. The receipt
+               now carries the exact pixel counts and a flag that is an INTEGER
+               EQUALITY, not a threshold. */
+            captureScale: wantWidth ? grabbed.width / wantWidth : null,
+            captureScaleHeight: wantHeight ? grabbed.height / wantHeight : null,
+            everyScreenPixel: grabbed.width >= wantWidth && grabbed.height >= wantHeight
           };
         } finally {
           if (typeof grabbed.close === 'function') grabbed.close();
@@ -229,7 +248,9 @@ async function fromDisplay() {
       trackHeight: targetHeight,
       /* 1 means the file holds every pixel that was on the screen. Anything
          less is a reduction and must be printed on the receipt as one. */
-      captureScale: wantWidth ? frame.width / wantWidth : null
+      captureScale: wantWidth ? frame.width / wantWidth : null,
+      captureScaleHeight: wantHeight ? frame.height / wantHeight : null,
+      everyScreenPixel: frame.width >= wantWidth && frame.height >= wantHeight
     };
   } finally {
     stopTracks(stream);
