@@ -1,10 +1,11 @@
 import html2canvas from './vendor/html2canvas-1.4.1.mjs';
+import {captureGeometry, assertStableGeometry} from './capture-geometry.mjs';
 
 /** App-only rendering. No browser chrome, display permission or host binding. */
 export async function captureAppFrame() {
   await document.fonts?.ready;
   const width = innerWidth, height = innerHeight, ratio = devicePixelRatio || 1;
-  if (width * height * ratio * ratio > 40000000) throw new Error('This app view is too large to print at full resolution.');
+  const geometry = captureGeometry(width, height, ratio);
   const canvases = [...document.querySelectorAll('canvas')];
   const images = new Map();
   const readCanvases = () => {
@@ -59,8 +60,7 @@ export async function captureAppFrame() {
       await Promise.all(imageReady);
     }
   });
-  const actualWidth = Math.round(width * ratio), actualHeight = Math.round(height * ratio);
-  if (output.width !== actualWidth || output.height !== actualHeight) throw new Error('The app print dimensions changed during capture.');
+  assertStableGeometry(geometry, captureGeometry(innerWidth, innerHeight, devicePixelRatio || 1), output);
   return {width: output.width, height: output.height,
     rgba: output.getContext('2d').getImageData(0, 0, output.width, output.height).data,
     captureInfo: {instrument: 'app-dom-and-canvas', width, height, devicePixelRatio: ratio, canvasCount: images.size, canvasBytes: [...images.values()].map(s=>s.length), screenSharing: false}};
