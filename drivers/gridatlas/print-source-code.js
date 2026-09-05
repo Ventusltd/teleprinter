@@ -183,10 +183,22 @@ export async function collectSourceCode({ appName = 'GridAtlas', inlineDom = tru
         missing.push({ url: target.url, reason: 'size budget reached before this file' });
         continue;
       }
+      /* THE WHOLE THING. NOTHING TRUNCATED.
+         "NO I want the whole fucking thing as that's a real sandbox teleprint"
+         -- the architect, 2026-09-05, having printed one from a real iPhone.
+
+         An earlier version cut DATA files to their first 4,000 characters to
+         get the file under a chat's upload limit. That was solving the right
+         problem the wrong way: a teleprint whose defining promise is that it
+         is the record exactly as it was cannot quietly hold back four fifths
+         of a dataset, however loudly it labels the gap. Size is handled where
+         it belongs -- by cutting the finished text into VOLUMES, which drops
+         nothing. `kind` is still recorded, because knowing which files are
+         code and which are data is useful to a reviewer. */
       const isCode = CODE.test(target.url) || target.url === location.href;
       const full = read.text;
-      const truncated = !isCode && full.length > DATA_HEAD_CHARS;
-      const body = truncated ? full.slice(0, DATA_HEAD_CHARS) : full;
+      const truncated = false;
+      const body = full;
       total += body.length;
       included.push({
         url: target.url,
@@ -219,10 +231,10 @@ export async function collectSourceCode({ appName = 'GridAtlas', inlineDom = tru
   lines.push('  this page read. Every one of those is listed by URL under NOT READ,');
   lines.push('  with the reason. Nothing has been guessed at or substituted.');
   lines.push('');
-  lines.push('  CODE is here in full and is never shortened. DATA files (datasets,');
-  lines.push('  GeoJSON, CSV, JSON) are shown as their first ' + DATA_HEAD_CHARS + ' characters and');
-  lines.push('  marked TRUNCATED, with their true size given, so this file stays small');
-  lines.push('  enough to attach to a chat on a phone.');
+  lines.push('  EVERY file is here in full. Nothing is truncated, summarised or');
+  lines.push('  rewritten. Where the whole thing is too large for a chat to accept, it');
+  lines.push('  is cut into numbered VOLUMES at file boundaries -- volume 1 carries this');
+  lines.push('  header, the screen state and the index of every file.');
   lines.push('');
   lines.push(rule);
   lines.push('THE SCREEN THIS CAME FROM');
@@ -276,7 +288,12 @@ export async function collectSourceCode({ appName = 'GridAtlas', inlineDom = tru
     filename: `${appName}-source-code-${new Date().toISOString().replace(/[:.]/g, '-')}.txt`,
     included: included.length,
     missing,
-    state
+    state,
+    /* Kept separately so the delivery step can cut volumes at file
+       boundaries without re-parsing the text it just built. */
+    header: headerLines.join('
+'),
+    blocks: fileBlocks
   };
 }
 
@@ -335,7 +352,7 @@ function downloadText(text, filename) {
   }, 30000);
 }
 
-function showTeleprintPanel(text, filename) {
+function showTeleprintPanel(text, filename, parts) {
   const existing = document.getElementById('gridatlas-teleprint-fallback');
   if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
   const box = document.createElement('div');
@@ -345,7 +362,12 @@ function showTeleprintPanel(text, filename) {
     + 'border:1px solid rgba(80,220,240,.4);border-radius:6px;padding:12px;'
     + 'font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace';
   const head = document.createElement('div');
-  head.textContent = filename + ' — select all, copy, and paste into your AI chat.';
+  head.textContent = filename
+    + ' — the whole record. Select all and copy, or download it.'
+    + ((parts && parts.length > 1)
+      ? ' If your AI chat refuses the file, the buttons below cut it into '
+        + parts.length + ' volumes; nothing is left out of them.'
+      : '');
   const area = document.createElement('textarea');
   area.readOnly = true;
   area.value = text;
@@ -387,6 +409,16 @@ function showTeleprintPanel(text, filename) {
   const save = button('Download .txt');
   save.setAttribute('data-teleprint', 'download');
   save.addEventListener('click', () => downloadText(text, filename));
+  /* One button per remaining volume. A chat that refused a 2 MB file will
+     take these; the architect's own attempt came back "too many pages to
+     upload" at 1,993,661 bytes. */
+  if (parts && parts.length > 1) {
+    parts.forEach((part) => {
+      const extra = button('Volume ' + part.volume + ' of ' + part.of);
+      extra.setAttribute('data-teleprint', 'volume-' + part.volume);
+      extra.addEventListener('click', () => downloadText(part.text, part.filename));
+    });
+  }
   const close = button('Close');
   close.addEventListener('click', () => {
     if (box.parentNode) box.parentNode.removeChild(box);
@@ -414,11 +446,19 @@ export function prepareSourceCode(options = {}) {
  * the text. Returns which path was used.
  */
 export async function deliverSourceCode(collected, { prefer, panel = true } = {}) {
-  const filename = collected.filename;
-  const text = collected.text;
+  /* THE WHOLE THING, IN ONE PIECE. Volumes are offered in the panel and are
+     never what a reader gets unless they ask. */
+  const first = { filename: collected.filename, text: collected.text, volume: 1, of: 1 };
+  const parts = (collected.blocks && collected.header)
+    ? splitIntoVolumes(collected.header, collected.blocks, collected.filename)
+    : [first];
   const record = {
-    filename,
-    bytes: new Blob([text]).size,
+    filename: first.filename,
+    bytes: new Blob([collected.text]).size,
+    /* What the reader GOT is one whole file. `volumesAvailable` is what the
+       panel can cut it into if they ask. */
+    volumes: 1,
+    volumesAvailable: parts.length,
     included: collected.included,
     missing: collected.missing.length,
     state: collected.state,
@@ -427,31 +467,27 @@ export async function deliverSourceCode(collected, { prefer, panel = true } = {}
   };
 
   /* OURS FIRST. Whatever any platform does or refuses to do below, the reader
-     is now looking at the whole teleprint with a Copy button under it. */
+     is looking at volume 1 with a Copy button under it and one button per
+     remaining volume. */
   if (panel) {
-    showTeleprintPanel(text, filename);
+    showTeleprintPanel(first.text, first.filename, parts);
     record.via.push('panel');
   }
 
-  /* A download is what a desktop reader expects, so it is started -- but
-     `download` is advisory, there is no event that says a file was written,
-     and a browser that ignores it navigates instead. Recorded as "requested",
-     never as "saved". */
+  /* The whole record. */
   try {
-    downloadText(text, filename);
+    downloadText(first.text, first.filename);
     record.via.push('download-requested');
   } catch (error) {
     record.offered.push('download: ' + String((error && error.message) || error));
   }
 
-  /* Offered, not depended on. canShare({files}) is the only honest test: a
-     browser can expose share() and still refuse files. */
   if (prefer === 'share' && typeof navigator !== 'undefined' && navigator.share
       && typeof File === 'function') {
     try {
-      const file = new File([text], filename, { type: 'text/plain' });
+      const file = new File([first.text], first.filename, { type: 'text/plain' });
       if (!navigator.canShare || navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: filename });
+        await navigator.share({ files: [file], title: first.filename });
         record.via.push('share');
       } else {
         record.offered.push('share: this browser will not share files');

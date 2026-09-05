@@ -76,13 +76,64 @@ async function fromDisplay() {
   /* preferCurrentTab is Chromium-only and is a HINT: it puts this tab at the
      top of the chooser. Elsewhere the reader picks, which is correct -- their
      screen, their choice. */
+  /* ASK FOR THE SCREEN'S REAL RESOLUTION.
+     ------------------------------------------------------------------------
+     getDisplayMedia hands back whatever size the browser feels like unless it
+     is asked, and what it feels like is frequently NOT the reader's pixels. On
+     a 393x852 phone viewport at devicePixelRatio 3 -- 1179x2556 real pixels --
+     an unconstrained capture came back 786x1704: an effective scale of 2.0
+     against a dpr of 3, holding 1.34 of the screen's 3.01 megapixels. FORTY-
+     FOUR PERCENT of the record, and the receipt said "1:1" because the PDF
+     page equalled the captured image, which it did. The page was 1:1 with the
+     capture; the capture was not 1:1 with the screen.
+
+     So the real pixel count is asked for explicitly, and whatever arrives is
+     MEASURED against it rather than assumed. */
+  const wantWidth = Math.round(window.innerWidth * (window.devicePixelRatio || 1));
+  const wantHeight = Math.round(window.innerHeight * (window.devicePixelRatio || 1));
   const stream = await media.getDisplayMedia({
-    video: { frameRate: 1 },
+    video: {
+      frameRate: 1,
+      width: { ideal: wantWidth },
+      height: { ideal: wantHeight }
+    },
     audio: false,
     preferCurrentTab: true,
     selfBrowserSurface: 'include'
   });
   try {
+    /* ImageCapture FIRST, because a <video> is the wrong instrument here.
+       ---------------------------------------------------------------------
+       Piping the track into a detached <video> and reading videoWidth gave
+       786x1704 from a track that declares -- and caps at -- 1179x2556. Waiting
+       for the resolution to ramp did not fix it: a video element with no
+       layout is handed a reduced frame and keeps being handed one.
+
+       ImageCapture.grabFrame() asks the track for a frame directly and returns
+       it at the track's own size, with no element and no layout in the path.
+       The <video> route is kept only as a fallback for engines that have no
+       ImageCapture. */
+    const directTrack = stream.getVideoTracks()[0];
+    if (typeof ImageCapture === 'function' && directTrack) {
+      try {
+        const grabbed = await new ImageCapture(directTrack).grabFrame();
+        try {
+          const settings = typeof directTrack.getSettings === 'function'
+            ? directTrack.getSettings() : {};
+          return {
+            ...pixelsFromSource(grabbed, grabbed.width, grabbed.height),
+            method: 'display',
+            screenWidth: wantWidth,
+            screenHeight: wantHeight,
+            trackWidth: Number(settings.width) || null,
+            trackHeight: Number(settings.height) || null,
+            captureScale: wantWidth ? grabbed.width / wantWidth : null
+          };
+        } finally {
+          if (typeof grabbed.close === 'function') grabbed.close();
+        }
+      } catch (_) { /* fall through to the video element */ }
+    }
     const video = document.createElement('video');
     video.muted = true;
     video.playsInline = true;
@@ -108,10 +159,55 @@ async function fromDisplay() {
         }, 60);
       }
     });
+    /* WAIT FOR THE CAPTURE TO REACH ITS OWN FULL SIZE.
+       ---------------------------------------------------------------------
+       This is where the "44% of the screen" defect actually lived, and it was
+       not a browser limit. Probed on 2026-09-05 at a 393x852 viewport, dpr 3:
+       the TRACK reports width 1179, height 2556, and getCapabilities gives a
+       max of exactly 1179x2556 -- the whole screen, available. But the first
+       composited frame arrives smaller and Chrome ramps up over the following
+       frames, so a capture taken on the first frame yielded 786x1704 and the
+       receipt called it the screen.
+
+       (min and exact constraints cannot be used to force it: Chrome rejects
+       both outright on getDisplayMedia -- "min constraints are not supported",
+       "exact constraints are not supported". Asking politely and then WAITING
+       is the whole technique.)
+
+       So the track's own declared size is the target, and this waits for the
+       decoded frame to reach it. If it never does, whatever arrived is used
+       and the shortfall is reported rather than hidden. */
+    const track = stream.getVideoTracks()[0];
+    const declared = track && typeof track.getSettings === 'function'
+      ? track.getSettings() : {};
+    const targetWidth = Math.max(Number(declared.width) || 0, 0) || wantWidth;
+    const targetHeight = Math.max(Number(declared.height) || 0, 0) || wantHeight;
+    const rampDeadline = Date.now() + 4000;
+    while (video.videoWidth < targetWidth && Date.now() < rampDeadline) {
+      await new Promise(resolve => {
+        if (typeof video.requestVideoFrameCallback === 'function') {
+          video.requestVideoFrameCallback(() => resolve());
+          setTimeout(resolve, 200);
+        } else {
+          setTimeout(resolve, 100);
+        }
+      });
+    }
+
     const frame = pixelsFromSource(video, video.videoWidth, video.videoHeight);
     video.pause();
     video.srcObject = null;
-    return { ...frame, method: 'display' };
+    return {
+      ...frame,
+      method: 'display',
+      screenWidth: wantWidth,
+      screenHeight: wantHeight,
+      trackWidth: targetWidth,
+      trackHeight: targetHeight,
+      /* 1 means the file holds every pixel that was on the screen. Anything
+         less is a reduction and must be printed on the receipt as one. */
+      captureScale: wantWidth ? frame.width / wantWidth : null
+    };
   } finally {
     stopTracks(stream);
   }
