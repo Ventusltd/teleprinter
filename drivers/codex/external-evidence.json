@@ -582,7 +582,8 @@
       "severity": "blocker",
       "appliesTo": [
         "202609051531",
-        "202609051608"
+        "202609051608",
+        "202609051623"
       ],
       "sharedCodeSha256": [
         "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b"
@@ -591,7 +592,7 @@
       "conditions": [
         "native-full-resolution-capture"
       ],
-      "finding": "Candidates1531 and1608 require fresh passing native full-resolution proof; host-screenshot success cannot clear this requirement. 1608 fixes undefined rejection handling but has no measured native-capture clearance.",
+      "finding": "Candidates1531,1608 and1623 require passing native full-resolution capture. A quicker refusal and host screenshot passes cannot clear this requirement.",
       "evidence": "Final report0passes/1completed,2not-completed: required1365x900, track1365x900, actual1364x898 visibly refused without reduced PDF. Prior different-engine report1/3passes (Pipeline1200x800), two Atlas failures.",
       "engineCommit": "97ef8043a3f29ec162932838b44b2d6163845727",
       "engineBlobPath": "drivers/codex/print-screen.js",

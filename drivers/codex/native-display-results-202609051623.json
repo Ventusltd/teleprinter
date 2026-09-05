@@ -86,11 +86,11 @@
         ],
         "hostCaptureProvider": "undefined"
       },
-      "error": "AssertionError [ERR_ASSERTION]: TimeoutError: page.waitForEvent: Timeout 45000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================ | App: The browser supplied a reduced screen frame (1364 × 898; required 1365 × 900, track 1365 × 900). No reduced PDF was created. Use Print a screenshot instead.\n    at file:///C:/Users/vikra/OneDrive/Documents/GitHub/teleprinter/drivers/codex/native-display-proof.mjs:136:12",
+      "error": "AssertionError [ERR_ASSERTION]: TimeoutError: page.waitForEvent: Timeout 45000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================ | App: The browser supplied a reduced screen frame (1364 \u00d7 898; required 1365 \u00d7 900, track 1365 \u00d7 900). No reduced PDF was created. Use Print a screenshot instead.\n    at file:///C:/Users/vikra/OneDrive/Documents/GitHub/teleprinter/drivers/codex/native-display-proof.mjs:136:12",
       "failureState": {
         "title": "GlobalGrid2050 | UK Region v8 (Experimental)",
         "url": "https://globalgrid2050.com/testcode/202609051623/atlas/",
-        "status": "The browser supplied a reduced screen frame (1364 × 898; required 1365 × 900, track 1365 × 900). No reduced PDF was created. Use Print a screenshot instead.",
+        "status": "The browser supplied a reduced screen frame (1364 \u00d7 898; required 1365 \u00d7 900, track 1365 \u00d7 900). No reduced PDF was created. Use Print a screenshot instead.",
         "calls": [
           {
             "startedAt": "2026-09-05T16:32:01.348Z",
