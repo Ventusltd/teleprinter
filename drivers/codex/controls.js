@@ -1,8 +1,9 @@
 import { printScreen } from './print-screen.js';
 import { attachPrintSourceCode } from './print-source-code.js';
+import { captureRuntimeSource } from './runtime-source.js';
 
 /** The app supplies pinned source URLs; both engines remain authored in Teleprinter. */
-export function mountTeleprinter({ manifestUrl, textUrl, expectedCommit, expectedRepository, appName = 'This app' }) {
+export function mountTeleprinter({ manifestUrl, textUrl, expectedCommit, expectedRepository, appName = 'This app', printButtons }) {
   const host = document.createElement('div');
   host.id = 'codex-teleprinter';
   const shadow = host.attachShadow({ mode: 'open' });
@@ -17,20 +18,28 @@ export function mountTeleprinter({ manifestUrl, textUrl, expectedCommit, expecte
   let sourceControls;
   el('open').onclick = () => {
     dialog.showModal();
-    sourceControls ||= attachPrintSourceCode({button:el('source'),copyButton:el('copy'),shareButton:el('share'),status,fallbackContainer:el('fallback'),manifestUrl,textUrl,expectedCommit,expectedRepository,filename:`${appName}-source-code.txt`});
+    sourceControls?.();
+    sourceControls = attachPrintSourceCode({button:el('source'),copyButton:el('copy'),shareButton:el('share'),status,fallbackContainer:el('fallback'),manifestUrl,textUrl,expectedCommit,expectedRepository,filename:`${appName}-screen-source-code.txt`,prepareSource:({bytes,manifest})=>captureRuntimeSource({baseBytes:bytes,baseManifest:manifest})});
   };
   el('close').onclick = () => dialog.close();
   const capture = window.__codexTeleprinterCapture ? async () => {
     const value = await window.__codexTeleprinterCapture();
     return new Blob([Uint8Array.from(atob(value), char => char.charCodeAt(0))],{type:'image/png'});
   } : undefined;
+  let printing = false;
   async function print(image) {
+    if (printing) return;
+    printing = true;
     dialog.close();
     try {
-      const receipt = await printScreen({capture,image,filename:`${appName}-screen.pdf`});
+      const generation = document.documentElement.dataset.gridatlasGeneration || location.pathname.match(/\/testcode\/(\d+)\//)?.[1] || '';
+      const attribution = [...document.querySelectorAll('.maplibregl-ctrl-attrib-inner')].map(node=>node.textContent.trim()).filter(Boolean).join(' | ');
+      const furniture = {brand:appName==='GridAtlas'?'VENTUS  GLOBALGRID2050 · GRID ATLAS':'GLOBALGRID2050',title:appName==='GridAtlas'?'GlobalGrid2050 · Grid Atlas':appName,url:location.href,generation,capturedAt:new Date().toISOString(),credit:attribution || (appName==='GridAtlas'?'Data © OpenStreetMap contributors | © CARTO | EV data © Open Charge Map':'GlobalGrid2050'),scale:Math.min(devicePixelRatio||1,2)};
+      const receipt = await printScreen({capture,image,furniture,filename:`${appName}-screen.pdf`});
       status.textContent = `PDF ready: ${receipt.width} × ${receipt.height} pixels. Check your downloads.`;
       host.dispatchEvent(new CustomEvent('teleprint',{detail:receipt}));
     } catch(error) { status.textContent = error.message; dialog.showModal(); }
+    finally { printing=false; }
   }
   el('screen').onclick = () => print();
   el('image-print').onclick = () => {
@@ -38,5 +47,14 @@ export function mountTeleprinter({ manifestUrl, textUrl, expectedCommit, expecte
     if (!image) { status.textContent='Choose a screenshot first.'; return; }
     print(image);
   };
-  return () => { sourceControls?.(); host.remove(); };
+  // Existing app File -> Print is the same engine, not a separate map-canvas route.
+  const appPrint = event => {
+    if (!printButtons) return;
+    const button = event.composedPath().find(node=>node instanceof Element && node.matches(printButtons));
+    if (!button || !/\bprint\b/i.test(button.textContent)) return;
+    event.preventDefault(); event.stopImmediatePropagation();
+    print();
+  };
+  document.addEventListener('click',appPrint,true);
+  return () => { document.removeEventListener('click',appPrint,true); sourceControls?.(); host.remove(); };
 }

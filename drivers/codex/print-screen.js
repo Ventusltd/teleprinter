@@ -65,12 +65,12 @@ async function displayPixels() {
 }
 
 /** A host provider must return an actual browser screenshot; no DOM reconstruction. */
-export async function printScreen({ capture, image, filename = 'teleprint-screen.pdf' } = {}) {
+export async function printScreen({ capture, image, furniture, filename = 'teleprint-screen.pdf' } = {}) {
   let frame, method;
   if (image) { frame = await imagePixels(image); method = 'device-screenshot'; }
   else if (capture) { frame = await imagePixels(await capture()); method = 'browser-screenshot'; }
   else { frame = await displayPixels(); method = 'display-capture'; }
-  const data = await screenPdf(frame);
+  const data = await screenPdf({ ...frame, furniture });
   const blob = new Blob([data], { type: 'application/pdf' });
   downloadFile(blob, filename);
   return { method, width: frame.width, height: frame.height, bytes: data.length, filename, status: 'download-requested' };

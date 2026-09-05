@@ -45,7 +45,7 @@ export async function fetchVerifiedSourceCode({ manifestUrl, textUrl, expectedRe
 }
 
 /** Verified download/copy/share controls. Returned cleanup removes listeners and generated fallback. */
-export function attachPrintSourceCode({ button, copyButton, shareButton, status, fallbackContainer, manifestUrl, textUrl, expectedRepository, expectedCommit, filename = 'source-code.txt', onError } = {}) {
+export function attachPrintSourceCode({ button, copyButton, shareButton, status, fallbackContainer, manifestUrl, textUrl, expectedRepository, expectedCommit, filename = 'source-code.txt', prepareSource, onError } = {}) {
   if (!button || typeof button.addEventListener !== 'function') throw new Error('Print source code requires a button element.');
   const instructions = 'Attach this text file in ChatGPT, or copy and paste its contents.';
   const ownedStatus = !status;
@@ -142,11 +142,18 @@ export function attachPrintSourceCode({ button, copyButton, shareButton, status,
   }
   for (const item of controls) { item.disabled = true; item.setAttribute('aria-busy', 'true'); }
   status.textContent = 'Preparing the complete source code…';
-  const ready = fetchVerifiedSourceCode({ manifestUrl, textUrl, expectedRepository, expectedCommit }).then(result => {
+  const ready = fetchVerifiedSourceCode({ manifestUrl, textUrl, expectedRepository, expectedCommit }).then(async result => {
+    if (prepareSource) {
+      status.textContent = 'Collecting the current screen state and its dependencies…';
+      result = await prepareSource(result);
+      if (!(result?.bytes instanceof Uint8Array) || !result.manifest) throw new Error('The current screen source could not be prepared.');
+    }
     if (detached) return null;
     prepared = result;
     controls.forEach((item, index) => { item.disabled = initialDisabled[index]; item.removeAttribute('aria-busy'); });
-    status.textContent = `Source code ready: ${result.manifest.includedCount} files, ${result.bytes.length} bytes. ${instructions}`;
+    status.textContent = result.manifest.format === 'codex-runtime-source-v1'
+      ? `Source code ready with the current screen state and ${result.manifest.counts.included} dependency responses. ${result.manifest.failures.length} resources could not be read; any gaps are listed in the file. ${instructions}`
+      : `Source code ready: ${result.manifest.includedCount} files, ${result.bytes.length} bytes. ${instructions}`;
     return result;
   }).catch(error => {
     if (!detached) {
