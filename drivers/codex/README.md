@@ -21,13 +21,14 @@ decoder changing their colour values. Embedded ICC profiles travel into the PDF
 unchanged. Other valid image formats use the browser's image decoder. Uploaded
 PNG modes outside this decoder's supported set may undergo browser colour conversion.
 
-`print-screen.js` captures a frame through the browser's screen-sharing chooser.
-It keeps the resolution the browser supplies; the browser/OS may itself limit
-capture resolution. Declined or unavailable capture is an explicit failure. It
-does not substitute a reconstructed DOM image. **Print a screenshot** accepts a
-device screenshot at its existing dimensions when self-capture is unavailable.
-Screenshots already compressed as JPEG cannot recover their lost detail.
-All display tracks stop after capture, including error paths.
+`print-screen.js` now defaults to app-only rendering through `app-frame.js`.
+It captures visible map canvases during their draw, then renders the current
+viewport using vendored MIT html2canvas1.4.1. It never requests screen sharing.
+This is DOM/canvas rendering, not a browser compositor screenshot: fonts, native
+controls and unsupported CSS can differ. Print tests compare actual PDFs to
+independent viewport screenshots; they must not call the host capture binding.
+The File command menu closes before capture; map panels and legends remain.
+An uploaded device screenshot is still available as a separate explicit option.
 
 `driver.mjs` attaches an in-memory Playwright screenshot provider. Its capture is
 the current viewport including selected layers, WebGL, and DOM. The capture provider

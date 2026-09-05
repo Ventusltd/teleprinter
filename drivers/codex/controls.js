@@ -31,20 +31,19 @@ export function mountTeleprinter({ manifestUrl, textUrl, expectedCommit, expecte
     return sourceControls;
   };
   el('close').onclick = () => dialog.close();
-  const capture = window.__codexTeleprinterCapture ? async () => {
-    const value = await window.__codexTeleprinterCapture();
-    return new Blob([Uint8Array.from(atob(value), char => char.charCodeAt(0))],{type:'image/png'});
-  } : undefined;
   let printing = false;
   async function print(image) {
     if (printing) return;
     printing = true;
     dialog.close();
+    closeFallbackMenu();
+    for (const title of document.querySelectorAll('.gm-title[aria-expanded="true"]')) title.click();
     try {
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       const generation = document.documentElement.dataset.gridatlasGeneration || location.pathname.match(/\/testcode\/(\d+)\//)?.[1] || '';
       const attribution = [...document.querySelectorAll('.maplibregl-ctrl-attrib-inner')].map(node=>node.textContent.trim()).filter(Boolean).join(' | ');
       const furniture = {brand:appName==='GridAtlas'?'VENTUS  GLOBALGRID2050 · GRID ATLAS':'GLOBALGRID2050',title:appName==='GridAtlas'?'GlobalGrid2050 · Grid Atlas':appName,url:location.href,generation,capturedAt:new Date().toISOString(),credit:attribution || (appName==='GridAtlas'?'Data © OpenStreetMap contributors | © CARTO | EV data © Open Charge Map':'GlobalGrid2050'),scale:Math.min(devicePixelRatio||1,2)};
-      const receipt = await printScreen({capture,image,furniture,filename:`${appName}-screen.pdf`});
+      const receipt = await printScreen({image,furniture,filename:`${appName}-screen.pdf`});
       status.textContent = `PDF ready: ${receipt.width} × ${receipt.height} pixels. Check your downloads.`;
       host.dispatchEvent(new CustomEvent('teleprint',{detail:receipt}));
     } catch(error) { status.textContent = error.message; openDialog('Print options'); }
