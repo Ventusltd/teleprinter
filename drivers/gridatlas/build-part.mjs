@@ -63,16 +63,35 @@ function flatten(name, text) {
   return out.join('\n');
 }
 
+/* HASH THE SOURCE, NOT THE CHECKOUT.
+   ---------------------------------------------------------------------------
+   These hashes were taken over the bytes as they sat on the building machine,
+   and that made the part UNVERIFIABLE ANYWHERE ELSE. Git stores these files
+   with LF and hands them to a Windows working tree as CRLF, so the same commit
+   produces two different SHA-256 values depending on who checked it out. A part
+   built here recorded the CRLF hashes; the parse gate on ubuntu-24.04 rebuilt
+   from the LF checkout, got different hashes in the header, and reported DRIFT
+   on a part that was byte-for-byte correct. Measured: the first CI run of
+   teleprint-parse-gate.yml failed in 40 seconds for exactly this and nothing
+   else.
+
+   Normalising to LF before hashing makes the identity a property of the SOURCE
+   rather than of the machine that happened to build it, which is the only
+   version of this check worth having -- a hash that means something different
+   on each platform is not an integrity check, it is a coin toss with extra
+   steps. */
+const normalise = (text) => text.replace(/\r\n/g, '\n');
+
 const hashes = {};
 const bodies = [];
 for (const name of SOURCES) {
-  const text = await readFile(path.join(HERE, name), 'utf8');
+  const text = normalise(await readFile(path.join(HERE, name), 'utf8'));
   hashes[name] = createHash('sha256').update(text).digest('hex');
   bodies.push(`  /* ---- ${name} (sha256 ${hashes[name].slice(0, 16)}) ---- */\n`
     + flatten(name, text).split('\n').map(l => (l ? '  ' + l : l)).join('\n'));
 }
 
-const wiring = await readFile(path.join(HERE, 'gridatlas-wiring.js'), 'utf8');
+const wiring = normalise(await readFile(path.join(HERE, 'gridatlas-wiring.js'), 'utf8'));
 hashes['gridatlas-wiring.js'] = createHash('sha256')
   .update(wiring).digest('hex');
 
