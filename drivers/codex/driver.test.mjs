@@ -95,3 +95,9 @@ test('successful readback returns every original byte and deletes the download',
   assert.deepEqual(result.bytes, Buffer.from('complete bytes\0\xff', 'latin1'));
   assert.equal(state.deleted, 1);
 });
+
+test('download timeout retains the app error for diagnosis', async()=>{
+ const page={waitForEvent:async()=>{throw new Error('download timeout');},locator:()=>({allTextContents:async()=>['Source could not be prepared: headerLines is not defined']})};
+ const result=await clickAndReadDownload(page,{click:async()=>{}});
+ assert.equal(result.ok,false);assert.match(result.error,/headerLines is not defined/);assert.match(result.error,/download timeout/);
+});

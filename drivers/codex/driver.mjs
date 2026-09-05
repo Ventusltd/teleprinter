@@ -10,6 +10,11 @@ export async function attachScreenCapture(page, { onCapture } = {}) {
 
 /** Every rejection is observed immediately, including when clicking fails first. */
 export async function clickAndReadDownload(page, locator, { timeout = 15000 } = {}) {
+  const diagnostic = async error => {
+    let appStatus = [];
+    try { appStatus = await page.locator('#codex-teleprinter #status, #gridatlas-teleprint-status').allTextContents(); } catch { /* Preserve the original error if the page closed. */ }
+    return { ok: false, error: String(error) + (appStatus.length ? ` | App: ${appStatus.join(' | ')}` : ''), appStatus };
+  };
   const downloadPromise = page.waitForEvent('download', { timeout });
   const results = await Promise.allSettled([downloadPromise, locator.click({ timeout })]);
   const failed = results.find(result => result.status === 'rejected');
@@ -18,7 +23,7 @@ export async function clickAndReadDownload(page, locator, { timeout = 15000 } = 
       await results[0].value.cancel().catch(() => {});
       await results[0].value.delete().catch(() => {});
     }
-    return { ok: false, error: String(failed.reason) };
+    return diagnostic(failed.reason);
   }
   const download = results[0].value;
   let timer, stream;
@@ -35,7 +40,7 @@ export async function clickAndReadDownload(page, locator, { timeout = 15000 } = 
       })(),
       new Promise((_,reject) => { timer=setTimeout(()=>reject(new Error('The downloaded file did not finish in time.')),timeout); })
     ]);
-  } catch (error) { return { ok: false, error: String(error) }; }
+  } catch (error) { return diagnostic(error); }
   finally {
     clearTimeout(timer); stream?.destroy();
     await download.cancel().catch(() => {});
