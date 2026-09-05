@@ -98,8 +98,17 @@ function install() {
           ).filter(Boolean).join(' | ')
         }
       }).then(function (receipt) {
-        say('PDF · ' + receipt.width + '×' + receipt.height
-          + ' px, 1:1, page ' + receipt.pageWidth + '×' + receipt.pageHeight
+        /* Never the words "1:1" unless the capture really did hold every
+           pixel that was on the screen. It said 1:1 while holding 44% of a
+           phone screen, which is precisely the claim the architect rejected
+           in the first place. */
+        var scale = receipt.captureScale;
+        var fidelity = scale === null ? ''
+          : (scale >= 0.999 ? ' · every screen pixel'
+            : ' · ' + Math.round(scale * 100) + '% of the screen: '
+              + receipt.screenWidth + '×' + receipt.screenHeight + ' pixels');
+        say('PDF · ' + receipt.width + '×' + receipt.height + ' px, page '
+          + receipt.pageWidth + '×' + receipt.pageHeight + fidelity
           + ' · via ' + receipt.method);
         node.textContent = was;
       }, function (error) {
@@ -119,7 +128,12 @@ function install() {
         return deliverSourceCode(collected, { panel: true });
       }).then(function (receipt) {
         say('Source code · ' + receipt.included + ' files, '
-          + receipt.bytes + ' bytes · ' + receipt.via.join(' + ')
+          + receipt.bytes + ' bytes'
+          + (receipt.volumesAvailable > 1
+            ? ' · whole file; ' + receipt.volumesAvailable
+              + ' volumes available if your chat refuses it'
+            : '')
+          + ' · ' + receipt.via.join(' + ')
           + (receipt.missing ? ' · ' + receipt.missing + ' not readable' : ''));
       }, function (error) {
         say('Could not print the source: ' + (error && error.message));

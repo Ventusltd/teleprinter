@@ -175,6 +175,12 @@ export async function printPdf({ capture, note = {}, filename } = {}) {
     method: frame.method,
     width: frame.width,
     height: frame.height,
+    /* Carried out so the caller can tell the reader the truth about what the
+       file holds rather than repeating a "1:1" that describes only the
+       relationship between the page and the image inside it. */
+    screenWidth: frame.screenWidth || null,
+    screenHeight: frame.screenHeight || null,
+    captureScale: typeof frame.captureScale === 'number' ? frame.captureScale : null,
     pageWidth: built.pageWidth,
     pageHeight: built.pageHeight,
     bytes: built.bytes.length,
