@@ -7,6 +7,8 @@ const base=process.argv[2], output=process.argv[3];
 assert.ok(base && output && output.replaceAll('\\','/').includes('/offline-screenshots/'));
 const {chromium}=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE || 'C:/Users/vikra/OneDrive/Documents/GitHub/gridatlas-main-202609050200/node_modules/playwright/index.mjs'));
 const release=await (await fetch(new URL('release.json',base))).json();
+const toolsResponse=await fetch(new URL('atlas/tool-layers.json',base));
+const toolConfig=toolsResponse.ok && toolsResponse.headers.get('content-type')?.includes('json') ? await toolsResponse.json() : null;
 const records=[];await fs.mkdir(output,{recursive:true});
 for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
  let browser;const record={viewport,generation:release.generation,engineCommit:release.teleprinter.commit};
@@ -18,7 +20,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
   const grid=page.locator('#codex-layer-quick-controls [data-layer-command="grid"]');
   const subs=page.locator('#codex-layer-quick-controls [data-layer-command="subs"]');
   await grid.waitFor({state:'visible',timeout:60000});
-  await page.waitForFunction(()=>!document.querySelector('[data-layer-command="grid"]')?.disabled,{timeout:60000});
+  await page.waitForFunction(()=>!document.querySelector('[data-layer-command="grid"]')?.disabled,null,{timeout:60000});
   const states=()=>page.evaluate(()=>Object.fromEntries(['400','275','220','132','66','subs'].map(id=>[id,document.querySelector('#scada-ui-container input[data-layer-id="'+id+'"]')?.checked])));
   const panel=page.locator('.scada-wrapper');
   if(Number(release.generation)>=202609051848) assert.equal(await panel.getAttribute('data-gridatlas-collapsed'),'1','Layers must start collapsed');
@@ -38,7 +40,43 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
   const bounds=await page.locator('#codex-layer-quick-controls').boundingBox(),map=await page.locator('#map-container').boundingBox();
   assert.ok(bounds.x>=map.x && bounds.x<map.x+40 && bounds.y+bounds.height<=map.y+map.height+2,'Quick controls must stay bottom-left within map');
   assert.ok(bounds.y>map.y+map.height/2);record.quickControlBounds=bounds;
-  if(Number(release.generation)>=202609051850) {
+  if(toolConfig) {
+   record.tools=[];
+   for(const tool of toolConfig.tools) {
+    await page.locator('#codex-tool-layers').getByRole('button',{name:tool.title,exact:true}).click();
+    const dialog=page.getByRole('dialog',{name:tool.title,exact:true});
+    await dialog.waitFor({state:'visible'});
+    const frame=dialog.frameLocator('iframe');
+    if(tool.id==='gis-sld-financial-sandbox') {
+     await frame.locator('#btn_draw').waitFor({state:'attached',timeout:60000});
+     await frame.locator('#mod_wp').fill('665');
+     await frame.locator('#mod_wp').press('Tab');
+     await page.screenshot({path:path.join(output,`${viewport.width}-${tool.id}-open.png`)});
+     await dialog.getByRole('button',{name:/Close.*return to GridAtlas/}).click();
+     assert.deepEqual(await states(),beforePanel,'Closing tool altered Atlas layers');
+     await page.locator('#codex-tool-layers').getByRole('button',{name:tool.title,exact:true}).click();
+     assert.equal(await frame.locator('#mod_wp').inputValue(),'665','Reopening lost standalone app state');
+    }
+    if(tool.id==='module-layout') {
+     await frame.locator('#ml_total_modules').fill('120');
+     await frame.locator('#ml_modules_per_row').fill('20');
+     await frame.locator('#ml_draw_center').click();
+     await page.waitForTimeout(500);
+     assert.equal((await frame.locator('#ml_out_rows').innerText()).trim(),'6');
+     assert.equal((await frame.locator('#ml_out_rendered').innerText()).trim(),'120');
+     await page.screenshot({path:path.join(output,`${viewport.width}-${tool.id}-open.png`)});
+    }
+    if(tool.id==='cable-geometry-visualiser') {
+     await frame.locator('#route_name').fill('Chrome integration test');
+     await frame.locator('#route_name').press('Tab');
+     assert.ok((await frame.locator('#status_box').innerText()).length>0);
+     assert.ok(await frame.locator('svg').count()>0,'Cable geometry must render');
+     await page.screenshot({path:path.join(output,`${viewport.width}-${tool.id}-open.png`)});
+    }
+    await dialog.getByRole('button',{name:/Close.*return to GridAtlas/}).click();
+    record.tools.push({id:tool.id,opened:true,closed:true});
+   }
+  } else if(Number(release.generation)>=202609051850) {
    await page.locator('.neon-layout').first().waitFor({state:'attached',timeout:30000});
    await page.locator('#codex-layout-command button').click();
    await page.getByText('Layout sandbox',{exact:false}).first().waitFor({state:'visible',timeout:30000});
