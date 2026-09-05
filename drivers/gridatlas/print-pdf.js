@@ -181,6 +181,8 @@ export async function printPdf({ capture, note = {}, filename } = {}) {
     screenWidth: frame.screenWidth || null,
     screenHeight: frame.screenHeight || null,
     captureScale: typeof frame.captureScale === 'number' ? frame.captureScale : null,
+    captureScaleHeight: typeof frame.captureScaleHeight === 'number' ? frame.captureScaleHeight : null,
+    everyScreenPixel: frame.everyScreenPixel === true,
     pageWidth: built.pageWidth,
     pageHeight: built.pageHeight,
     bytes: built.bytes.length,
