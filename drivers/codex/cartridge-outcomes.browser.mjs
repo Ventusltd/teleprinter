@@ -19,8 +19,14 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
    record.localToolCapsules=true;
    await page.route('**/tool-layers/*.js',async route=>{
     const name=new URL(route.request().url()).pathname.split('/').at(-1);
-    if(!['host.js','dismissal.js','focus-boundary.js','readiness.js','viewport.js','session-restart.js'].includes(name))return route.continue();
+    if(!['host.js','dismissal.js','focus-boundary.js','readiness.js','viewport.js','session-restart.js','recovery.js'].includes(name))return route.continue();
     await route.fulfill({body:await fs.readFile(path.join('C:/Users/vikra/testcode-source-publication/sandbox/capsules/tool-layers',name)),contentType:'text/javascript'});
+   });
+  }
+  if(process.argv.includes('--recover')) {
+   record.recoveryFaultInjection=true;let injected=false;
+   await page.route('**/module-layout/index.html',route=>{
+    if(injected)return route.continue();injected=true;return route.fulfill({status:404,contentType:'text/html',body:'<!doctype html><html><body>Injected missing tool</body></html>'});
    });
   }
   await page.goto(new URL('atlas/?repd_ref=1938&technology=solar',base).href,{waitUntil:'domcontentloaded'});
@@ -56,6 +62,14 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
     const dialog=page.getByRole('dialog',{name:tool.title,exact:true});
     await dialog.waitFor({state:'visible'});
     const frame=dialog.frameLocator('iframe');
+    if(process.argv.includes('--recover') && tool.id==='module-layout') {
+     const retry=dialog.getByRole('button',{name:'Retry tool loading',exact:true});await retry.waitFor({state:'visible',timeout:10000});
+     await page.screenshot({path:path.join(output,`${viewport.width}-injected-load-failure.png`)});
+     await retry.click();assert.equal(await frame.getByText('Injected missing tool',{exact:true}).count(),1,'Retry must request confirmation before navigation');
+     await Promise.all([page.waitForEvent('framenavigated',{predicate:f=>f.url().includes('/module-layout/index.html')}),dialog.getByRole('button',{name:'Confirm restart',exact:true}).click()]);
+     await retry.waitFor({state:'hidden',timeout:10000});
+    }
+
     if(tool.id==='gis-sld-financial-sandbox') {
      await frame.locator('#btn_draw').waitFor({state:'attached',timeout:60000});
      await frame.locator('#mod_wp').fill('665');
@@ -135,7 +149,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.equal(await page.locator('#codex-tool-layers').getByRole('button',{name:tool.title,exact:true}).evaluate(n=>n===document.activeElement),true,'Escape must return focus');
      assert.deepEqual(await states(),beforePanel,'Escape changed Atlas layers');
     } else await dialog.getByRole('button',{name:/Close.*return to GridAtlas/}).click();
-    record.tools.push({id:tool.id,opened:true,closed:true,escape:process.argv.includes('--escape'),focusBoundary:process.argv.includes('--focus'),readiness:process.argv.includes('--readiness'),viewport:process.argv.includes('--viewport'),restart:process.argv.includes('--restart')&&tool.id==='module-layout'});
+    record.tools.push({id:tool.id,opened:true,closed:true,escape:process.argv.includes('--escape'),focusBoundary:process.argv.includes('--focus'),readiness:process.argv.includes('--readiness'),viewport:process.argv.includes('--viewport'),restart:process.argv.includes('--restart')&&tool.id==='module-layout',recovery:process.argv.includes('--recover')&&tool.id==='module-layout'});
    }
   } else if(Number(release.generation)>=202609051850) {
    await page.locator('.neon-layout').first().waitFor({state:'attached',timeout:30000});
