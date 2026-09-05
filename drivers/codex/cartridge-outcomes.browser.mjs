@@ -15,6 +15,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
  try {
   browser=await chromium.launch({channel:'chrome',headless:true});
   page=await browser.newPage({viewport,deviceScaleFactor:viewport.width===393?2:1});
+  if(process.argv.includes('--map-frame'))await page.addInitScript(()=>{window.__capturePermissionCalls=0;if(navigator.mediaDevices)navigator.mediaDevices.getDisplayMedia=()=>{window.__capturePermissionCalls++;throw Error('Screen sharing forbidden');};});
   if(process.argv.includes('--local-tool-capsules')) {
    record.localToolCapsules=true;
    await page.route('**/tool-layers/*.js',async route=>{
@@ -139,6 +140,16 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
       assert.equal(manual.status,'available');assert.equal(manual.pins.length,2);assert.equal(manual.route.geometry.coordinates.length,4);assert.equal(manual.committed,true);
       assert.equal(await realm.evaluate(()=>{const snapshot=GisSldRoute.getSnapshot();const original=JSON.stringify(state.currentGeoJSON);try{snapshot.route.geometry.coordinates[0][0]=0;}catch{}return Object.isFrozen(snapshot.route.geometry.coordinates[0])&&original===JSON.stringify(state.currentGeoJSON);}),true,'Read-only adapter must not expose mutable original state');
       await page.screenshot({path:path.join(output,`${viewport.width}-manual-route.png`)});
+      if(process.argv.includes('--map-frame')) {
+       await realm.waitForFunction(()=>map.isStyleLoaded()&&map.getSource('topology')&&!map.isMoving(),null,{timeout:15000});
+       const captured=await realm.evaluate(()=>GisSldMapFrame.capture());
+       await fs.writeFile(path.join(output,`${viewport.width}-gis-map.png`),Buffer.from(captured.png.split(',')[1],'base64'));
+       await frame.locator('#map canvas').screenshot({path:path.join(output,`${viewport.width}-gis-map-reference.png`)});
+       assert.ok(captured.width>0&&captured.height>0);assert.equal(captured.route.committed,true);assert.equal(captured.route.pins.length,2);
+       assert.equal(await realm.evaluate(()=>window.__capturePermissionCalls),0);
+       assert.equal(await realm.evaluate(async()=>{const controller=new AbortController();controller.abort();try{await GisSldMapFrame.capture({signal:controller.signal});return 'unexpected';}catch(e){return e.name;}}),'AbortError');
+       delete captured.png;record.gisMapFrame={...captured,permissionCalls:0,preAbortedRefused:true};
+      }
       await frame.locator('#btn_map_clear_route').click();const cleared=await realm.evaluate(()=>GisSldRoute.getSnapshot());assert.equal(cleared.pins.length,0);assert.equal(cleared.route.geometry.coordinates.length,2);
       record.gisRoute={direct,manual,clearRestoresDirect:true,immutableCopy:true};
      }
