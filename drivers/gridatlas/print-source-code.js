@@ -168,7 +168,18 @@ function discover() {
       }
     }
   }
-  return Array.from(seen.values()).slice(0, MAX_RESOURCES);
+  /* A CAP THAT SAYS SO, OR IT IS A LIE.
+     This was `.slice(0, MAX_RESOURCES)`. Resource 401 onwards simply vanished
+     -- no entry in `missing`, no line in the file -- while the same teleprint
+     printed "EVERY file is here in full. Nothing is truncated". A reader
+     cannot see a gap that is not declared, so they reason as though it is not
+     there, which is the one failure this whole format exists to prevent.
+     The cap remains, because an unbounded fetch on a phone is its own
+     failure; what changes is that anything beyond it is NAMED. */
+  const all = Array.from(seen.values());
+  const kept = all.slice(0, MAX_RESOURCES);
+  kept.overflow = all.slice(MAX_RESOURCES);
+  return kept;
 }
 
 /**
@@ -179,7 +190,15 @@ export async function collectSourceCode({ appName = 'GridAtlas', inlineDom = tru
   const state = screenState();
   const targets = discover();
   const included = [];
-  const missing = [];
+  /* Anything past the cap starts life already declared, so a reader sees it in
+     NOT READ instead of never learning it existed. */
+  const missing = (targets.overflow || []).map(function (target) {
+    return {
+      url: target.url,
+      reason: 'beyond the ' + MAX_RESOURCES + '-resource cap for one teleprint; '
+        + 'named here rather than dropped'
+    };
+  });
   let total = 0;
 
   /* Four at a time. Serial is needlessly slow on a page with fifty
@@ -305,11 +324,7 @@ export async function collectSourceCode({ appName = 'GridAtlas', inlineDom = tru
     filename: `${appName}-source-code-${new Date().toISOString().replace(/[:.]/g, '-')}.txt`,
     included: included.length,
     missing,
-    state,
-    /* Kept separately so the delivery step can cut volumes at file
-       boundaries without re-parsing the text it just built. */
-    header: headerLines.join(NL),
-    blocks: fileBlocks
+    state
   };
 }
 
@@ -462,19 +477,28 @@ export function prepareSourceCode(options = {}) {
  * the text. Returns which path was used.
  */
 export async function deliverSourceCode(collected, { prefer, panel = true } = {}) {
-  /* THE WHOLE THING, IN ONE PIECE. Volumes are offered in the panel and are
-     never what a reader gets unless they ask. */
-  const first = { filename: collected.filename, text: collected.text, volume: 1, of: 1 };
-  const parts = (collected.blocks && collected.header)
-    ? splitIntoVolumes(collected.header, collected.blocks, collected.filename)
-    : [first];
+  /* THE WHOLE THING, IN ONE PIECE, AND NOTHING ELSE.
+     ------------------------------------------------------------------------
+     Volume splitting lived here and is gone. Two reasons, and the second is
+     the serious one.
+
+     First, it was the printer imposing a human limit: "a printer prints what
+     it's given it doesn't rely on human induced limits and it's a digital
+     printer that doesn't run out of paper 2MB is nothing for vital evidence
+     like that."
+
+     Second, it did not exist. `splitIntoVolumes`, `headerLines` and
+     `fileBlocks` were REFERENCED here and never defined -- three symbols, each
+     appearing exactly once in the file -- so this function threw a
+     ReferenceError on every call and the Print source code button was dead on
+     the live site. `node --check` passed throughout, because a syntax check
+     cannot see an undefined identifier. An independent comparison of the two
+     driver lanes found it; my own CI did not. */
+  const first = { filename: collected.filename, text: collected.text };
+  const parts = [first];
   const record = {
     filename: first.filename,
     bytes: new Blob([collected.text]).size,
-    /* What the reader GOT is one whole file. `volumesAvailable` is what the
-       panel can cut it into if they ask. */
-    volumes: 1,
-    volumesAvailable: parts.length,
     included: collected.included,
     missing: collected.missing.length,
     state: collected.state,

@@ -70,8 +70,14 @@ function pixelsFromSource(source, width, height) {
 async function fromDisplay() {
   const media = navigator.mediaDevices;
   if (!media || typeof media.getDisplayMedia !== 'function') {
-    throw new Error('This browser cannot capture the screen. '
-      + 'On an iPhone, take a screenshot and use "Print a screenshot" instead.');
+    /* This used to say: take a screenshot and use "Print a screenshot"
+       instead. THERE IS NO SUCH CONTROL IN THIS LANE. Telling a reader on the
+       one platform where this path fails to go and press a button that does
+       not exist is worse than telling them nothing, and it went unnoticed
+       because no test reads error strings. Say only what is true. */
+    throw new Error('This browser will not let a page capture the screen — '
+      + 'iOS Safari does not offer it. Print source code still works here, and '
+      + 'it records the screen state.');
   }
   /* preferCurrentTab is Chromium-only and is a HINT: it puts this tab at the
      top of the chooser. Elsewhere the reader picks, which is correct -- their
