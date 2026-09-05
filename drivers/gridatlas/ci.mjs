@@ -177,6 +177,24 @@ function git(args) {
   }
 }
 
+/* 5b. CALL THE FUNCTIONS.
+   `node --check` parses; it does not resolve names. It passed for hours on a
+   print-source-code.js that referenced three identifiers which were never
+   defined, so every call threw a ReferenceError and the live button was dead.
+   Demonstrated: with the defect reinstated, `node --check` still passes and
+   this test fails with "ReferenceError: headerLines is not defined". */
+{
+  const out = spawnSync(process.execPath,
+    ['--test', path.join(HERE, 'smoke.test.mjs')], { encoding: 'utf8' });
+  const text = (out.stdout || '') + (out.stderr || '');
+  const pass = (text.match(/^# pass (\d+)$/m) || [])[1] || (text.match(/pass (\d+)/) || [])[1];
+  const fail = (text.match(/^# fail (\d+)$/m) || [])[1] || (text.match(/fail (\d+)/) || [])[1];
+  const firstError = (text.match(/(ReferenceError|TypeError|AssertionError)[^\n]*/) || [])[0];
+  record('drivers-run', out.status === 0,
+    out.status === 0 ? `${pass || '?'} runtime tests passed`
+      : `${fail || '?'} failed — ${firstError || 'see node --test output'}`);
+}
+
 /* 6. The invented-dependency guard, asserted against the source that ships. */
 {
   const text = await readFile(path.join(HERE, 'print-source-code.js'), 'utf8');
