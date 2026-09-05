@@ -1,13 +1,13 @@
 PRINT SOURCE CODE
 Format: codex-print-source-code-v1
 Repository: https://github.com/Ventusltd/teleprinter
-Commit: 9a8b644a747ec5243abcde7b260abbfb77fc4535
-Tree: 65b297cc86a89933c89f1221dd74c432263557b4
-Scopes: ["drivers/codex/README.md","drivers/codex/SOURCE-CODE.md","drivers/codex/controls.js","drivers/codex/demo.html","drivers/codex/driver.mjs","drivers/codex/print-screen.js","drivers/codex/print-source-code.js","drivers/codex/screen-pdf.mjs","drivers/codex/source-code.mjs"]
+Commit: 6f2026458665abffd969dc5e2f814157e365bf70
+Tree: 95385295bb7660a60e151de75433dd93b0489431
+Scopes: ["drivers/codex/README.md","drivers/codex/SOURCE-CODE.md","drivers/codex/controls.js","drivers/codex/demo.html","drivers/codex/driver.mjs","drivers/codex/png-pixels.mjs","drivers/codex/print-screen.js","drivers/codex/print-source-code.js","drivers/codex/screen-pdf.mjs","drivers/codex/source-code.mjs"]
 Policy: {"source":"Committed Git blobs only; working-tree changes are never substituted.","inclusion":"All regular files and symlink target blobs under each literal scope, including dotfiles and generated files, if valid UTF-8 text.","omission":"NUL-containing or non-UTF-8 blobs and Git submodules are explicitly listed as omitted. No truncation.","boundaries":"File startByte and byteCount identify exact original UTF-8 bytes in the bundle; offsets are zero-based. No newline normalization."}
-Inventory: [{"mode":"100644","blobOid":"ca2423f2870acfc5e94b7e835bb935049a196497","path":"drivers/codex/README.md","byteCount":3443,"sha256":"421c06b9815214bfa5e9690df3b22abaa4a2597dab9720cbbd68d5c1d65f1446","status":"included"},{"mode":"100644","blobOid":"573a100f14457e19345edd60fad68f8dc5dea19c","path":"drivers/codex/SOURCE-CODE.md","byteCount":5676,"sha256":"fe7b0cf385ce3ec92125b368b02e0c4664fa4bba45a48c3429381372af16ec23","status":"included"},{"mode":"100644","blobOid":"8689ea788fb897f2cd8e2431c58ad5ae06a9f5cb","path":"drivers/codex/controls.js","byteCount":3693,"sha256":"f178b7a247c560bcd9d830868646aa46adc3091eb65b1558a9205cc1014ab5d6","status":"included"},{"mode":"100644","blobOid":"155ebbdd12383aeca19033f7b77b71c517a522f8","path":"drivers/codex/demo.html","byteCount":4214,"sha256":"b2c078e8ee38d7883c5a477ff714b12c9cfc26a19514597aee431c22a49006a4","status":"included"},{"mode":"100644","blobOid":"fecd004de137869cd0eb99c3da26c5748a9b21bf","path":"drivers/codex/driver.mjs","byteCount":2054,"sha256":"8b2fa0de776ed9a8d228ed941e278bba09a130cd44d5d9e97f0b6cf54ba5e0e6","status":"included"},{"mode":"100644","blobOid":"1a384af544f61ca0c13a1afc63cbe330e4f21350","path":"drivers/codex/print-screen.js","byteCount":3412,"sha256":"52e2ed9bed96b47716969d5f15277ddc38aa750aa9a3f719580ee62a825ee24c","status":"included"},{"mode":"100644","blobOid":"ec79eef1811404d6a88b32177c0fb241a42655d3","path":"drivers/codex/print-source-code.js","byteCount":10062,"sha256":"443043ec1ead5335a86d0525a288aeac8e51203690c8bedf02f7c0cbbb15babf","status":"included"},{"mode":"100644","blobOid":"8fa2363cc7504804f657988cba6d1c772afe9e87","path":"drivers/codex/screen-pdf.mjs","byteCount":2681,"sha256":"41d6f27b0975e6eaac969ebc4ed1d05ca9538b6553d0eb573302bc9282e077fd","status":"included"},{"mode":"100644","blobOid":"62f8d81f3edeb53d6ddba44fbc436aac9c557791","path":"drivers/codex/source-code.mjs","byteCount":10435,"sha256":"4247c52add7ef1bd3e776770f481bbeb1b3df623bc31bb113e3f4595fe8d79ed","status":"included"}]
+Inventory: [{"mode":"100644","blobOid":"982ae56ee1c34f8640c4b7829e6f60c2837587ee","path":"drivers/codex/README.md","byteCount":4069,"sha256":"337558eb8e65c433ec10fd908f56474d263061fa6a26e46e12b8e392c045622d","status":"included"},{"mode":"100644","blobOid":"573a100f14457e19345edd60fad68f8dc5dea19c","path":"drivers/codex/SOURCE-CODE.md","byteCount":5676,"sha256":"fe7b0cf385ce3ec92125b368b02e0c4664fa4bba45a48c3429381372af16ec23","status":"included"},{"mode":"100644","blobOid":"8689ea788fb897f2cd8e2431c58ad5ae06a9f5cb","path":"drivers/codex/controls.js","byteCount":3693,"sha256":"f178b7a247c560bcd9d830868646aa46adc3091eb65b1558a9205cc1014ab5d6","status":"included"},{"mode":"100644","blobOid":"155ebbdd12383aeca19033f7b77b71c517a522f8","path":"drivers/codex/demo.html","byteCount":4214,"sha256":"b2c078e8ee38d7883c5a477ff714b12c9cfc26a19514597aee431c22a49006a4","status":"included"},{"mode":"100644","blobOid":"fecd004de137869cd0eb99c3da26c5748a9b21bf","path":"drivers/codex/driver.mjs","byteCount":2054,"sha256":"8b2fa0de776ed9a8d228ed941e278bba09a130cd44d5d9e97f0b6cf54ba5e0e6","status":"included"},{"mode":"100644","blobOid":"98150c4635fd713ceb4baf0b09033db8851facb6","path":"drivers/codex/png-pixels.mjs","byteCount":8455,"sha256":"01bf5485aa2deec7dd8a7d0efea94a02ba10df733f6e71b293c5396373772481","status":"included"},{"mode":"100644","blobOid":"c499d6f22d27bed56fce7fe34472b7ef0ea27dcd","path":"drivers/codex/print-screen.js","byteCount":3724,"sha256":"abb41b2fd24bad5bc8fddfe25fe03af05372db766b7e06a655128f661729d9d5","status":"included"},{"mode":"100644","blobOid":"ec79eef1811404d6a88b32177c0fb241a42655d3","path":"drivers/codex/print-source-code.js","byteCount":10062,"sha256":"443043ec1ead5335a86d0525a288aeac8e51203690c8bedf02f7c0cbbb15babf","status":"included"},{"mode":"100644","blobOid":"91ff9994e745593327c0b0290777de7165fbd06c","path":"drivers/codex/screen-pdf.mjs","byteCount":3256,"sha256":"f6002a69b350bc70d6242888dd336459a23870efa9cbda196df2481d6aa04aa7","status":"included"},{"mode":"100644","blobOid":"62f8d81f3edeb53d6ddba44fbc436aac9c557791","path":"drivers/codex/source-code.mjs","byteCount":10435,"sha256":"4247c52add7ef1bd3e776770f481bbeb1b3df623bc31bb113e3f4595fe8d79ed","status":"included"}]
 
-===== BEGIN FILE "drivers/codex/README.md" | bytes=3443 | sha256=421c06b9815214bfa5e9690df3b22abaa4a2597dab9720cbbd68d5c1d65f1446 =====
+===== BEGIN FILE "drivers/codex/README.md" | bytes=4069 | sha256=337558eb8e65c433ec10fd908f56474d263061fa6a26e46e12b8e392c045622d =====
 # Codex Teleprinter driver
 
 **Print** saves the visible screen as a digital PDF. **Print source code** creates
@@ -24,6 +24,11 @@ This directory is the separate Codex-authored implementation. Claude's root
 required), with no drawn footer, margins, JPEG encoding, reflow, or scaling.
 The PDF page uses one point per captured pixel. That is a digital page convention,
 not a promise that every PDF viewer's 100% zoom equals the device's CSS pixels.
+
+`png-pixels.mjs` decodes RGB/RGBA 8-bit PNG screenshots without the browser image
+decoder changing their colour values. Embedded ICC profiles travel into the PDF
+unchanged. Other valid image formats use the browser's image decoder. Uploaded
+PNG modes outside this decoder's supported set may undergo browser colour conversion.
 
 `print-screen.js` captures a frame through the browser's screen-sharing chooser.
 It keeps the resolution the browser supplies; the browser/OS may itself limit
@@ -64,6 +69,10 @@ portrait/landscape and mobile portrait/landscape with device pixel ratio 2.
 Tests select a WebGL layer, click the real Print control, read the actual browser
 download, decode its image, render its PDF and compare every RGB pixel to the
 captured screen. Source downloads and manual-copy text are compared byte-for-byte.
+For screenshots carrying an ICC profile, raw RGB and the profile are compared
+exactly, then PDF rendering is compared with colour-managed PNG rendering. The
+actual Pipeline and Atlas checks caught a one-level colour change in WebKit's
+browser image decoder that the simpler fixture did not expose.
 Missing controls and corrupt source bundles must fail without an unhandled
 download rejection. Downloads are deleted and images remain in memory.
 
@@ -284,8 +293,154 @@ export async function clickAndReadDownload(page, locator, { timeout = 15000 } = 
 
 ===== END FILE "drivers/codex/driver.mjs" =====
 
-===== BEGIN FILE "drivers/codex/print-screen.js" | bytes=3412 | sha256=52e2ed9bed96b47716969d5f15277ddc38aa750aa9a3f719580ee62a825ee24c =====
+===== BEGIN FILE "drivers/codex/png-pixels.mjs" | bytes=8455 | sha256=01bf5485aa2deec7dd8a7d0efea94a02ba10df733f6e71b293c5396373772481 =====
+/** Decode PNG sample bytes without browser color conversion or alpha premultiplication.
+ * PNG specification: https://www.w3.org/TR/png-3/ (chunks, filters, iCCP).
+ */
+const SIGNATURE = [137, 80, 78, 71, 13, 10, 26, 10];
+const MAX_PIXELS = 40000000;
+const MAX_INPUT = 256 * 1024 * 1024;
+const MAX_PROFILE = 4 * 1024 * 1024;
+const crcTable = Uint32Array.from({ length: 256 }, (_, index) => {
+  let value = index;
+  for (let bit = 0; bit < 8; bit++) value = value & 1 ? 0xedb88320 ^ (value >>> 1) : value >>> 1;
+  return value >>> 0;
+});
+function fail(reason) { throw new Error(`PNG screenshot: ${reason}`); }
+function crc32(bytes) {
+  let crc = 0xffffffff;
+  for (const value of bytes) crc = crcTable[(crc ^ value) & 255] ^ (crc >>> 8);
+  return (crc ^ 0xffffffff) >>> 0;
+}
+async function inflate(parts, limit, exact = false) {
+  const reader = new Blob(parts).stream().pipeThrough(new DecompressionStream('deflate')).getReader();
+  const chunks = [];
+  let size = 0;
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (value.length > limit - size) fail('decompressed data exceeds its permitted length');
+      size += value.length;
+      chunks.push(value);
+    }
+    if (exact && size !== limit) fail('decompressed pixel data has the wrong length');
+  } catch (error) {
+    await reader.cancel().catch(() => {});
+    if (error.message?.startsWith('PNG screenshot:')) throw error;
+    fail('compressed data is corrupt or incomplete');
+  } finally { reader.releaseLock(); }
+  const output = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) { output.set(chunk, offset); offset += chunk.length; }
+  return output;
+}
+function paeth(a, b, c) {
+  const p = a + b - c, pa = Math.abs(p - a), pb = Math.abs(p - b), pc = Math.abs(p - c);
+  return pa <= pb && pa <= pc ? a : pb <= pc ? b : c;
+}
+
+/** Unsupported valid PNG sample formats return null; invalid/corrupt PNGs throw. */
+export async function decodePngPixels(input) {
+  if (input instanceof Blob) {
+    if (input.size > MAX_INPUT) fail('file is too large');
+    input = await input.arrayBuffer();
+  }
+  const bytes = input instanceof Uint8Array ? input : input instanceof ArrayBuffer ? new Uint8Array(input) : null;
+  if (!bytes) fail('expected PNG bytes or a Blob');
+  if (bytes.length > MAX_INPUT) fail('file is too large');
+  if (bytes.length < 8 || SIGNATURE.some((value, index) => bytes[index] !== value)) fail('invalid or truncated PNG signature');
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  let offset = 8, width, height, depth, color, interlace, channels;
+  let seenHeader = false, seenPalette = false, seenData = false, endedData = false, seenEnd = false;
+  let unsupported = false, profileParts, transparentColor, seenTransparency = false;
+  const dataParts = [];
+  while (offset < bytes.length) {
+    if (bytes.length - offset < 12) fail('truncated chunk header');
+    const length = view.getUint32(offset);
+    if (length > 0x7fffffff || length > bytes.length - offset - 12) fail('truncated or oversized chunk');
+    const typeBytes = bytes.subarray(offset + 4, offset + 8);
+    if ([...typeBytes].some(value => value < 65 || value > 122 || (value > 90 && value < 97)) || (typeBytes[2] & 32)) fail('invalid chunk type');
+    const type = String.fromCharCode(...typeBytes);
+    const body = bytes.subarray(offset + 8, offset + 8 + length);
+    if (crc32(bytes.subarray(offset + 4, offset + 8 + length)) !== view.getUint32(offset + 8 + length)) fail(`CRC mismatch in ${type}`);
+    if (!seenHeader && type !== 'IHDR') fail('IHDR must be the first chunk');
+    if (seenData && type !== 'IDAT') endedData = true;
+    if (type === 'IHDR') {
+      if (seenHeader || length !== 13) fail('invalid or duplicate IHDR');
+      seenHeader = true;
+      const ihdr = new DataView(body.buffer, body.byteOffset, body.byteLength);
+      width = ihdr.getUint32(0); height = ihdr.getUint32(4);
+      depth = body[8]; color = body[9]; interlace = body[12];
+      const depths = { 0: [1, 2, 4, 8, 16], 2: [8, 16], 3: [1, 2, 4, 8], 4: [8, 16], 6: [8, 16] };
+      if (!width || !height || width > 0x7fffffff || height > 0x7fffffff || width * height > MAX_PIXELS) fail('image dimensions exceed the supported limit');
+      if (!depths[color]?.includes(depth) || body[10] !== 0 || body[11] !== 0 || interlace > 1) fail('invalid PNG image format');
+      channels = { 0: 1, 2: 3, 3: 1, 4: 2, 6: 4 }[color];
+      unsupported = depth !== 8 || ![2, 6].includes(color) || interlace !== 0;
+    } else if (type === 'PLTE') {
+      if (seenPalette || seenData || !length || length % 3 || length > 768 || color === 0 || color === 4 || (color === 3 && length / 3 > 2 ** depth)) fail('invalid palette');
+      seenPalette = true;
+    } else if (type === 'IDAT') {
+      if (endedData || (color === 3 && !seenPalette)) fail('invalid IDAT order');
+      seenData = true; dataParts.push(body);
+    } else if (type === 'iCCP') {
+      if (profileParts || seenPalette || seenData) fail('invalid ICC profile order');
+      const separator = body.indexOf(0);
+      const name = body.subarray(0, separator);
+      if (separator < 1 || separator > 79 || body[separator + 1] !== 0 || length <= separator + 2 || name[0] === 32 || name[name.length - 1] === 32 || name.some((value, index) => !((value >= 32 && value <= 126) || value >= 161) || (value === 32 && name[index - 1] === 32))) fail('invalid ICC profile chunk');
+      profileParts = [body.subarray(separator + 2)];
+    } else if (type === 'tRNS') {
+      if (seenTransparency || seenData || color === 4 || color === 6 || (color === 0 && length !== 2) || (color === 2 && length !== 6) || (color === 3 && (!seenPalette || !length || length > 256))) fail('invalid transparency chunk');
+      seenTransparency = true;
+      if (color === 2) {
+        const trns = new DataView(body.buffer, body.byteOffset, body.byteLength);
+        transparentColor = [trns.getUint16(0), trns.getUint16(2), trns.getUint16(4)];
+      }
+    } else if (type === 'IEND') {
+      if (!seenData || length !== 0 || offset + 12 !== bytes.length) fail('invalid IEND or trailing data');
+      seenEnd = true;
+    } else if (!(typeBytes[0] & 32) || ['acTL', 'fcTL', 'fdAT'].includes(type)) unsupported = true;
+    offset += length + 12;
+  }
+  if (!seenHeader || !seenData || !seenEnd) fail('PNG is incomplete');
+  const passes = interlace ? [[0, 0, 8, 8], [4, 0, 8, 8], [0, 4, 4, 8], [2, 0, 4, 4], [0, 2, 2, 4], [1, 0, 2, 2], [0, 1, 1, 2]] : [[0, 0, 1, 1]];
+  const layouts = passes.map(([x, y, dx, dy]) => ({ width: Math.max(0, Math.ceil((width - x) / dx)), height: Math.max(0, Math.ceil((height - y) / dy)) })).filter(pass => pass.width && pass.height).map(pass => ({ ...pass, stride: Math.ceil(pass.width * channels * depth / 8) }));
+  const expectedLength = layouts.reduce((sum, pass) => sum + (pass.stride + 1) * pass.height, 0);
+  const raw = await inflate(dataParts, expectedLength, true);
+  let scan = 0;
+  for (const pass of layouts) for (let row = 0; row < pass.height; row++) {
+    if (raw[scan] > 4) fail('unknown scanline filter');
+    scan += pass.stride + 1;
+  }
+  const iccProfile = profileParts ? await inflate(profileParts, MAX_PROFILE) : undefined;
+  if (iccProfile && !iccProfile.length) fail('empty ICC profile');
+  if (unsupported) return null;
+  const stride = width * channels;
+  const rgba = new Uint8Array(width * height * 4);
+  let previous = new Uint8Array(stride), current = new Uint8Array(stride);
+  scan = 0;
+  for (let y = 0; y < height; y++) {
+    const filter = raw[scan++];
+    for (let x = 0; x < stride; x++) {
+      const a = x >= channels ? current[x - channels] : 0, b = previous[x], c = x >= channels ? previous[x - channels] : 0;
+      const predictor = filter === 0 ? 0 : filter === 1 ? a : filter === 2 ? b : filter === 3 ? Math.floor((a + b) / 2) : paeth(a, b, c);
+      current[x] = (raw[scan++] + predictor) & 255;
+    }
+    for (let x = 0; x < width; x++) {
+      const source = x * channels, target = (y * width + x) * 4;
+      rgba[target] = current[source]; rgba[target + 1] = current[source + 1]; rgba[target + 2] = current[source + 2];
+      rgba[target + 3] = channels === 4 ? current[source + 3] : transparentColor && transparentColor.every((value, channel) => value === current[source + channel]) ? 0 : 255;
+    }
+    [previous, current] = [current, previous];
+  }
+  return { width, height, rgba, ...(iccProfile ? { iccProfile } : {}) };
+}
+
+===== END FILE "drivers/codex/png-pixels.mjs" =====
+
+===== BEGIN FILE "drivers/codex/print-screen.js" | bytes=3724 | sha256=abb41b2fd24bad5bc8fddfe25fe03af05372db766b7e06a655128f661729d9d5 =====
 import { screenPdf } from './screen-pdf.mjs';
+import { decodePngPixels } from './png-pixels.mjs';
 
 export function downloadFile(blob, filename) {
   const url = URL.createObjectURL(blob);
@@ -296,6 +451,11 @@ export function downloadFile(blob, filename) {
 }
 
 export async function imagePixels(blob) {
+  const signature = new Uint8Array(await blob.slice(0,8).arrayBuffer());
+  if (signature.length === 8 && signature.every((byte,index)=>byte===[137,80,78,71,13,10,26,10][index])) {
+    const frame = await decodePngPixels(blob);
+    if (frame) return frame;
+  }
   const url = URL.createObjectURL(blob);
   const image = new Image();
   try {
@@ -535,7 +695,7 @@ export const attachSourceCodeControls = attachPrintSourceCode;
 
 ===== END FILE "drivers/codex/print-source-code.js" =====
 
-===== BEGIN FILE "drivers/codex/screen-pdf.mjs" | bytes=2681 | sha256=41d6f27b0975e6eaac969ebc4ed1d05ca9538b6553d0eb573302bc9282e077fd =====
+===== BEGIN FILE "drivers/codex/screen-pdf.mjs" | bytes=3256 | sha256=f6002a69b350bc70d6242888dd336459a23870efa9cbda196df2481d6aa04aa7 =====
 /** Codex Teleprinter: lossless captured pixels, one page, no drawn furniture. */
 const enc = new TextEncoder();
 const bytes = s => enc.encode(s);
@@ -549,11 +709,14 @@ async function deflate(data) {
   return new Uint8Array(await new Response(new Blob([data]).stream()
     .pipeThrough(new CompressionStream('deflate'))).arrayBuffer());
 }
-export async function screenPdf({ width, height, rgba }) {
+export async function screenPdf({ width, height, rgba, iccProfile }) {
   if (!Number.isSafeInteger(width) || !Number.isSafeInteger(height) || width < 1 || height < 1
       || width > 14400 || height > 14400 || width * height > 40000000
       || !(rgba instanceof Uint8Array || rgba instanceof Uint8ClampedArray)
       || rgba.length !== width * height * 4) throw new Error('The screen image has invalid dimensions or pixels.');
+  if (iccProfile && (!(iccProfile instanceof Uint8Array) || iccProfile.length < 128 || iccProfile.length > 4000000
+      || new TextDecoder().decode(iccProfile.subarray(16,20)) !== 'RGB '
+      || new TextDecoder().decode(iccProfile.subarray(36,40)) !== 'acsp')) throw new Error('The screenshot colour profile is invalid.');
   const rgb = new Uint8Array(width * height * 3);
   const alpha = new Uint8Array(width * height);
   let transparent = false;
@@ -563,13 +726,16 @@ export async function screenPdf({ width, height, rgba }) {
     if (alpha[p] !== 255) transparent = true;
   }
   const stream = (dict, data) => join([bytes(`<< ${dict} /Length ${data.length} >>\nstream\n`), data, bytes('\nendstream')]);
+  const colourSpace = iccProfile ? '[/ICCBased 6 0 R]' : '/DeviceRGB';
+  const maskId = iccProfile ? 7 : 6;
   const objects = [
     bytes('<< /Type /Catalog /Pages 2 0 R >>'),
     bytes('<< /Type /Pages /Kids [3 0 R] /Count 1 >>'),
     bytes(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${width} ${height}] /Resources << /XObject << /Screen 4 0 R >> >> /Contents 5 0 R >>`),
-    stream(`/Type /XObject /Subtype /Image /Width ${width} /Height ${height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Interpolate false /Filter /FlateDecode${transparent ? ' /SMask 6 0 R' : ''}`, await deflate(rgb)),
+    stream(`/Type /XObject /Subtype /Image /Width ${width} /Height ${height} /ColorSpace ${colourSpace} /BitsPerComponent 8 /Interpolate false /Filter /FlateDecode${transparent ? ` /SMask ${maskId} 0 R` : ''}`, await deflate(rgb)),
     stream('', bytes(`q\n${width} 0 0 ${height} 0 0 cm\n/Screen Do\nQ\n`))
   ];
+  if (iccProfile) objects.push(stream('/N 3 /Alternate /DeviceRGB /Filter /FlateDecode', await deflate(iccProfile)));
   if (transparent) objects.push(stream(`/Type /XObject /Subtype /Image /Width ${width} /Height ${height} /ColorSpace /DeviceGray /BitsPerComponent 8 /Filter /FlateDecode`, await deflate(alpha)));
   const chunks = [bytes('%PDF-1.4\n%Teleprinter\n')];
   const offsets = [0];

@@ -1,14 +1,15 @@
 {
   "format": "codex-print-source-code-v1",
   "repository": "https://github.com/Ventusltd/teleprinter",
-  "commit": "9a8b644a747ec5243abcde7b260abbfb77fc4535",
-  "tree": "65b297cc86a89933c89f1221dd74c432263557b4",
+  "commit": "6f2026458665abffd969dc5e2f814157e365bf70",
+  "tree": "95385295bb7660a60e151de75433dd93b0489431",
   "scopes": [
     "drivers/codex/README.md",
     "drivers/codex/SOURCE-CODE.md",
     "drivers/codex/controls.js",
     "drivers/codex/demo.html",
     "drivers/codex/driver.mjs",
+    "drivers/codex/png-pixels.mjs",
     "drivers/codex/print-screen.js",
     "drivers/codex/print-source-code.js",
     "drivers/codex/screen-pdf.mjs",
@@ -23,12 +24,12 @@
   "files": [
     {
       "mode": "100644",
-      "blobOid": "ca2423f2870acfc5e94b7e835bb935049a196497",
+      "blobOid": "982ae56ee1c34f8640c4b7829e6f60c2837587ee",
       "path": "drivers/codex/README.md",
-      "byteCount": 3443,
-      "sha256": "421c06b9815214bfa5e9690df3b22abaa4a2597dab9720cbbd68d5c1d65f1446",
+      "byteCount": 4069,
+      "sha256": "337558eb8e65c433ec10fd908f56474d263061fa6a26e46e12b8e392c045622d",
       "status": "included",
-      "startByte": 3118
+      "startByte": 3371
     },
     {
       "mode": "100644",
@@ -37,7 +38,7 @@
       "byteCount": 5676,
       "sha256": "fe7b0cf385ce3ec92125b368b02e0c4664fa4bba45a48c3429381372af16ec23",
       "status": "included",
-      "startByte": 6751
+      "startByte": 7630
     },
     {
       "mode": "100644",
@@ -46,7 +47,7 @@
       "byteCount": 3693,
       "sha256": "f178b7a247c560bcd9d830868646aa46adc3091eb65b1558a9205cc1014ab5d6",
       "status": "included",
-      "startByte": 12619
+      "startByte": 13498
     },
     {
       "mode": "100644",
@@ -55,7 +56,7 @@
       "byteCount": 4214,
       "sha256": "b2c078e8ee38d7883c5a477ff714b12c9cfc26a19514597aee431c22a49006a4",
       "status": "included",
-      "startByte": 16499
+      "startByte": 17378
     },
     {
       "mode": "100644",
@@ -64,16 +65,25 @@
       "byteCount": 2054,
       "sha256": "8b2fa0de776ed9a8d228ed941e278bba09a130cd44d5d9e97f0b6cf54ba5e0e6",
       "status": "included",
-      "startByte": 20899
+      "startByte": 21778
     },
     {
       "mode": "100644",
-      "blobOid": "1a384af544f61ca0c13a1afc63cbe330e4f21350",
-      "path": "drivers/codex/print-screen.js",
-      "byteCount": 3412,
-      "sha256": "52e2ed9bed96b47716969d5f15277ddc38aa750aa9a3f719580ee62a825ee24c",
+      "blobOid": "98150c4635fd713ceb4baf0b09033db8851facb6",
+      "path": "drivers/codex/png-pixels.mjs",
+      "byteCount": 8455,
+      "sha256": "01bf5485aa2deec7dd8a7d0efea94a02ba10df733f6e71b293c5396373772481",
       "status": "included",
-      "startByte": 23145
+      "startByte": 24023
+    },
+    {
+      "mode": "100644",
+      "blobOid": "c499d6f22d27bed56fce7fe34472b7ef0ea27dcd",
+      "path": "drivers/codex/print-screen.js",
+      "byteCount": 3724,
+      "sha256": "abb41b2fd24bad5bc8fddfe25fe03af05372db766b7e06a655128f661729d9d5",
+      "status": "included",
+      "startByte": 32674
     },
     {
       "mode": "100644",
@@ -82,16 +92,16 @@
       "byteCount": 10062,
       "sha256": "443043ec1ead5335a86d0525a288aeac8e51203690c8bedf02f7c0cbbb15babf",
       "status": "included",
-      "startByte": 26760
+      "startByte": 36601
     },
     {
       "mode": "100644",
-      "blobOid": "8fa2363cc7504804f657988cba6d1c772afe9e87",
+      "blobOid": "91ff9994e745593327c0b0290777de7165fbd06c",
       "path": "drivers/codex/screen-pdf.mjs",
-      "byteCount": 2681,
-      "sha256": "41d6f27b0975e6eaac969ebc4ed1d05ca9538b6553d0eb573302bc9282e077fd",
+      "byteCount": 3256,
+      "sha256": "f6002a69b350bc70d6242888dd336459a23870efa9cbda196df2481d6aa04aa7",
       "status": "included",
-      "startByte": 37023
+      "startByte": 46864
     },
     {
       "mode": "100644",
@@ -100,11 +110,11 @@
       "byteCount": 10435,
       "sha256": "4247c52add7ef1bd3e776770f481bbeb1b3df623bc31bb113e3f4595fe8d79ed",
       "status": "included",
-      "startByte": 39901
+      "startByte": 50317
     }
   ],
-  "byteCount": 50425,
-  "sha256": "fcede25c0726ed51c6a42378744bafc2f09b949a7f5497315d27f9a20f87608e",
-  "includedCount": 9,
+  "byteCount": 60841,
+  "sha256": "aff3a72e388379f0a11509b16fb2646e67cba94438d0d3306cbc4912bbc2aae1",
+  "includedCount": 10,
   "omittedCount": 0
 }

@@ -1,0 +1,151 @@
+{
+  "createdAt": "2026-09-05T14:25:55.022Z",
+  "base": "http://127.0.0.1:8886/testcode/202609051419/",
+  "physicalDevices": false,
+  "results": [
+    {
+      "browser": "Chrome",
+      "route": "",
+      "ok": true,
+      "sourceBytes": 54672,
+      "pdf": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "embeddedPixelsIdentical": true,
+        "colourProfilePreserved": false,
+        "renderedPixelsIdentical": true,
+        "renderReference": "raw RGB screenshot",
+        "sha256": "08edbe5b99d2aa6d02fbbf8cb51e7b0f19a22e6fe287e4906590cfa791d8b64e"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "route": "pipeline/",
+      "ok": true,
+      "sourceBytes": 442084,
+      "pdf": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "embeddedPixelsIdentical": true,
+        "colourProfilePreserved": false,
+        "renderedPixelsIdentical": true,
+        "renderReference": "raw RGB screenshot",
+        "sha256": "e6c77386047c9b9b786edf24f96b8e52bf9ed8e8d9c5212a911618f5ba0c38d0"
+      }
+    },
+    {
+      "browser": "Chrome",
+      "route": "atlas/?repd_ref=2484&technology=wind_offshore",
+      "ok": true,
+      "sourceBytes": 973944,
+      "pdf": {
+        "width": 1400,
+        "height": 900,
+        "pixels": 1260000,
+        "embeddedPixelsIdentical": true,
+        "colourProfilePreserved": false,
+        "renderedPixelsIdentical": true,
+        "renderReference": "raw RGB screenshot",
+        "sha256": "0c43f446d77b10c880b667f0483a6af6c5f6f4a750b918a26dbfac80e590c9d4"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "route": "",
+      "ok": true,
+      "sourceBytes": 54672,
+      "pdf": {
+        "width": 1200,
+        "height": 800,
+        "pixels": 960000,
+        "embeddedPixelsIdentical": true,
+        "colourProfilePreserved": false,
+        "renderedPixelsIdentical": true,
+        "renderReference": "raw RGB screenshot",
+        "sha256": "6c9207013df04d89066b2674baa8868a37c64b7b819b3be390e7a5255a1dabff"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "route": "pipeline/",
+      "ok": true,
+      "sourceBytes": 442084,
+      "pdf": {
+        "width": 1200,
+        "height": 800,
+        "pixels": 960000,
+        "embeddedPixelsIdentical": true,
+        "colourProfilePreserved": false,
+        "renderedPixelsIdentical": true,
+        "renderReference": "raw RGB screenshot",
+        "sha256": "c383503c972436602002be51cc2f77e0a9d37162b792c77e625df35b82f5b383"
+      }
+    },
+    {
+      "browser": "Firefox",
+      "route": "atlas/?repd_ref=2484&technology=wind_offshore",
+      "ok": true,
+      "sourceBytes": 973944,
+      "pdf": {
+        "width": 1200,
+        "height": 800,
+        "pixels": 960000,
+        "embeddedPixelsIdentical": true,
+        "colourProfilePreserved": false,
+        "renderedPixelsIdentical": true,
+        "renderReference": "raw RGB screenshot",
+        "sha256": "3e9c59e5931b774e73fb1fcc7ea6df6d9536bb60faf001f1e8d27ef0316afaad"
+      }
+    },
+    {
+      "browser": "WebKit mobile emulation",
+      "route": "",
+      "ok": true,
+      "sourceBytes": 54672,
+      "pdf": {
+        "width": 393,
+        "height": 852,
+        "pixels": 334836,
+        "embeddedPixelsIdentical": true,
+        "colourProfilePreserved": true,
+        "renderedPixelsIdentical": true,
+        "renderReference": "original PNG through MuPDF colour management",
+        "sha256": "9251443b1db0267eca2afdedb78c6775206726da671b8ecd3d67021b20f4d7ac"
+      }
+    },
+    {
+      "browser": "WebKit mobile emulation",
+      "route": "pipeline/",
+      "ok": true,
+      "sourceBytes": 442084,
+      "pdf": {
+        "width": 393,
+        "height": 852,
+        "pixels": 334836,
+        "embeddedPixelsIdentical": true,
+        "colourProfilePreserved": true,
+        "renderedPixelsIdentical": true,
+        "renderReference": "original PNG through MuPDF colour management",
+        "sha256": "d1afb9d2ce59e66900764ef388b92d26c7c55299e079f5ec53eac172832c22c2"
+      }
+    },
+    {
+      "browser": "WebKit mobile emulation",
+      "route": "atlas/?repd_ref=2484&technology=wind_offshore",
+      "ok": true,
+      "sourceBytes": 973944,
+      "pdf": {
+        "width": 393,
+        "height": 852,
+        "pixels": 334836,
+        "embeddedPixelsIdentical": true,
+        "colourProfilePreserved": true,
+        "renderedPixelsIdentical": true,
+        "renderReference": "original PNG through MuPDF colour management",
+        "sha256": "4796b958693490ea11a8561dd3f4508c04ab32c8bc99b2857f10f3250775253e"
+      }
+    }
+  ]
+}
