@@ -19,7 +19,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
    record.localToolCapsules=true;
    await page.route('**/tool-layers/*.js',async route=>{
     const name=new URL(route.request().url()).pathname.split('/').at(-1);
-    if(!['host.js','dismissal.js','focus-boundary.js'].includes(name))return route.continue();
+    if(!['host.js','dismissal.js','focus-boundary.js','readiness.js'].includes(name))return route.continue();
     await route.fulfill({body:await fs.readFile(path.join('C:/Users/vikra/testcode-source-publication/sandbox/capsules/tool-layers',name)),contentType:'text/javascript'});
    });
   }
@@ -87,6 +87,12 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.ok(record.cableCanvases.every(c=>c.opaque>100&&c.colors>4),'Cable canvases must contain drawn geometry');
      await page.screenshot({path:path.join(output,`${viewport.width}-${tool.id}-open.png`)});
     }
+    if(process.argv.includes('--readiness')) {
+     const ready=dialog.locator('[data-tool-readiness]');
+     await ready.locator('xpath=self::*[@data-interface="loaded"]').waitFor({timeout:35000});
+     const expected=tool.id==='gis-sld-financial-sandbox'?'unreported':'ready';
+     await page.waitForFunction(({id,expected})=>document.querySelector('[data-tool-readiness="'+id+'"]')?.dataset.drawing===expected,{id:tool.id,expected},{timeout:35000});
+    }
     if(process.argv.includes('--focus')) {
      const close=dialog.getByRole('button',{name:/Close.*return to GridAtlas/});
      await close.focus();await page.keyboard.press('Tab');
@@ -105,7 +111,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.equal(await page.locator('#codex-tool-layers').getByRole('button',{name:tool.title,exact:true}).evaluate(n=>n===document.activeElement),true,'Escape must return focus');
      assert.deepEqual(await states(),beforePanel,'Escape changed Atlas layers');
     } else await dialog.getByRole('button',{name:/Close.*return to GridAtlas/}).click();
-    record.tools.push({id:tool.id,opened:true,closed:true,escape:process.argv.includes('--escape')});
+    record.tools.push({id:tool.id,opened:true,closed:true,escape:process.argv.includes('--escape'),focusBoundary:process.argv.includes('--focus'),readiness:process.argv.includes('--readiness')});
    }
   } else if(Number(release.generation)>=202609051850) {
    await page.locator('.neon-layout').first().waitFor({state:'attached',timeout:30000});
