@@ -1,0 +1,154 @@
+{
+  "finishedAt": "2026-09-05T15:30:25.991Z",
+  "status": "stopped-after-bounded-failure",
+  "offlineArtifacts": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-28-54-320Z-d193fe",
+  "scope": "Final guarded-engine native attempt; interrupted/not-run cases are not passes.",
+  "engineSha256": "8d84cf39d0506a795e66fcc989764981368bc5eb8d59433f6615442cd7f1abbb",
+  "controlledChecks": {
+    "directFrameRamp": true,
+    "reducedRequestedDprRejected": true,
+    "trackAndBitmapCleanup": true,
+    "fullSizeVideoFallback": true,
+    "lateBitmapClosedAfterTimeout": true
+  },
+  "cases": [
+    {
+      "id": "atlas-desktop",
+      "app": "atlas",
+      "width": 1365,
+      "height": 900,
+      "dpr": 1,
+      "mobile": false,
+      "ok": false,
+      "browserVersion": "152.0.7977.76",
+      "temporaryEngineSha256": "8d84cf39d0506a795e66fcc989764981368bc5eb8d59433f6615442cd7f1abbb",
+      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/",
+      "nativeCapture": {
+        "unavailable": false,
+        "calls": [
+          {
+            "startedAt": "2026-09-05T15:28:56.615Z",
+            "arguments": [
+              {
+                "video": {
+                  "frameRate": 1,
+                  "width": {
+                    "ideal": 1365
+                  },
+                  "height": {
+                    "ideal": 900
+                  }
+                },
+                "audio": false,
+                "preferCurrentTab": true,
+                "selfBrowserSurface": "include"
+              }
+            ],
+            "delegatedToOriginal": true,
+            "videoTracks": [
+              {
+                "label": "current-web-contents-media-stream://B4FBCBEA285328359C10E51E70799D5A",
+                "readyState": "live",
+                "settings": {
+                  "aspectRatio": 1.5166666666666666,
+                  "cursor": "motion",
+                  "deviceId": "web-contents-media-stream://6:8",
+                  "displaySurface": "browser",
+                  "frameRate": 1,
+                  "height": 900,
+                  "logicalSurface": true,
+                  "resizeMode": "crop-and-scale",
+                  "width": 1365
+                }
+              }
+            ]
+          }
+        ],
+        "draws": [],
+        "tracks": [
+          {
+            "kind": "video",
+            "label": "current-web-contents-media-stream://B4FBCBEA285328359C10E51E70799D5A",
+            "readyState": "ended",
+            "settings": {
+              "deviceId": "web-contents-media-stream://6:8"
+            }
+          }
+        ],
+        "hostCaptureProvider": "undefined"
+      },
+      "error": "AssertionError [ERR_ASSERTION]: TimeoutError: page.waitForEvent: Timeout 45000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================\n    at file:///C:/Users/vikra/OneDrive/Documents/GitHub/teleprinter/drivers/codex/native-display-proof.mjs:119:12",
+      "failureState": {
+        "title": "GlobalGrid2050 | UK Region v8 (Experimental)",
+        "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/",
+        "status": "The browser supplied a reduced screen frame (1364 × 898; required 1365 × 900, track 1365 × 900). No reduced PDF was created. Use Print a screenshot instead.",
+        "calls": [
+          {
+            "startedAt": "2026-09-05T15:28:56.615Z",
+            "arguments": [
+              {
+                "video": {
+                  "frameRate": 1,
+                  "width": {
+                    "ideal": 1365
+                  },
+                  "height": {
+                    "ideal": 900
+                  }
+                },
+                "audio": false,
+                "preferCurrentTab": true,
+                "selfBrowserSurface": "include"
+              }
+            ],
+            "delegatedToOriginal": true,
+            "videoTracks": [
+              {
+                "label": "current-web-contents-media-stream://B4FBCBEA285328359C10E51E70799D5A",
+                "readyState": "live",
+                "settings": {
+                  "aspectRatio": 1.5166666666666666,
+                  "cursor": "motion",
+                  "deviceId": "web-contents-media-stream://6:8",
+                  "displaySurface": "browser",
+                  "frameRate": 1,
+                  "height": 900,
+                  "logicalSurface": true,
+                  "resizeMode": "crop-and-scale",
+                  "width": 1365
+                }
+              }
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "readyState": "ended",
+            "settings": {
+              "deviceId": "web-contents-media-stream://6:8"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "atlas-mobile-portrait",
+      "ok": false,
+      "status": "not-completed",
+      "reason": "Further native probing stopped at parent request after reduced-frame failure; no completed PDF geometry assertion for this case."
+    },
+    {
+      "id": "pipeline-landscape",
+      "ok": false,
+      "status": "not-completed",
+      "reason": "Further native probing stopped at parent request after reduced-frame failure; no completed PDF geometry assertion for this case."
+    }
+  ],
+  "passed": 0,
+  "completed": 1,
+  "limitations": [
+    "Current-tab frames below requested viewport pixels are refused; full native capture is not proven.",
+    "Earlier native failures remain in their original offline directories.",
+    "No source or served files in generation1517 were edited."
+  ]
+}

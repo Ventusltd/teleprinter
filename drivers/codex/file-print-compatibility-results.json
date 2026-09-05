@@ -1,7 +1,7 @@
 {
-  "base": "http://127.0.0.2:8887/testcode/202609051517/",
-  "output": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z",
-  "startedAt": "2026-09-05T15:19:27.521Z",
+  "base": "http://127.0.0.2:8887/testcode/202609051531/",
+  "output": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-31-46-625Z",
+  "startedAt": "2026-09-05T15:31:46.828Z",
   "physicalSafariOrIPhoneTested": false,
   "screenshotChooserCovered": false,
   "captureMethod": "Playwright viewport capture binding",
@@ -14,20 +14,20 @@
         "height": 900
       },
       "deviceScaleFactor": 1,
-      "startedAt": "2026-09-05T15:19:27.521Z",
+      "startedAt": "2026-09-05T15:31:46.828Z",
       "ok": true,
-      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621568547-da639f",
+      "url": "http://127.0.0.2:8887/testcode/202609051531/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788622307748-dbc371",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Edge-pdf.pdf",
-      "bytes": 195629,
-      "sha256": "0136e4568129d95c0fd7221cbe6d1e4c153c344a1bec6df466f906b8521e220c",
-      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Edge-pdf.png",
-      "pngSha256": "5d834aebb7fd1c03cf63b9a0215fb9139a4e8e398fa65f2381a8c78e06741d07",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-31-46-625Z\\Edge-pdf.pdf",
+      "bytes": 195674,
+      "sha256": "f752c11ed4cdc1e16d2361729c4286e8b4d3a2bd6fe3a5eec506eea38c1eba74",
+      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-31-46-625Z\\Edge-pdf.png",
+      "pngSha256": "2cf2c400db4673a86b4e99aa8017612e6e08148ea4205f98fe22e8b5dab94c74",
       "inspection": {
         "width": 1440,
         "height": 900,
@@ -45,9 +45,9 @@
         "colourProfilePreserved": false,
         "renderedPixelsIdentical": true,
         "renderReference": "raw RGB screenshot",
-        "sha256": "0136e4568129d95c0fd7221cbe6d1e4c153c344a1bec6df466f906b8521e220c"
+        "sha256": "f752c11ed4cdc1e16d2361729c4286e8b4d3a2bd6fe3a5eec506eea38c1eba74"
       },
-      "finishedAt": "2026-09-05T15:19:31.277Z"
+      "finishedAt": "2026-09-05T15:31:50.564Z"
     },
     {
       "browser": "Edge",
@@ -57,34 +57,34 @@
         "height": 900
       },
       "deviceScaleFactor": 1,
-      "startedAt": "2026-09-05T15:19:31.279Z",
+      "startedAt": "2026-09-05T15:31:50.567Z",
       "ok": true,
-      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621571960-aa7675",
+      "url": "http://127.0.0.2:8887/testcode/202609051531/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788622311258-c6ffc6",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Edge-source.txt",
-      "bytes": 60840390,
-      "sha256": "a52486b074496b8a74e2d0aa9dcdb9938129435b20b7f85c8c4f4db4d0b32863",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-31-46-625Z\\Edge-source.txt",
+      "bytes": 60444972,
+      "sha256": "4c1c507f26baa5ca058623faa18389e6a82bd1cbab08a9553a589fe2314ab144",
       "manifest": {
         "format": "codex-runtime-source-v1",
         "counts": {
-          "resources": 54,
-          "included": 51,
+          "resources": 51,
+          "included": 48,
           "unavailable": 0,
           "excluded": 3,
-          "rawBytes": 37240364
+          "rawBytes": 36949401
         },
         "complete": false,
         "observedResourcesComplete": false,
         "failures": [],
-        "sourceCommit": "1579fda7731b62a724124cc3ff798160ca431149",
-        "stateUrl": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
+        "sourceCommit": "6c2cc1453129378e8e8bc6413af401e7d2c7e333",
+        "stateUrl": "http://127.0.0.2:8887/testcode/202609051531/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
       },
-      "finishedAt": "2026-09-05T15:19:34.915Z"
+      "finishedAt": "2026-09-05T15:31:54.257Z"
     },
     {
       "browser": "Firefox",
@@ -94,19 +94,19 @@
         "height": 852
       },
       "deviceScaleFactor": 2,
-      "startedAt": "2026-09-05T15:19:34.917Z",
+      "startedAt": "2026-09-05T15:31:54.259Z",
       "ok": true,
-      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621576547-8692f1",
+      "url": "http://127.0.0.2:8887/testcode/202609051531/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788622315859-2437a8",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Firefox-pdf.pdf",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-31-46-625Z\\Firefox-pdf.pdf",
       "bytes": 96181,
-      "sha256": "7f1bddb3965e5e44d308399e56966104201859181df7dab2fefe8228cdb97faa",
-      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Firefox-pdf.png",
+      "sha256": "4833d2f038d6fcb455343a304e7370a8d29b761178417fe9cd75facc493c28ee",
+      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-31-46-625Z\\Firefox-pdf.png",
       "pngSha256": "35ac77de7d3396d0d8a2c3964d22b3fd4d752269dad9cd0270d9817e54ecf046",
       "inspection": {
         "width": 786,
@@ -125,9 +125,9 @@
         "colourProfilePreserved": false,
         "renderedPixelsIdentical": true,
         "renderReference": "raw RGB screenshot",
-        "sha256": "7f1bddb3965e5e44d308399e56966104201859181df7dab2fefe8228cdb97faa"
+        "sha256": "4833d2f038d6fcb455343a304e7370a8d29b761178417fe9cd75facc493c28ee"
       },
-      "finishedAt": "2026-09-05T15:19:39.436Z"
+      "finishedAt": "2026-09-05T15:31:59.237Z"
     },
     {
       "browser": "Firefox",
@@ -137,34 +137,34 @@
         "height": 852
       },
       "deviceScaleFactor": 2,
-      "startedAt": "2026-09-05T15:19:39.439Z",
+      "startedAt": "2026-09-05T15:31:59.240Z",
       "ok": true,
-      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621580902-45fcf3",
+      "url": "http://127.0.0.2:8887/testcode/202609051531/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788622320810-a47f11",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Firefox-source.txt",
-      "bytes": 57990338,
-      "sha256": "fdc03cbf391db908c2454f3aad302e088832fdef1fad55fef9b5282944b0380b",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-31-46-625Z\\Firefox-source.txt",
+      "bytes": 58398544,
+      "sha256": "9f527b3bff5cdd77e44eb6718bf3ae616a80be209ce68a3b31c3e56d042d80ce",
       "manifest": {
         "format": "codex-runtime-source-v1",
         "counts": {
-          "resources": 51,
-          "included": 48,
+          "resources": 54,
+          "included": 51,
           "unavailable": 0,
           "excluded": 3,
-          "rawBytes": 36170268
+          "rawBytes": 36474019
         },
         "complete": false,
         "observedResourcesComplete": false,
         "failures": [],
-        "sourceCommit": "1579fda7731b62a724124cc3ff798160ca431149",
-        "stateUrl": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
+        "sourceCommit": "6c2cc1453129378e8e8bc6413af401e7d2c7e333",
+        "stateUrl": "http://127.0.0.2:8887/testcode/202609051531/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
       },
-      "finishedAt": "2026-09-05T15:19:44.993Z"
+      "finishedAt": "2026-09-05T15:32:04.245Z"
     },
     {
       "browser": "WebKit",
@@ -174,20 +174,20 @@
         "height": 768
       },
       "deviceScaleFactor": 2,
-      "startedAt": "2026-09-05T15:19:44.994Z",
+      "startedAt": "2026-09-05T15:32:04.246Z",
       "ok": true,
-      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621585959-fd332c",
+      "url": "http://127.0.0.2:8887/testcode/202609051531/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788622325046-78d6a9",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\WebKit-pdf.pdf",
-      "bytes": 302750,
-      "sha256": "b440780a51f94b764144409e30dd650d960f90311a87ce44c6d671e967557d4c",
-      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\WebKit-pdf.png",
-      "pngSha256": "98b4b43c38683a2bcc9fcc54c05dab58124890b5d1fa7dd6166b801a16332dcb",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-31-46-625Z\\WebKit-pdf.pdf",
+      "bytes": 302328,
+      "sha256": "5b0dca8fe2acd3187d85e660ac3901183ebc5a5c38542cdb586f4cf22da31cb7",
+      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-31-46-625Z\\WebKit-pdf.png",
+      "pngSha256": "f19cd422b1e9ca82ef4bab27f49e46e0ea085bd5a94b4c2e21067e1db32635fe",
       "inspection": {
         "width": 2048,
         "height": 1536,
@@ -205,9 +205,9 @@
         "colourProfilePreserved": true,
         "renderedPixelsIdentical": true,
         "renderReference": "original PNG through MuPDF colour management",
-        "sha256": "b440780a51f94b764144409e30dd650d960f90311a87ce44c6d671e967557d4c"
+        "sha256": "5b0dca8fe2acd3187d85e660ac3901183ebc5a5c38542cdb586f4cf22da31cb7"
       },
-      "finishedAt": "2026-09-05T15:19:51.044Z"
+      "finishedAt": "2026-09-05T15:32:09.493Z"
     },
     {
       "browser": "WebKit",
@@ -217,36 +217,36 @@
         "height": 768
       },
       "deviceScaleFactor": 2,
-      "startedAt": "2026-09-05T15:19:51.045Z",
+      "startedAt": "2026-09-05T15:32:09.494Z",
       "ok": true,
-      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621591883-0160c0",
+      "url": "http://127.0.0.2:8887/testcode/202609051531/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788622330287-0537d3",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\WebKit-source.txt",
-      "bytes": 38148260,
-      "sha256": "07d176095d6d2fecc2b1fe754d431913bd8e52c339ac5a53895269abb5824c6d",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-31-46-625Z\\WebKit-source.txt",
+      "bytes": 59466865,
+      "sha256": "644be2213164b3573be6ab72517570c82f8b2019b45d57f5094d8864198812fb",
       "manifest": {
         "format": "codex-runtime-source-v1",
         "counts": {
-          "resources": 44,
-          "included": 41,
+          "resources": 51,
+          "included": 48,
           "unavailable": 0,
           "excluded": 3,
-          "rawBytes": 26920174
+          "rawBytes": 36635046
         },
         "complete": false,
         "observedResourcesComplete": false,
         "failures": [],
-        "sourceCommit": "1579fda7731b62a724124cc3ff798160ca431149",
-        "stateUrl": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
+        "sourceCommit": "6c2cc1453129378e8e8bc6413af401e7d2c7e333",
+        "stateUrl": "http://127.0.0.2:8887/testcode/202609051531/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
       },
-      "finishedAt": "2026-09-05T15:20:03.360Z"
+      "finishedAt": "2026-09-05T15:32:16.126Z"
     }
   ],
-  "finishedAt": "2026-09-05T15:20:03.362Z",
+  "finishedAt": "2026-09-05T15:32:16.127Z",
   "ok": true
 }
