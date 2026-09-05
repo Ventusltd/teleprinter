@@ -241,6 +241,10 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.equal(await gis.locator('#mod_wp').inputValue(),'665','Restarting Module must retain GIS work');
      assert.deepEqual(await states(),beforePanel,'Restarting tool changed Atlas');
     }
+    if(process.argv.includes('--source-browser')) {
+     const opened=page.context().waitForEvent('page');await dialog.getByRole('button',{name:'Source code',exact:true}).click();const sourcePage=await opened;
+     try{await sourcePage.waitForLoadState('domcontentloaded');await sourcePage.locator('#status').filter({hasText:'Choose a file'}).waitFor();assert.equal(await sourcePage.locator('#tool').inputValue(),tool.id);await sourcePage.locator('#open').click();await sourcePage.locator('#status').filter({hasText:/^Verified /}).waitFor();}finally{await sourcePage.close();}
+    }
     if(process.argv.includes('--escape')) {
      await frame.locator('body').press('Escape');
      await dialog.waitFor({state:'hidden'});
