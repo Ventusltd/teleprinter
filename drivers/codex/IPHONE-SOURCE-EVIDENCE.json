@@ -1,0 +1,107 @@
+{
+  "schema": "codex-iphone-source-pdf-review-v1",
+  "reviewedAt": "2026-09-05T15:29:00.699050+00:00",
+  "status": "BLOCKING_SOURCE_FINDINGS_FOR_GENERATION_202609051510",
+  "artifact": {
+    "directory": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\iphone-source-202609061624",
+    "filename": "202609061624-print-source-code-iPhone.pdf",
+    "bytes": 1998904,
+    "sha256": "a593fba47c52cc481d62dc26a0d24ccb9406c5f8e4c19c78ef022f269b2bcc03",
+    "pages": 591,
+    "originalRepositoryFileRetained": true,
+    "copiedBytesMatchOriginal": true
+  },
+  "pdfMetadata": {
+    "format": "PDF 1.4",
+    "title": "",
+    "author": "",
+    "subject": "",
+    "keywords": "",
+    "creator": "Safari",
+    "producer": "iOS Version 26.6.1 (Build 23G83) Quartz PDFContext",
+    "creationDate": "D:20260905152225Z00'00'",
+    "modDate": "D:20260905152225Z00'00'",
+    "trapped": "",
+    "encryption": null
+  },
+  "pageSizePoints": [
+    595.2755737304688,
+    841.8897705078125
+  ],
+  "stateAsPrinted": {
+    "url": "https://ventusltd.github.io/gridatlas/atlas/",
+    "generation": "202609051510",
+    "capturedAt": "2026-09-05T15:21:39.238Z",
+    "viewport": {
+      "width": 440,
+      "height": 796,
+      "devicePixelRatio": 3,
+      "orientation": "portrait"
+    },
+    "selectedProject": null,
+    "layersOn": [],
+    "interpretation": "Unselected live-route visit without REPD query; null project/empty selected layers do not establish a project-arrival failure."
+  },
+  "sourceInventoryAsPrinted": {
+    "included": 32,
+    "notRead": 3,
+    "truncatedInventoryEntries": 21,
+    "fileHeadingCount": 32,
+    "codeTruncations": [
+      {
+        "page": 585,
+        "url": "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm",
+        "originalCharactersClaim": 26009,
+        "description": "\u00b7 data \u00b7 TRUNCATED: the first 4000 characters of 26009 are shown, because this is data rather than code. Nothing has been summarised or rewritten; the rest is simply not here. \u00b7 found via loaded by the browser (script)"
+      },
+      {
+        "page": 588,
+        "url": "https://cdn.jsdelivr.net/npm/apache-arrow@17.0.0/+esm",
+        "originalCharactersClaim": 200034,
+        "description": "\u00b7 data \u00b7 TRUNCATED: the first 4000 characters of 200034 are shown, because this is data rather than code. Nothing has been summarised or rewritten; the rest is simply not here. \u00b7 found via loaded by the browser (script)"
+      },
+      {
+        "page": 589,
+        "url": "https://cdn.jsdelivr.net/npm/flatbuffers@24.3.25/+esm",
+        "originalCharactersClaim": 9269,
+        "description": "\u00b7 data \u00b7 TRUNCATED: the first 4000 characters of 9269 are shown, because this is data rather than code. Nothing has been summarised or rewritten; the rest is simply not here. \u00b7 found via loaded by the browser (script)"
+      },
+      {
+        "page": 590,
+        "url": "https://cdn.jsdelivr.net/npm/tslib@2.6.3/+esm",
+        "originalCharactersClaim": 10708,
+        "description": "\u00b7 data \u00b7 TRUNCATED: the first 4000 characters of 10708 are shown, because this is data rather than code. Nothing has been summarised or rewritten; the rest is simply not here. \u00b7 found via loaded by the browser (script)"
+      }
+    ],
+    "failedResources": [
+      {
+        "url": "https://ventusltd.github.io/npm/apache-arrow@17.0.0/+esm",
+        "reportedFailure": "HTTP 404",
+        "page": 4
+      },
+      {
+        "url": "https://ventusltd.github.io/npm/tslib@2.6.3/+esm",
+        "reportedFailure": "HTTP 404",
+        "page": 4
+      },
+      {
+        "url": "https://ventusltd.github.io/npm/flatbuffers@24.3.25/+esm",
+        "reportedFailure": "HTTP 404",
+        "page": 4
+      }
+    ],
+    "composition": {
+      "url": "https://ventusltd.github.io/gridatlas/atlas/current.json",
+      "originalCharactersClaim": 46738,
+      "retainedCharactersClaim": 4000,
+      "page": 3
+    }
+  },
+  "limits": [
+    "PDF is a paginated Safari/Quartz rendering of source text, not the original source TXT byte stream.",
+    "No original per-module byte hashes are inferred from extracted PDF text.",
+    "PDF metadata and printed iPhone user agent are consistent with the user-provided physical-device account; no new device session was run.",
+    "No inference that file size prevents ChatGPT attachment.",
+    "No native screen-capture fidelity or fifty-session proof is established by a 591-page source-text PDF."
+  ]
+}

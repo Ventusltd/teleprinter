@@ -35,10 +35,59 @@ export async function imagePixels(blob) {
 
 async function displayPixels() {
   if (!navigator.mediaDevices?.getDisplayMedia) throw new Error('This browser cannot capture its own screen. Take a screenshot on your device, then choose Print a screenshot.');
-  const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false, preferCurrentTab: true });
-  const video = document.createElement('video');
+  const requestedWidth = Math.round(window.innerWidth * (window.devicePixelRatio || 1));
+  const requestedHeight = Math.round(window.innerHeight * (window.devicePixelRatio || 1));
+  const stream = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 1, width: { ideal: requestedWidth }, height: { ideal: requestedHeight } }, audio: false, preferCurrentTab: true, selfBrowserSurface: 'include' });
+  const track = stream.getVideoTracks()[0];
+  const initial = track?.getSettings?.() || {};
+  let video;
   let timeout;
+  const pixels = (source, width, height, instrument) => {
+    const current = track?.getSettings?.() || {};
+    const trackWidth = Math.max(Number(initial.width) || 0, Number(current.width) || 0);
+    const trackHeight = Math.max(Number(initial.height) || 0, Number(current.height) || 0);
+    const currentTab = initial.displaySurface === 'browser' || current.displaySurface === 'browser';
+    const requiredWidth = Math.max(trackWidth, currentTab ? requestedWidth : 0);
+    const requiredHeight = Math.max(trackHeight, currentTab ? requestedHeight : 0);
+    if (!width || !height || width > 14400 || height > 14400 || width * height > 40000000) throw new Error('The shared screen has no usable image.');
+    if (width < requiredWidth || height < requiredHeight) {
+      const error = new Error(`The browser supplied a reduced screen frame (${width} × ${height}; required ${requiredWidth} × ${requiredHeight}, track ${trackWidth} × ${trackHeight}). No reduced PDF was created. Use Print a screenshot instead.`);
+      error.code = 'REDUCED_SCREEN_FRAME';
+      throw error;
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = width; canvas.height = height;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    if (!ctx) throw new Error('The browser could not read the screen pixels.');
+    ctx.drawImage(source, 0, 0);
+    return { width, height, rgba: ctx.getImageData(0, 0, width, height).data, captureInfo: { instrument, requestedWidth, requestedHeight, trackWidth: trackWidth || null, trackHeight: trackHeight || null, currentTab, requestedViewportPixelsRetained: width >= requestedWidth && height >= requestedHeight } };
+  };
   try {
+    if (!track) throw new Error('The browser did not provide a screen video track.');
+    try { track.contentHint = 'detail'; } catch { /* Optional browser hint, never evidence of pixel dimensions. */ }
+    if (typeof globalThis.ImageCapture === 'function') {
+      const directDeadline = Date.now() + 10000;
+      while (Date.now() < directDeadline) {
+      let bitmap, expired = false, directTimer;
+      try {
+        const pending = new ImageCapture(track).grabFrame().then(value => {
+          if (expired) { value.close(); throw new Error('The direct screen frame arrived after its timeout.'); }
+          return value;
+        });
+        bitmap = await Promise.race([pending, new Promise((_, reject) => { directTimer = setTimeout(() => { expired = true; reject(new Error('No direct screen frame arrived.')); }, Math.max(1, directDeadline - Date.now())); })]);
+        return pixels(bitmap, bitmap.width, bitmap.height, 'ImageCapture.grabFrame');
+      } catch (error) {
+        if (error.code === 'REDUCED_SCREEN_FRAME' && Date.now() < directDeadline) {
+          bitmap?.close(); bitmap = undefined;
+          await new Promise(resolve => setTimeout(resolve, Math.min(100, directDeadline - Date.now())));
+          continue;
+        }
+        // Engines without usable ImageCapture keep the guarded video path.
+        break;
+      } finally { expired = true; clearTimeout(directTimer); bitmap?.close(); }
+      }
+    }
+    video = document.createElement('video');
     video.muted = true; video.playsInline = true; video.srcObject = stream;
     await Promise.race([
       (async () => {
@@ -50,17 +99,11 @@ async function displayPixels() {
       })(),
       new Promise((_,reject) => { timeout = setTimeout(() => reject(new Error('No screen frame arrived. Try Print again.')), 10000); })
     ]);
-    const width = video.videoWidth, height = video.videoHeight;
-    if (!width || !height || width * height > 40000000) throw new Error('The shared screen has no usable image.');
-    const canvas = document.createElement('canvas');
-    canvas.width = width; canvas.height = height;
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
-    ctx.drawImage(video, 0, 0);
-    return { width, height, rgba: ctx.getImageData(0, 0, width, height).data };
+    return pixels(video, video.videoWidth, video.videoHeight, 'HTMLVideoElement');
   } finally {
     clearTimeout(timeout);
     stream.getTracks().forEach(track => track.stop());
-    video.pause(); video.srcObject = null;
+    if (video) { video.pause(); video.srcObject = null; }
   }
 }
 
@@ -73,5 +116,5 @@ export async function printScreen({ capture, image, furniture, filename = 'telep
   const data = await screenPdf({ ...frame, furniture });
   const blob = new Blob([data], { type: 'application/pdf' });
   downloadFile(blob, filename);
-  return { method, width: frame.width, height: frame.height, bytes: data.length, filename, status: 'download-requested' };
+  return { method, width: frame.width, height: frame.height, bytes: data.length, filename, status: 'download-requested', ...(frame.captureInfo ? { capture: frame.captureInfo } : {}) };
 }

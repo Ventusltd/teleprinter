@@ -1,4 +1,5 @@
-/** Integration check against a served Test Code build. Generated downloads are deleted. */
+/** Historical launcher check for 202609051419. New menu-only builds use
+ * file-print-compatibility.mjs and fifty-prints.mjs. Downloads are deleted. */
 import {pathToFileURL,fileURLToPath} from 'node:url';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -26,7 +27,10 @@ for(const [name,type,options,viewport] of [
     await page.goto(new URL(route,base).href,{waitUntil:'domcontentloaded',timeout:60000});
     await page.getByRole('button',{name:'Teleprinter',exact:true}).waitFor({timeout:90000});
     if(route.startsWith('pipeline')) await page.locator('#tbody tr').first().waitFor({timeout:60000});
-    if(route.startsWith('atlas')) await page.locator('canvas').first().waitFor({timeout:60000});
+    if(route.startsWith('atlas')) {
+     await page.locator('canvas').first().waitFor({timeout:60000});
+     await page.getByText(/TEST CODE repd-2484 \| ENGINE COMPLETED/).waitFor({timeout:60000});
+    }
     await page.getByRole('button',{name:'Teleprinter',exact:true}).click();
     const downloaded=await clickAndReadDownload(page,page.getByRole('button',{name:'Print source code',exact:true}),{timeout:60000});
     assert.ok(downloaded.ok,downloaded.error);
@@ -41,7 +45,7 @@ for(const [name,type,options,viewport] of [
     assert.ok(captured);
     const inspected=spawnSync('python',[path.join(here,'inspect-pdf.py')],{input:JSON.stringify({pdf:pdf.bytes.toString('base64'),png:captured.toString('base64')}),encoding:'utf8',maxBuffer:1000000});
     assert.equal(inspected.status,0,inspected.stderr);
-    results.push({browser:name,route,ok:true,sourceBytes:downloaded.bytes.length,pdf:JSON.parse(inspected.stdout)});
+    results.push({browser:name,route,ok:true,...(route.startsWith('atlas')?{gridEngineCompleted:true}:{}),sourceBytes:downloaded.bytes.length,pdf:JSON.parse(inspected.stdout)});
     console.log(`PASS ${name} ${route||'landing'}: ${downloaded.bytes.length} source bytes, screen pixels preserved`);
    } catch(error) {results.push({browser:name,route,ok:false,error:String(error)}); console.log(`FAIL ${name} ${route}: ${error.message}`);}
    finally {captured=undefined;await context.close().catch(()=>{});}
