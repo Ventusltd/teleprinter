@@ -1,0 +1,1349 @@
+{
+  "candidate": {
+    "url": "https://globalgrid2050.com/testcode/202609052015/",
+    "generation": "202609052015",
+    "sourceCommit": "7cc598e15d1e0695a8e95bd1a484382fa3ca04df",
+    "engineCommit": "a6a9af8449d445d9204021f6c76347a25f80593c",
+    "buildSha256": "2452688ed6e465d31e260d8c6606858a0aa7001b4c8ade056908c518192b53a8"
+  },
+  "createdAt": "2026-09-05T20:22:01.353Z",
+  "finishedAt": "2026-09-05T20:25:57.184Z",
+  "ok": true,
+  "browser": "installed Chrome",
+  "physicalDevices": false,
+  "actualVisits": 50,
+  "savedDownloads": 50,
+  "fullReceiptSha256": "81d4e3b0ef24f4ec2d8f4b90603c4dd0fb7da49d37b3b746dd1cc18dfac4d546",
+  "offlineReceipt": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\architecture-reload-20260905\\next-fifty\\campaign-2015\\teleprinter-2026-09-05T20-22-01-183Z-44976\\campaign-results.json",
+  "scenarios": [
+    {
+      "id": "01",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "project": "2484",
+      "layers": [
+        "400",
+        "275"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-01-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:06.961Z",
+          "bytes": 206011,
+          "sha256": "ea7af2a28c429f3c0b63b8f13371748e06cbda762f09af3eb5653bc042533cb6",
+          "pngSha256": "e4376bf09b14aad4747d4a43b94e65a2316149b02861147e0091c63312ffed3e",
+          "inspection": {
+            "width": 1440,
+            "height": 900,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9584598765432099,
+              "menu": 0.9747942386831275,
+              "left": 0.9461064814814815,
+              "middle": 0.9966875,
+              "right": 0.9325856481481481
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-01-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:12.210Z",
+          "bytes": 61772470,
+          "sha256": "99ca987d6e3e6c6423e0d3f01fe61f38789edaca36d2ca0f8b177ad9e778e84f",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-portrait",
+        "width": 900,
+        "height": 1200,
+        "dpr": 1
+      },
+      "project": "18790",
+      "layers": [
+        "220",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-02-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:16.086Z",
+          "bytes": 214117,
+          "sha256": "f9b1c5825b82ebfb47434959f032f56fa04b1da48f1cfa3e7de64547fa61657a",
+          "pngSha256": "37436282c3dfad509f59c28d48cd3204162ac787af61047a99c6b6f5d0cf3d1a",
+          "inspection": {
+            "width": 900,
+            "height": 1200,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9278453703703704,
+              "menu": 0.969645061728395,
+              "left": 0.9086888888888889,
+              "middle": 0.9382194444444445,
+              "right": 0.9366277777777777
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-02-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:21.076Z",
+          "bytes": 62572351,
+          "sha256": "9e9caac080e742d2c6b876117abac37b6464d52e205824e5c75ce14fa07727a8",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPad-emulation",
+        "width": 1024,
+        "height": 768,
+        "dpr": 2
+      },
+      "project": "11613",
+      "layers": [
+        "400",
+        "220",
+        "132"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-03-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:25.442Z",
+          "bytes": 324974,
+          "sha256": "3bd3a0166cf1bffe8f5e2f6e667d7b6c44e2eb7d26212cbcf55730377c272e8d",
+          "pngSha256": "9ea6326fe2c972cfa3ac148081b210c08b934c5aee0252cc7bb673b21804a24e",
+          "inspection": {
+            "width": 2048,
+            "height": 1536,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9503873189290365,
+              "menu": 0.9704324473505435,
+              "left": 0.9298927404081134,
+              "middle": 0.9658941861883846,
+              "right": 0.9553450234870668
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-03-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:30.260Z",
+          "bytes": 57295061,
+          "sha256": "bedb4e27e1b1d557b9b30efb77878d918c427ed467c737bac4bcd6f46e4b16ca",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPhone-emulation",
+        "width": 393,
+        "height": 852,
+        "dpr": 2
+      },
+      "project": "2484",
+      "layers": [
+        "275",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-04-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:34.949Z",
+          "bytes": 131119,
+          "sha256": "1895987eff3ba174074be07b788011b0e5674a987a9ff77e98d1c0cc6eecbdef",
+          "pngSha256": "f7f7c9632fb7873c1a8cf2bdb401b052b5a1aeff7b499bff64df20b0095ced72",
+          "inspection": {
+            "width": 786,
+            "height": 1704,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.956189746622227,
+              "menu": 0.9754527765304595,
+              "left": 0.9035117191699817,
+              "middle": 0.9781094326774898,
+              "right": 0.9869480880192094
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-04-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:40.443Z",
+          "bytes": 59319134,
+          "sha256": "3b1ad71c960fcb3e7cff3cce405b31a51e994f2d034d0b7cb46909858d2e5224",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "kind": "atlas",
+      "geometry": {
+        "name": "mobile-landscape",
+        "width": 852,
+        "height": 393,
+        "dpr": 2
+      },
+      "project": "18790",
+      "layers": [
+        "400",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-05-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:44.834Z",
+          "bytes": 193083,
+          "sha256": "925ad86671fdfa2162790492229a51bae116fd07493010408b48a7a883dd2550",
+          "pngSha256": "1416153a435dd1a302089116a8c246578ece542eef647dc96e2d88ee4df69430",
+          "inspection": {
+            "width": 1704,
+            "height": 786,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9580137739072262,
+              "menu": 0.9731295574867646,
+              "left": 0.9502943231910548,
+              "middle": 0.9535959395047128,
+              "right": 0.9701510590259111
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-05-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:49.566Z",
+          "bytes": 58802579,
+          "sha256": "19966ed993ac1d9011de60db5112f07f12d071d84e7cfe56d25a3a0eddb2bbaf",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "project": "11613",
+      "layers": [
+        "400",
+        "275"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-06-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:22:53.930Z",
+          "bytes": 150204,
+          "sha256": "811e73565c1efe1f7a638e1ca2506f0f3822ba1814c83a0e3d8dfbdcc7d8dd18",
+          "pngSha256": "54137d78ab5e25e6d6c79cdf8df451c4caaeef11058812f529cc2bf7612b1603",
+          "inspection": {
+            "width": 1440,
+            "height": 900,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.954891975308642,
+              "menu": 0.974781378600823,
+              "left": 0.9392731481481481,
+              "middle": 0.9928726851851852,
+              "right": 0.9325300925925926
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-06-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:03.510Z",
+          "bytes": 58867538,
+          "sha256": "f47f9f71b6eee6cc43595b9af40bfebb1617d325d0646d78bce397651f799cf3",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-portrait",
+        "width": 900,
+        "height": 1200,
+        "dpr": 1
+      },
+      "project": "2484",
+      "layers": [
+        "220",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-07-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:08.139Z",
+          "bytes": 167198,
+          "sha256": "4cd9b2ee12c93080699cfcb9e94e4d20f181c70e917fbded483b55ab0efc0d80",
+          "pngSha256": "7327e49fa96fd33c51d83e742c184c17ef496fd287835e43fd71db367e528284",
+          "inspection": {
+            "width": 900,
+            "height": 1200,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9288148148148148,
+              "menu": 0.9695833333333334,
+              "left": 0.9126583333333333,
+              "middle": 0.9371666666666667,
+              "right": 0.9366194444444444
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-07-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:13.020Z",
+          "bytes": 61574970,
+          "sha256": "5fe82651b9011a9acbe44fe9c5f5f9616453d47ac306dae06d53725e916a7f96",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPad-emulation",
+        "width": 1024,
+        "height": 768,
+        "dpr": 2
+      },
+      "project": "18790",
+      "layers": [
+        "400",
+        "220",
+        "132"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-08-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:18.603Z",
+          "bytes": 590921,
+          "sha256": "059ce8a22e477a40fab20052a54b80847fcb1b61f08d0fc48862c3a5a9ea0325",
+          "pngSha256": "9c33b7b3c13b0f5bb0b5596b73e3e4f6cdc9aeb958d171e9e00411b190c54deb",
+          "inspection": {
+            "width": 2048,
+            "height": 1536,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9507102966308594,
+              "menu": 0.9703846807065217,
+              "left": 0.9310029478250245,
+              "middle": 0.9658398532820889,
+              "right": 0.9552592346876525
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-08-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:23.263Z",
+          "bytes": 58299301,
+          "sha256": "232fec4297b6d65a76eafeaca6978000589be0e7f422238319f24507ff7e08e5",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPhone-emulation",
+        "width": 393,
+        "height": 852,
+        "dpr": 2
+      },
+      "project": "11613",
+      "layers": [
+        "275",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-09-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:28.197Z",
+          "bytes": 123231,
+          "sha256": "a9e1f160c2a27b6aee0a6fb72f74059846d951a7d2ec097cdf6042cf72c5609b",
+          "pngSha256": "e6423c84d6fa452e78b6f435aaa9843e2440365b14d4f7e33992140890c5de90",
+          "inspection": {
+            "width": 786,
+            "height": 1704,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9562659033078881,
+              "menu": 0.9754527765304595,
+              "left": 0.9036102748808372,
+              "middle": 0.9779705587212845,
+              "right": 0.9872168763215425
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-09-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:33.852Z",
+          "bytes": 57538674,
+          "sha256": "2ca4ec145b19af4307e0d5f99583d4bb86066bdb7680594977f9fdfe6df2dcc8",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "kind": "atlas",
+      "geometry": {
+        "name": "mobile-landscape",
+        "width": 852,
+        "height": 393,
+        "dpr": 2
+      },
+      "project": "2484",
+      "layers": [
+        "400",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-10-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:37.978Z",
+          "bytes": 186852,
+          "sha256": "0805e65daa1dd62f2612bb57f7f922f1e14c4b5142b90c89d40f228b8683955d",
+          "pngSha256": "a07ff7d1da5a9a23ec2d1f45eb82fc72c4bff25f49f8be0a9671e844c6882e95",
+          "inspection": {
+            "width": 1704,
+            "height": 786,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9580727580069048,
+              "menu": 0.9731295574867646,
+              "left": 0.9491698921262947,
+              "middle": 0.9546330143712146,
+              "right": 0.9704153675232053
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-10-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:42.880Z",
+          "bytes": 73644329,
+          "sha256": "a5681003cdf794134e53a80084550fad1fc24b802fac37a8637e57223d0aa59a",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "project": "18790",
+      "layers": [
+        "400",
+        "275"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-11-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:47.369Z",
+          "bytes": 353245,
+          "sha256": "535117ff80a2190acaad9e4697f23c16f43350fa5cd4cab399c60e22bb05e497",
+          "pngSha256": "854129d92f70741d51a422603e5aed56add311ecbe0b9198a759d799a8eccaf5",
+          "inspection": {
+            "width": 1440,
+            "height": 900,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9574768518518518,
+              "menu": 0.9749099794238684,
+              "left": 0.9434768518518518,
+              "middle": 0.9963425925925926,
+              "right": 0.9326111111111111
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-11-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:55.188Z",
+          "bytes": 26900578,
+          "sha256": "7bbd7969932da18a39d1410822e54fc7ec5904d1f6653064eb03d9d38c3ee75c",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-portrait",
+        "width": 900,
+        "height": 1200,
+        "dpr": 1
+      },
+      "project": "11613",
+      "layers": [
+        "220",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-12-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:23:59.675Z",
+          "bytes": 147962,
+          "sha256": "eef9735c0b6d04c028fc62941a40fcc706451755171aecadaea5e0ee51068b44",
+          "pngSha256": "374f389a74913f9df2325f6f0ba53d4976f0bca0d9aa6f4be31e44579a942ee3",
+          "inspection": {
+            "width": 900,
+            "height": 1200,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9277981481481481,
+              "menu": 0.9695216049382716,
+              "left": 0.9094611111111112,
+              "middle": 0.9373138888888889,
+              "right": 0.9366194444444444
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-12-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:04.574Z",
+          "bytes": 55417170,
+          "sha256": "b52e4adcc7f5ba1163704114b827e95ba822694bf4a0fe33b2807d0af6a6c4a5",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPad-emulation",
+        "width": 1024,
+        "height": 768,
+        "dpr": 2
+      },
+      "project": "2484",
+      "layers": [
+        "400",
+        "220",
+        "132"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-13-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:09.459Z",
+          "bytes": 402071,
+          "sha256": "d4fda46cb8edb26f98721709af9490f9536e3c0c29630f1ab56fcf54896e3019",
+          "pngSha256": "833c84de561e1cb91bc8ff893759676a965e6c83fc62a8e2e8c1abe640c2c15c",
+          "inspection": {
+            "width": 2048,
+            "height": 1536,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9508625666300455,
+              "menu": 0.970320991847826,
+              "left": 0.9314019733626588,
+              "middle": 0.9658122102244997,
+              "right": 0.9553450234870668
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-13-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:14.548Z",
+          "bytes": 61102430,
+          "sha256": "0e374ac72fae04e779787ae836ca3d17543bb86d030044d06963fbf82a920b79",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPhone-emulation",
+        "width": 393,
+        "height": 852,
+        "dpr": 2
+      },
+      "project": "18790",
+      "layers": [
+        "275",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-14-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:18.817Z",
+          "bytes": 163827,
+          "sha256": "aaff83c59cd4520f25f530c69847e2249250d65aec3784b7009ee96433187342",
+          "pngSha256": "9a6ddadc1fa16ac9d218f9f1fe2297544a2109e5b9133885dca8d79a39f601f0",
+          "inspection": {
+            "width": 786,
+            "height": 1704,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9560068212498058,
+              "menu": 0.9754527765304595,
+              "left": 0.9033683654087374,
+              "middle": 0.9777891266172096,
+              "right": 0.9868629717234706
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-14-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:24.142Z",
+          "bytes": 63858199,
+          "sha256": "001adfb49f2fdd21bfaf0dcc10ca72d098d510e75086d256794b70e3686ec12b",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "kind": "atlas",
+      "geometry": {
+        "name": "mobile-landscape",
+        "width": 852,
+        "height": 393,
+        "dpr": 2
+      },
+      "project": "11613",
+      "layers": [
+        "400",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-15-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:28.400Z",
+          "bytes": 155672,
+          "sha256": "dbdaaafbae3cb71e39c6161b1af48b33ac42f2641d5830c6eea23cdef166993a",
+          "pngSha256": "4f7b79bf1e63a56bfbccd487b289a9037276292e5877cffb69eb377af2bd6df7",
+          "inspection": {
+            "width": 1704,
+            "height": 786,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9514486196227406,
+              "menu": 0.9731295574867646,
+              "left": 0.9320368777550802,
+              "middle": 0.9519003332974949,
+              "right": 0.9704086478156471
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-15-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:33.414Z",
+          "bytes": 62632610,
+          "sha256": "e388472e770753d6a3d25b74e020fcdd8926631835bdc50062cffc22e1e3ab71",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "project": null,
+      "layers": [],
+      "search": "Berwick",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-16-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:38.677Z",
+          "bytes": 85353,
+          "sha256": "3c2ae514d941d022ccec23385a6f64bc76e5aac8e9b03b7833a59645f5e9228e",
+          "pngSha256": "48ce3729bb795bbf5d0bc07ed7f09d245f26862fa3153c0b013553e5686b94ad",
+          "inspection": {
+            "width": 1440,
+            "height": 900,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9066350308641975,
+              "menu": 0.8971322016460905,
+              "left": 0.9602893518518518,
+              "middle": 0.8740856481481482,
+              "right": 0.8855300925925926
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-16-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:41.660Z",
+          "bytes": 12466412,
+          "sha256": "42aa5e7fdd24f954fd63e68b10c161761ce80a2efe68eb0153f18aeb93810ef2",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "desktop-portrait",
+        "width": 900,
+        "height": 1200,
+        "dpr": 1
+      },
+      "project": null,
+      "layers": [],
+      "search": "Ossian",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-17-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:46.361Z",
+          "bytes": 74199,
+          "sha256": "c17d89c78f75bc5d4b7873479c046fe5a7bfa000ea0fc5e6bd04256c476fc4d8",
+          "pngSha256": "1bb587d0bb6ab0d61d6f72f20e783e117f91ac930154fbe25e26d772fd965e8b",
+          "inspection": {
+            "width": 900,
+            "height": 1200,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9074555555555556,
+              "menu": 0.9279320987654321,
+              "left": 0.9875666666666667,
+              "middle": 0.8754638888888889,
+              "right": 0.8593361111111111
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-17-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:49.276Z",
+          "bytes": 12457588,
+          "sha256": "bf22d18bac68c8c085ed18e011baa3249d6c84adb7f05eebcd86adfab9c5ac48",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "iPad-emulation",
+        "width": 1024,
+        "height": 768,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": "Hornsea",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-18-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:54.578Z",
+          "bytes": 161530,
+          "sha256": "f242801cd84fc8635ab121abf4be649a59cf25a051aabd0c5017067cd70e416d",
+          "pngSha256": "c28fdf3ba67a1f28eefe0c48d613068da61f542e27c72aab191a4c7a7d7a2032",
+          "inspection": {
+            "width": 2048,
+            "height": 1536,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9261445999145508,
+              "menu": 0.8899509595788043,
+              "left": 0.9856093062683284,
+              "middle": 0.8938029984138605,
+              "right": 0.8991085590531966
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-18-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:24:57.215Z",
+          "bytes": 12466286,
+          "sha256": "0e8fabdd3cbc37e6f07830da9e590f72a66781d81e6cd4d5132355d2757a0f93",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "iPhone-emulation",
+        "width": 393,
+        "height": 852,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": "Dogger",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-19-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:01.715Z",
+          "bytes": 81937,
+          "sha256": "82b040075e1e13cf58b7920caaa341e670cd6c5315244abe5c7b98d8aa20a558",
+          "pngSha256": "6bc2cd5fee15c7e9aefb5f461a783672d5f1eb567f1473165776d0cef743917b",
+          "inspection": {
+            "width": 786,
+            "height": 1704,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9428809924858736,
+              "menu": 0.9892730629147333,
+              "left": 0.9247885532021647,
+              "middle": 0.9313716267068057,
+              "right": 0.9724827975486506
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-19-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:04.170Z",
+          "bytes": 12464613,
+          "sha256": "47699adc22155422ea9c1db01e841d5d26ea8c69f34d5d628ae23c78cc86d871",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "mobile-landscape",
+        "width": 852,
+        "height": 393,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": "Norfolk",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-20-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:10.064Z",
+          "bytes": 68104,
+          "sha256": "ff1b1e60697d0bcfb6931fe2d39e8d3fe78ae9512421d5da825c4614d6e2a37e",
+          "pngSha256": "b119d7e893932228fd1092fc4d114d19bba020ad45e3a83fbb7fbfc38ca73c8d",
+          "inspection": {
+            "width": 1704,
+            "height": 786,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9384452388632046,
+              "menu": 0.973766357007292,
+              "left": 0.9734145969967387,
+              "middle": 0.9075413038024586,
+              "right": 0.9343798157904168
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-20-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:12.227Z",
+          "bytes": 12566323,
+          "sha256": "5b871a56fa359d8217b1e6c0f8f7c8937af68a5770dc592a6623596176d9109d",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "project": null,
+      "layers": [],
+      "search": "RWE",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-21-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:24.593Z",
+          "bytes": 85535,
+          "sha256": "cad728634c006e3640104c058da2ff215a9aa6de3928f8facfd22dbacb72ce93",
+          "pngSha256": "2f2888cae4e44ffa77753902c003b931bb03b59a5131a864112166a19853c6ba",
+          "inspection": {
+            "width": 1440,
+            "height": 900,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9105586419753087,
+              "menu": 0.8971322016460905,
+              "left": 0.9586666666666667,
+              "middle": 0.8729699074074074,
+              "right": 0.9000393518518518
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-21-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:26.893Z",
+          "bytes": 12564435,
+          "sha256": "65bbe4f6870cdef6961566e5200799acb06922389dd10ad18b6860a803a4ee55",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "22",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "desktop-portrait",
+        "width": 900,
+        "height": 1200,
+        "dpr": 1
+      },
+      "project": null,
+      "layers": [],
+      "search": "SSE",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-22-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:31.772Z",
+          "bytes": 74765,
+          "sha256": "4c416d9a729df91816ee0e8261c8bc26d50553b35d4f14238ad1f5696eccb076",
+          "pngSha256": "609b1e2e31d87e0cdb191efed95722f2028d264659635084892728685a5b4e3e",
+          "inspection": {
+            "width": 900,
+            "height": 1200,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9056388888888889,
+              "menu": 0.9279320987654321,
+              "left": 0.9875666666666667,
+              "middle": 0.8730055555555556,
+              "right": 0.8563444444444445
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-22-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:34.499Z",
+          "bytes": 12567158,
+          "sha256": "e8c39536ffa68737bdafc87d138372d7bbadfb06ac11b26f343b269e37b2e68a",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "iPad-emulation",
+        "width": 1024,
+        "height": 768,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": "Orsted",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-23-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:46.778Z",
+          "bytes": 162249,
+          "sha256": "e638c4a5da526776f3f4ca313d49284e3476b9d4c88e658cc8938f25711fe3c0",
+          "pngSha256": "8c9c99f56dcca0f54b5900fbc9683c28f55b967df37acb4d79371e4d87da466d",
+          "inspection": {
+            "width": 2048,
+            "height": 1536,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9254938761393229,
+              "menu": 0.8899509595788043,
+              "left": 0.9856093062683284,
+              "middle": 0.8927706731942411,
+              "right": 0.8981896656905808
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-23-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:49.550Z",
+          "bytes": 12518487,
+          "sha256": "4665ff202e453f2ba0aaafd0749c21dd86cb491e552fead13b8b4247d1202a57",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "kind": "landing",
+      "geometry": {
+        "name": "iPhone-emulation",
+        "width": 393,
+        "height": 852,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-24-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:52.018Z",
+          "bytes": 142323,
+          "sha256": "9780297afa00394ef03e73daa82ce9e523eab9115de19a9714cad7b43350e100",
+          "pngSha256": "26b3c5797ce08de99ec0c116c0e4ad1affc8b30de967f261322cbba9cff7761a",
+          "inspection": {
+            "width": 786,
+            "height": 1704,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.9053126007956134,
+              "menu": 0.990083819787457,
+              "left": 0.8980239579973479,
+              "middle": 0.8747625703329391,
+              "right": 0.9431512740565531
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-24-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:53.503Z",
+          "bytes": 1150942,
+          "sha256": "4806ae60f19979685ce8a9d280631295c8bca73dcca04f966a8b333110153e6b",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "kind": "landing",
+      "geometry": {
+        "name": "mobile-landscape",
+        "width": 852,
+        "height": 393,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-25-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:55.652Z",
+          "bytes": 91165,
+          "sha256": "bd20bf143ebdc748df825c8ba740daf24c044fa2b6b01c4fecc0b23d106ecb25",
+          "pngSha256": "efd1e70c8c8977ba2de75cf3854d7c67a5b2f39426b113112928e379ec4ff9bc",
+          "inspection": {
+            "width": 1704,
+            "height": 786,
+            "imageUnscaled": true,
+            "furnitureOutsideImage": true,
+            "fractionWithin32PerChannel": {
+              "whole": 0.938872313610245,
+              "menu": 1,
+              "left": 0.9172781600544744,
+              "middle": 0.9276220298892592,
+              "right": 0.9717167508870014
+            },
+            "scope": "Approximate app-render comparison, threshold85% per region; not browser compositor pixel equivalence."
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T20-22-01-183Z-44976-25-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T20:25:57.038Z",
+          "bytes": 1150942,
+          "sha256": "ac1058690a8278f534335de6da823599cc1292ca2c1a30ab0f7b4c587333cff0",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    }
+  ]
+}
