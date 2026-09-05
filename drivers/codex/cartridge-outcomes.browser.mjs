@@ -15,6 +15,14 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
  try {
   browser=await chromium.launch({channel:'chrome',headless:true});
   page=await browser.newPage({viewport,deviceScaleFactor:viewport.width===393?2:1});
+  if(process.argv.includes('--local-tool-capsules')) {
+   record.localToolCapsules=true;
+   await page.route('**/tool-layers/*.js',async route=>{
+    const name=new URL(route.request().url()).pathname.split('/').at(-1);
+    if(!['host.js','dismissal.js','focus-boundary.js'].includes(name))return route.continue();
+    await route.fulfill({body:await fs.readFile(path.join('C:/Users/vikra/testcode-source-publication/sandbox/capsules/tool-layers',name)),contentType:'text/javascript'});
+   });
+  }
   await page.goto(new URL('atlas/?repd_ref=1938&technology=solar',base).href,{waitUntil:'domcontentloaded'});
   await page.getByText(/TEST CODE repd-1938 \| ENGINE COMPLETED/).first().waitFor({timeout:90000});
   const grid=page.locator('#codex-layer-quick-controls [data-layer-command="grid"]');
