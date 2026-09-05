@@ -1,0 +1,238 @@
+{
+  "schema": "codex-offline-evidence-inventory-v1",
+  "root": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots",
+  "fileTypes": {
+    ".jpg": {
+      "files": 2,
+      "bytes": 358499
+    },
+    ".txt": {
+      "files": 118,
+      "bytes": 3840534128
+    },
+    ".pdf": {
+      "files": 119,
+      "bytes": 27429901
+    },
+    ".json": {
+      "files": 270,
+      "bytes": 1577144560
+    },
+    ".png": {
+      "files": 142,
+      "bytes": 29782185
+    },
+    ".py": {
+      "files": 1,
+      "bytes": 1711
+    },
+    ".mjs": {
+      "files": 17,
+      "bytes": 1764241
+    },
+    ".bin": {
+      "files": 13,
+      "bytes": 1159085
+    },
+    ".html": {
+      "files": 4,
+      "bytes": 144
+    },
+    ".js": {
+      "files": 4,
+      "bytes": 87
+    }
+  },
+  "pdfFiles": 119,
+  "pdfReadable": 119,
+  "pdfPages": 709,
+  "seconds": 0.84,
+  "scope": "Actual PDF bytes hashed and every page opened, text extracted, image dimensions read. Existing report claims inventoried, not promoted to independently verified passes. No visual fidelity or physical-device claim.",
+  "fullOfflineInventorySha256": "19cfc0645c15893cbf640a4ae3582e8383c494e37577e4ce1a87faaabca4bd00",
+  "comparisonPdfs": [
+    {
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\measure-gridatlas-lane\\rerun-202609051556\\01-pdf-phone-portrait.pdf",
+      "bytes": 149613,
+      "sha256": "4e5c38bea730ecbb69a2f374a8a93141af0893d96888641d5b88022b46c971a4",
+      "pages": 1,
+      "pageRecords": [
+        {
+          "page": 1,
+          "size": [
+            786.0,
+            1762.0
+          ],
+          "images": [
+            [
+              786,
+              1704
+            ]
+          ],
+          "textCharacters": 150
+        }
+      ],
+      "ok": true
+    },
+    {
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\measure-gridatlas-lane\\rerun-202609051556\\03-pdf-ipad-portrait.pdf",
+      "bytes": 576070,
+      "sha256": "735c88e0aba259cf0dc1cd74736599fd6bc07691e20a48eaf52aa03e0d39b2c5",
+      "pages": 1,
+      "pageRecords": [
+        {
+          "page": 1,
+          "size": [
+            1668.0,
+            2333.0
+          ],
+          "images": [
+            [
+              1668,
+              2224
+            ]
+          ],
+          "textCharacters": 181
+        }
+      ],
+      "ok": true
+    },
+    {
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\measure-gridatlas-lane\\rerun-202609051556\\05-pdf-ultrawide.pdf",
+      "bytes": 507108,
+      "sha256": "2e54c14c136edff9cbd3e61053c0047a7cd45897a08ecedee3f4325fb2765611",
+      "pages": 1,
+      "pageRecords": [
+        {
+          "page": 1,
+          "size": [
+            2326.0,
+            1232.0
+          ],
+          "images": [
+            [
+              2326,
+              1156
+            ]
+          ],
+          "textCharacters": 174
+        }
+      ],
+      "ok": true
+    }
+  ],
+  "claudeSourceFrames": [
+    {
+      "file": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\measure-gridatlas-lane\\rerun-202609051556\\02-source-phone-landscape.txt",
+      "bytes": 13260430,
+      "sha256": "df16dcf94648c1db4e66b05598f62905ec424dd93627f5e0770d194a95ec6db0",
+      "fileFrames": 33,
+      "npmResourceUrls": [
+        "https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js",
+        "https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css",
+        "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm",
+        "https://cdn.jsdelivr.net/npm/apache-arrow@17.0.0/+esm",
+        "https://cdn.jsdelivr.net/npm/tslib@2.6.3/+esm",
+        "https://cdn.jsdelivr.net/npm/flatbuffers@24.3.25/+esm"
+      ],
+      "sameOriginNpmFrames": [],
+      "truncationMarkers": 17,
+      "note": "Frame URL headers counted, not arbitrary comments. Truncation marker count alone cannot establish truncation because source contains its own diagnostics."
+    },
+    {
+      "file": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\measure-gridatlas-lane\\rerun-202609051556\\04-source-desktop.txt",
+      "bytes": 13255115,
+      "sha256": "c4a1d8e718352c9f1fe967420ee6e9d04940f7875917c5ad0af9b8b446f8a3a7",
+      "fileFrames": 32,
+      "npmResourceUrls": [
+        "https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js",
+        "https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css",
+        "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm",
+        "https://cdn.jsdelivr.net/npm/apache-arrow@17.0.0/+esm",
+        "https://cdn.jsdelivr.net/npm/tslib@2.6.3/+esm",
+        "https://cdn.jsdelivr.net/npm/flatbuffers@24.3.25/+esm"
+      ],
+      "sameOriginNpmFrames": [],
+      "truncationMarkers": 17,
+      "note": "Frame URL headers counted, not arbitrary comments. Truncation marker count alone cannot establish truncation because source contains its own diagnostics."
+    },
+    {
+      "file": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\measure-gridatlas-lane\\rerun-202609051556\\06-source-phone-portrait.txt",
+      "bytes": 13255625,
+      "sha256": "da5fd33c6c5d316eb32e25434b08e2bd506ebd905f13ab271d1f9b8d12c9c077",
+      "fileFrames": 32,
+      "npmResourceUrls": [
+        "https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js",
+        "https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css",
+        "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm",
+        "https://cdn.jsdelivr.net/npm/apache-arrow@17.0.0/+esm",
+        "https://cdn.jsdelivr.net/npm/tslib@2.6.3/+esm",
+        "https://cdn.jsdelivr.net/npm/flatbuffers@24.3.25/+esm"
+      ],
+      "sameOriginNpmFrames": [],
+      "truncationMarkers": 17,
+      "note": "Frame URL headers counted, not arbitrary comments. Truncation marker count alone cannot establish truncation because source contains its own diagnostics."
+    }
+  ],
+  "claudeCi": {
+    "schema": "gridatlas-teleprint-ci-v1",
+    "ranAt": "2026-09-05T16:25:30.313Z",
+    "repo": "C:\\Users\\vikra\\OneDrive\\Documents\\GitHub\\gridatlas-main-202609050200",
+    "network": false,
+    "browser": false,
+    "checks": [
+      {
+        "name": "drivers-parse",
+        "ok": true,
+        "detail": "6 files"
+      },
+      {
+        "name": "part-matches",
+        "ok": true,
+        "detail": "OK     202609051624-teleprint-controls.js (served by generation 202609051624) | history 9 superseded part(s), not verified: 202609051503-teleprint-controls.js, 202609051510-teleprint-controls.js, 202609051522-teleprint-controls.js, 202609051525-teleprint-controls.js, 202609051526-teleprint-controls.js, 202609051529-teleprint-controls.js, 202609051539-teleprint-controls.js, 202609051556-teleprint-controls.js, 202609051616-teleprint-controls.js"
+      },
+      {
+        "name": "part-parses",
+        "ok": true,
+        "detail": "202609051624-teleprint-controls.js (served)"
+      },
+      {
+        "name": "history-declared",
+        "ok": true,
+        "detail": "10 vendored part(s) in history; 3 do not parse (202609051525-teleprint-controls.js, 202609051526-teleprint-controls.js, 202609051529-teleprint-controls.js) \u2014 superseded, immutable"
+      },
+      {
+        "name": "cartridges-parse",
+        "ok": true,
+        "detail": "generation 202609051624, 4 cartridges"
+      },
+      {
+        "name": "gate-refuses",
+        "ok": true,
+        "detail": "refused a part that does not parse"
+      },
+      {
+        "name": "drivers-run",
+        "ok": true,
+        "detail": "4 runtime tests passed"
+      },
+      {
+        "name": "no-invented-urls",
+        "ok": true,
+        "detail": "root-relative names are dropped, not resolved against the page"
+      },
+      {
+        "name": "tree-declared",
+        "ok": true,
+        "detail": "gridatlas-main-202609050200 at 0ea9ba1, 2 uncommitted path(s)"
+      }
+    ],
+    "passed": 9,
+    "failed": 0,
+    "ok": true,
+    "doesNotEstablish": [
+      "that the page works \u2014 no browser is opened here",
+      "anything about a physical iPhone or Android device",
+      "that dependency discovery is complete; a browser cannot prove that"
+    ]
+  }
+}

@@ -91,6 +91,14 @@ for (const specimen of cases) {
           const stream = await original(...args);
           const videoTracks = stream.getVideoTracks();
           proof.tracks.push(...stream.getTracks());
+          call.trackReceivedAt = new Date().toISOString();
+          for (const track of stream.getTracks()) {
+            const originalStop = track.stop.bind(track);
+            track.stop = (...stopArgs) => {
+              if (!call.firstTrackStoppedAt) call.firstTrackStoppedAt = new Date().toISOString();
+              return originalStop(...stopArgs);
+            };
+          }
           call.videoTracks = videoTracks.map(track => ({ label: track.label, readyState: track.readyState, settings: track.getSettings() }));
           return stream;
         } catch (error) { call.error = String(error); throw error; }
