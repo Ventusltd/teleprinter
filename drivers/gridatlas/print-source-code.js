@@ -40,6 +40,13 @@
  * see a gap will reason as though it is not there.
  */
 
+/* Written this way on purpose: a newline literal typed into this file has
+   twice been turned into a REAL line break by the tooling that edits it,
+   producing a single-quoted string spanning two lines -- valid-looking here
+   and a syntax error once flattened into a cartridge. A named constant
+   cannot be corrupted the same way. */
+const NL = String.fromCharCode(10);
+
 const MAX_RESOURCES = 400;
 const MAX_TOTAL_BYTES = 48 * 1024 * 1024;
 const FETCH_TIMEOUT_MS = 20000;
@@ -133,6 +140,16 @@ function discover() {
   const add = (url, how) => {
     if (!url) return;
     let absolute;
+    /* NEVER INVENT A SAME-ORIGIN URL.
+       jsDelivr's `+esm` bundles begin with imports that are ROOT-RELATIVE to
+       the CDN. Resolved against location.href they became
+       https://ventusltd.github.io/npm/... , which 404s -- so the teleprint
+       reported three missing dependencies that do not exist, while the
+       architect's own iPhone print carried all three from the CDN correctly.
+       A printer that invents a defect is worse than one that misses it.
+       A root-relative name is therefore dropped rather than guessed at;
+       everything performance.getEntriesByType reports is already absolute. */
+    if (String(url).startsWith('/') && !String(url).startsWith('//')) return;
     try { absolute = new URL(url, location.href).href; } catch (_) { return; }
     if (absolute.startsWith('blob:') || absolute.startsWith('data:')) return;
     if (seen.has(absolute)) { seen.get(absolute).how.add(how); return; }
@@ -291,8 +308,7 @@ export async function collectSourceCode({ appName = 'GridAtlas', inlineDom = tru
     state,
     /* Kept separately so the delivery step can cut volumes at file
        boundaries without re-parsing the text it just built. */
-    header: headerLines.join('
-'),
+    header: headerLines.join(NL),
     blocks: fileBlocks
   };
 }

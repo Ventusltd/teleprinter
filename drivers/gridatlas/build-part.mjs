@@ -25,6 +25,7 @@
 import { readFile, writeFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -117,6 +118,32 @@ if (verifyOnly) {
     }
   }
   process.exit(bad ? 1 : 0);
+}
+
+/* PARSE THE THING THAT SHIPS, NOT THE THING IT CAME FROM.
+   ------------------------------------------------------------------------
+   On 2026-09-05 this build emitted a part containing a single-quoted string
+   with a raw line break. `node --check` passed on the ES module it was
+   flattened from -- a different file -- so nothing caught it, the part went
+   into a cartridge, the cartridge went live, and window.initVentusMap never
+   ran: no map, no menu bar, no layer controls, in every browser. The architect
+   found it on the live site.
+
+   A generated file that is never parsed is a generated file that is not
+   checked. This refuses to write one that does not parse. */
+const { writeFileSync, unlinkSync } = await import('node:fs');
+const os = await import('node:os');
+const probe = path.join(os.tmpdir(), `teleprint-part-${Date.now()}.js`);
+writeFileSync(probe, part, 'utf8');
+try {
+  const checked = spawnSync(process.execPath, ['--check', probe], { encoding: 'utf8' });
+  if (checked.status !== 0) {
+    console.error('the generated part does not parse; refusing to write it');
+    console.error(checked.stderr);
+    process.exit(1);
+  }
+} finally {
+  try { unlinkSync(probe); } catch (_) { /* nothing to clean */ }
 }
 
 await writeFile(partPath, part, 'utf8');
