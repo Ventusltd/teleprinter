@@ -209,3 +209,19 @@ The user's separate Codex-driver request is implemented through
 `drivers/codex/controls.js`; Test Code imports that entry point. Root Claude
 engines remain intact for comparison. Read `drivers/codex/README.md` for the API
 and measured limits before substituting APIs in root `index.js`.
+
+## Codex continuation — 2026-09-05 15:01 UTC
+
+The user reaffirmed two separate functions, both inside this repository and the
+app's File menu: Print (PDF of the rendered screen) and Print source code (current
+browser source, state and dependencies for AI review). Codex owns drivers/codex;
+it does not replace the Claude root engines. The new candidate is 202609051457.
+Its source print now includes live map source responses and open shadow DOM;
+remaining worker/tile discovery gaps are listed in the text, never called complete.
+Neither Codex command calls window.print or the browser print pipeline.
+
+The user now permits generated screenshots, PDFs and source TXT downloads under
+C:/Users/vikra/OneDrive/Desktop/offline-screenshots only. Do not stage those artifacts.
+Publish code and measured findings only. Fifty fresh Chrome visits (25 PDF plus
+25 source) are required before a Design Freeze label; test candidates must remain
+explicitly labelled as candidates until that evidence passes.
