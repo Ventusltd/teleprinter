@@ -181,3 +181,31 @@ suspicion and is written as one.
 - **No physical iPhone test in either lane.** Every phone result on this page is
   browser emulation. iOS Safari has no `getDisplayMedia`, so a real iPhone takes
   the reconstruction path, and that path has never run on one.
+
+## Codex completion update — 2026-09-05
+
+The GitHub repository now exists: https://github.com/Ventusltd/teleprinter.
+Codex created it using the connected Chrome GitHub UI and pushed the existing
+history plus its driver commits. Earlier missing-repository and unwritten-engine
+entries above describe earlier states.
+
+The separate Codex driver lives in `drivers/codex/`; its engines, Git source
+bundler, copy/share controls, tests and coded observations are published.
+Test Code generation `202609051419` vendors the browser modules from engine
+commit `6f2026458665abffd969dc5e2f814157e365bf70`. Its per-app source pins identify
+Test Code commit `39bcc72aecbc668c4d2554ced096a7e63b78e33c`. Later commits add
+download bundles and proof records; they do not pretend to include themselves
+in a self-referential source print. No screenshots or PDFs are committed.
+
+The Codex screen driver supports getDisplayMedia directly and returns provenance
+outside the image so no footer alters the user's screen. It preserves raw PNG
+pixels and embedded ICC profiles. The WebKit Pipeline/Atlas check caught a
+one-level browser image-decoder colour conversion, then passed after direct PNG
+decoding and ICC preservation. Its controls offer a device screenshot input when
+self-capture is unavailable; they never silently reconstruct the DOM. Physical
+iPhone and native share-sheet testing remain unperformed.
+
+The user's separate Codex-driver request is implemented through
+`drivers/codex/controls.js`; Test Code imports that entry point. Root Claude
+engines remain intact for comparison. Read `drivers/codex/README.md` for the API
+and measured limits before substituting APIs in root `index.js`.

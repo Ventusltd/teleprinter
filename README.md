@@ -187,3 +187,25 @@ printSourceCode()  -> {text,filename,files,bytes,missing,commit}
 - This has been exercised in Chromium, Firefox and WebKit under Playwright, and
   on a real Chrome and a real Firefox by hand. It has **not** been exercised on
   a physical iPhone.
+
+## Codex driver and Test Code integration — 2026-09-05
+
+The separate Codex-authored implementation is in [drivers/codex](drivers/codex/README.md).
+Its controls say **Print**, **Print source code**, **Copy source code**, and,
+where supported, **Share source code**. The source print is a UTF-8 text file
+with its repository, exact commit, selected files and byte hashes. Readers can
+attach it in ChatGPT or copy its contents without using GitHub or knowing code.
+
+This driver does not use the reconstruction fallback described above. It prints
+a captured screen or a user-selected screenshot, preserving supported PNG sample
+bytes and ICC profiles in the PDF. If self-capture is unavailable, the reader
+can choose a device screenshot. Physical iPhone and native share-sheet validation
+remain separate from desktop browser emulation.
+
+`drivers/codex/outcome-results.json` records 16 browser/viewport combinations
+(Chrome, Edge, Firefox, WebKit; portrait and landscape) with actual PDF and text
+downloads, uploaded-screenshot checks and complete manual-copy fallbacks.
+`drivers/codex/app-outcomes.json` records nine additional Pipeline/Atlas/Test Code
+checks in Chrome, Firefox and mobile WebKit emulation. Screenshots and test PDFs
+are not retained. The integration is Test Code generation **202609051419**;
+source scopes and external-dependency exclusions are included in its text files.
