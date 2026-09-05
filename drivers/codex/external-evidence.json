@@ -3,7 +3,7 @@
   "reviewedAt": "2026-09-05T15:14:29.281718+00:00",
   "status": "NOT_ACCEPTED_FOR_DESIGN_FREEZE",
   "automaticVetoIntegration": true,
-  "scope": "Two independently reviewed local Claude GridAtlas smoke runs; scoped veto integration in Codex Design Freeze.",
+  "scope": "Two independently reviewed local Claude GridAtlas smoke runs plus user-provided iPhone source-text PDF; generation-scoped veto integration in Codex Design Freeze.",
   "provenance": {
     "gridatlasCommit": "05b8eee7658409dc6e012c5cb20e104470a48139",
     "teleprinterDriverCommit": "07e9f980007a1f59a3a464c3f20fb291f9a8abb7",
@@ -322,6 +322,36 @@
         "path": "C:\\Users\\vikra\\OneDrive\\Documents\\GitHub\\gridatlas-main-202609050200\\atlas\\manifests\\202609051510-composition.json",
         "sha256": "37dfde7c64c734b18c877cfc3ea8028003808bd0d12a426dc0eb56101aa08a0e"
       }
+    },
+    {
+      "directory": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\iphone-source-202609061624",
+      "generation": "202609051510",
+      "summaryCreatedAt": "2026-09-05T15:21:39.238Z",
+      "evidenceKind": "user-provided-iPhone-Safari-source-text-PDF",
+      "independentStatus": "BLOCKING_SOURCE_FINDINGS",
+      "artifacts": [
+        {
+          "filename": "202609061624-print-source-code-iPhone.pdf",
+          "bytes": 1998904,
+          "sha256": "a593fba47c52cc481d62dc26a0d24ccb9406c5f8e4c19c78ef022f269b2bcc03"
+        }
+      ],
+      "reviewFile": "drivers/codex/IPHONE-SOURCE-EVIDENCE.json",
+      "originalSourceByteHashesAvailable": false,
+      "sourceState": {
+        "url": "https://ventusltd.github.io/gridatlas/atlas/",
+        "generation": "202609051510",
+        "capturedAt": "2026-09-05T15:21:39.238Z",
+        "viewport": {
+          "width": 440,
+          "height": 796,
+          "devicePixelRatio": 3,
+          "orientation": "portrait"
+        },
+        "selectedProject": null,
+        "layersOn": [],
+        "interpretation": "Unselected live-route visit without REPD query; null project/empty selected layers do not establish a project-arrival failure."
+      }
     }
   ],
   "findings": [
@@ -403,6 +433,39 @@
       ],
       "finding": "Attachment-size rationale is not established by this evidence.",
       "evidence": "No real phone/chat attachment attempt measured. 13237685-byte source largest frames are connection-points JSON ~2.90MB and grid_132kv GeoJSON ~2.84MB; no single 10MB REPD dataset appears in the 33-frame inventory. File size alone does not prove inability to attach."
+    },
+    {
+      "id": "IPHONE-001",
+      "severity": "blocker",
+      "appliesTo": [
+        "202609051510"
+      ],
+      "finding": "The iPhone source print omits most of four observed executable JavaScript modules by classifying /+esm URLs as data.",
+      "evidence": "Actual PDF page4 inventory and pages585,588,589,590 label DuckDB26009chars, Arrow200034, flatbuffers9269 and tslib10708 TRUNCATED to4000; found via browser(script).",
+      "artifactSha256": "a593fba47c52cc481d62dc26a0d24ccb9406c5f8e4c19c78ef022f269b2bcc03",
+      "requiredCondition": "source-complete-resource-frames"
+    },
+    {
+      "id": "IPHONE-002",
+      "severity": "blocker",
+      "appliesTo": [
+        "202609051510"
+      ],
+      "finding": "The iPhone source diagnostic explicitly reports three unread dependency URLs returning HTTP404.",
+      "evidence": "Actual PDF page4 NOT READ --3: https://ventusltd.github.io/npm/apache-arrow@17.0.0/+esm, /npm/tslib@2.6.3/+esm, /npm/flatbuffers@24.3.25/+esm. Their successful CDN counterparts are separate truncated records; execution outcome is not inferred.",
+      "artifactSha256": "a593fba47c52cc481d62dc26a0d24ccb9406c5f8e4c19c78ef022f269b2bcc03",
+      "requiredCondition": "source-complete-resource-frames"
+    },
+    {
+      "id": "IPHONE-003",
+      "severity": "blocker",
+      "appliesTo": [
+        "202609051510"
+      ],
+      "finding": "The iPhone source print truncates the live composition manifest, preventing a complete source/dependency configuration record.",
+      "evidence": "Actual PDF page3 lists atlas/current.json 46738chars reduced to first4000. PDF-text extraction cannot reconstruct original missing source bytes.",
+      "artifactSha256": "a593fba47c52cc481d62dc26a0d24ccb9406c5f8e4c19c78ef022f269b2bcc03",
+      "requiredCondition": "source-pinned-build-identity"
     }
   ],
   "proposal": {
@@ -411,5 +474,6 @@
     "staleOrDifferentGeneration": "Retain as historical regression evidence; require explicit applicability, never silently transfer acceptance or veto.",
     "clearanceRequires": "New independently inspected offline artifacts for the corrected exact generation/build, including the previously failing scenario."
   },
-  "integratedAt": "2026-09-05T15:21:01.169258+00:00"
+  "integratedAt": "2026-09-05T15:21:01.169258+00:00",
+  "lastEvidenceAddedAt": "2026-09-05T15:29:00.699050+00:00"
 }

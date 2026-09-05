@@ -1,6 +1,6 @@
 {
-  "createdAt": "2026-09-05T14:25:55.022Z",
-  "base": "http://127.0.0.1:8886/testcode/202609051419/",
+  "createdAt": "2026-09-05T14:31:34.030Z",
+  "base": "https://www.globalgrid2050.com/testcode/202609051419/",
   "physicalDevices": false,
   "results": [
     {
@@ -39,6 +39,7 @@
       "browser": "Chrome",
       "route": "atlas/?repd_ref=2484&technology=wind_offshore",
       "ok": true,
+      "gridEngineCompleted": true,
       "sourceBytes": 973944,
       "pdf": {
         "width": 1400,
@@ -48,7 +49,7 @@
         "colourProfilePreserved": false,
         "renderedPixelsIdentical": true,
         "renderReference": "raw RGB screenshot",
-        "sha256": "0c43f446d77b10c880b667f0483a6af6c5f6f4a750b918a26dbfac80e590c9d4"
+        "sha256": "813d2f1699003410bb4ad6d3e4100cc4aa3d73f7451ad92a0cc3d2ea48f51b9c"
       }
     },
     {
@@ -86,18 +87,8 @@
     {
       "browser": "Firefox",
       "route": "atlas/?repd_ref=2484&technology=wind_offshore",
-      "ok": true,
-      "sourceBytes": 973944,
-      "pdf": {
-        "width": 1200,
-        "height": 800,
-        "pixels": 960000,
-        "embeddedPixelsIdentical": true,
-        "colourProfilePreserved": false,
-        "renderedPixelsIdentical": true,
-        "renderReference": "raw RGB screenshot",
-        "sha256": "3e9c59e5931b774e73fb1fcc7ea6df6d9536bb60faf001f1e8d27ef0316afaad"
-      }
+      "ok": false,
+      "error": "TimeoutError: locator.waitFor: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText(/TEST CODE repd-2484 \\| ENGINE COMPLETED/) to be visible\u001b[22m\n"
     },
     {
       "browser": "WebKit mobile emulation",
@@ -135,6 +126,7 @@
       "browser": "WebKit mobile emulation",
       "route": "atlas/?repd_ref=2484&technology=wind_offshore",
       "ok": true,
+      "gridEngineCompleted": true,
       "sourceBytes": 973944,
       "pdf": {
         "width": 393,
@@ -144,7 +136,7 @@
         "colourProfilePreserved": true,
         "renderedPixelsIdentical": true,
         "renderReference": "original PNG through MuPDF colour management",
-        "sha256": "4796b958693490ea11a8561dd3f4508c04ab32c8bc99b2857f10f3250775253e"
+        "sha256": "f01661758b1bfaad845672a70a81a8d7bc83d34da3a0830b5309a80a449dfb81"
       }
     }
   ]

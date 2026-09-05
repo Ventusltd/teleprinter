@@ -41,9 +41,10 @@ Serve this directory's browser modules with the app. Call `mountTeleprinter`
 from `controls.js`, passing `manifestUrl`, `textUrl`, `expectedCommit`,
 `expectedRepository`, `appName`, and the app's `printButtons` selector. Its File menu
 gets separate **Print** and **Print source code** commands. The latter prepares
-and downloads a text file, with copy/share actions available in Teleprinter.
-Source bytes are prepared when the reader
-opens Teleprinter, preserving the later click gesture for iPhone sharing/copying.
+and downloads a text file, with separate copy/share actions in the File menu.
+Source bytes are prepared in the app's source panel, preserving a fresh later
+click gesture for sharing/copying. Teleprinter is an internal engine name; it is
+not a public launcher or menu label.
 Only the integration configuration and committed runtime copies belong in the
 app; engine development belongs here.
 

@@ -59,6 +59,42 @@ const receipt = { createdAt: new Date().toISOString(), base, candidate, output, 
 const receiptPath = path.join(here, 'fifty-prints-results.json');
 async function saveReceipt() { await fs.writeFile(receiptPath, JSON.stringify(receipt, null, 2) + '\n'); }
 
+async function readAtlasState(page) {
+  return page.evaluate(() => {
+    const rect = node => { const r = node?.getBoundingClientRect(); return r ? { x: r.x, y: r.y, width: r.width, height: r.height } : null; };
+    const onscreen = r => !!r && r.width > 0 && r.height > 0 && r.x < innerWidth && r.y < innerHeight && r.x + r.width > 0 && r.y + r.height > 0;
+    const forms = [...document.querySelectorAll('input,textarea,select')];
+    const controls = [...document.querySelectorAll('input[data-gridatlas-layer-proxy],input[data-layer-id]')]
+      .filter(input => { const r = input.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(input).visibility !== 'hidden'; })
+      .map(input => { const label = input.closest('label'); const bounds = rect(label); return {
+        index: forms.indexOf(input), key: input.dataset.gridatlasLayerProxy || `engine:${input.dataset.layerId}`,
+        checked: input.checked, label: (label?.textContent || input.getAttribute('aria-label') || '').trim(),
+        bounds, intersectsViewport: onscreen(bounds)
+      }; });
+    const panel = ['fs-curtain-keys', 'gridatlas-dash'].map(id => document.getElementById(id)).find(node => onscreen(rect(node)));
+    const panelBounds = rect(panel);
+    const map = window.__GRIDATLAS_V9_MAP__;
+    return { url: location.href, visibleText: document.body.innerText, controls,
+      selectedLayerKeys: [...new Set(controls.filter(input => input.checked).map(input => input.key))].sort(),
+      panel: { present: !!panel, bounds: panelBounds, intersectsViewport: onscreen(panelBounds) },
+      mapLayers: (map?.getStyle?.()?.layers || []).map(layer => ({ id: layer.id, visibility: layer.layout?.visibility || 'visible' })) };
+  });
+}
+function assertAtlasState(snapshot, scenario, expectedKeys) {
+  assert.match(snapshot.visibleText, new RegExp(`TEST CODE repd-${scenario.project} \\| ENGINE COMPLETED`), 'Captured project engine status differs from the requested project.');
+  assert.match(snapshot.visibleText, new RegExp(`REPD\\s+${scenario.project}\\b`), 'Captured project identity missing.');
+  assert.deepEqual(snapshot.selectedLayerKeys, [...new Set(expectedKeys)].sort(), 'Layer selection changed before capture.');
+  const selected = snapshot.controls.filter(input => input.checked);
+  assert.ok(selected.length && selected.every(input => input.label), 'Selected layer legend labels must be nonempty.');
+  assert.ok(snapshot.panel.intersectsViewport, 'Open Layers panel does not intersect the captured viewport.');
+  assert.ok(selected.some(input => input.intersectsViewport), 'No selected layer legend label intersects the captured viewport.');
+  for (const layer of scenario.layers) {
+    const rendered = snapshot.mapLayers.find(item => item.id === `l-${layer}`);
+    assert.ok(rendered, `Expected map layer l-${layer} is unavailable.`);
+    assert.equal(rendered.visibility !== 'none', snapshot.selectedLayerKeys.includes(`engine:${layer}`), `Map layer ${layer} does not match its checkbox.`);
+  }
+}
+
 async function prepare(page, scenario, progress) {
   progress('navigate');
   await page.goto(new URL(scenario.route, base).href, { waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -67,7 +103,7 @@ async function prepare(page, scenario, progress) {
   const state = { url: page.url(), project: scenario.project, layers: [] };
   if (scenario.kind === 'atlas') {
     progress('wait for visible engine completion');
-    const badge = page.getByText(/TEST CODE .*\| ENGINE COMPLETED/).first();
+    const badge = page.getByText(new RegExp(`TEST CODE repd-${scenario.project} \\| ENGINE COMPLETED`)).first();
     await badge.waitFor({ state: 'visible', timeout: 90000 });
     state.engineStatus = await badge.innerText();
     const body = await page.locator('body').innerText();
@@ -117,7 +153,7 @@ for (const scenario of scenarios.slice(0, limit)) {
   const result = { ...scenario, visits: [], pairStateMatches: false };
   receipt.scenarios.push(result);
   for (const mode of ['pdf', 'source']) {
-    let browser, context, page, captured;
+    let browser, context, page, captured, captureStatePromise;
     const visit = { visitId: `${path.basename(output)}-${scenario.id}-${mode}`, browser: 'installed Chrome', candidate,
       mode, startedAt: new Date().toISOString(), ok: false, console: [], networkFailures: [] };
     result.visits.push(visit);
@@ -133,7 +169,11 @@ for (const scenario of scenarios.slice(0, limit)) {
       page.on('console', message => { if (['error', 'warning'].includes(message.type()) && visit.console.length < 150) visit.console.push({ type: message.type(), text: message.text() }); });
       page.on('pageerror', error => visit.console.push({ type: 'pageerror', text: String(error) }));
       page.on('requestfailed', request => { if (visit.networkFailures.length < 150) visit.networkFailures.push({ url: request.url(), error: request.failure()?.errorText }); });
-      await attachScreenCapture(page, { onCapture: png => { captured = png; } });
+      await attachScreenCapture(page, { onCapture: png => {
+        captured = png;
+        // driver.mjs does not await onCapture: observe rejection immediately, await below.
+        if (scenario.kind === 'atlas') captureStatePromise = readAtlasState(page).then(value => ({ value }), error => ({ error }));
+      } });
       visit.state = await prepare(page, scenario, progress);
       let downloaded;
       if (mode === 'pdf') {
@@ -150,6 +190,13 @@ for (const scenario of scenarios.slice(0, limit)) {
         visit.sha256 = sha256(downloaded.bytes);
         visit.suggestedFilename = downloaded.filename;
         assert.ok(captured, 'Print did not call the viewport capture binding.');
+        if (scenario.kind === 'atlas') {
+          assert.ok(captureStatePromise, 'Capture-time layer snapshot was not scheduled.');
+          const snapshot = await captureStatePromise;
+          if (snapshot.error) throw snapshot.error;
+          visit.captureState = snapshot.value;
+          assertAtlasState(visit.captureState, scenario, visit.state.selectedLayerKeys);
+        }
         visit.path = path.join(output, `${scenario.id}-${scenario.kind}-${scenario.geometry.name}.pdf`);
         await fs.writeFile(visit.path, downloaded.bytes, { flag: 'wx' });
         visit.pngPath = visit.path.replace(/\.pdf$/, '.png');
@@ -166,6 +213,8 @@ for (const scenario of scenarios.slice(0, limit)) {
         if (scenario.kind === 'atlas') {
           progress('download source through File > Print source code');
           await page.locator('.gm-title').filter({hasText:/^File$/i}).click();
+          visit.sourceCommandState = await readAtlasState(page);
+          assertAtlasState(visit.sourceCommandState, scenario, visit.state.selectedLayerKeys);
           downloaded = await clickAndReadDownload(page, page.locator('button[data-codex-print-source]'), { timeout: 120000 });
         } else {
           await page.locator('#codex-teleprinter #file-menu > summary').click();
@@ -192,6 +241,25 @@ for (const scenario of scenarios.slice(0, limit)) {
           state: { url: manifest.state?.url, viewport: manifest.state?.viewport },
           baseManifest: { commit: manifest.baseManifest?.commit, sha256: manifest.baseManifest?.sha256 } };
         assert.equal(manifest.state?.url, visit.state.url, 'Source capture URL differs from the actual app view.');
+        if (scenario.kind === 'atlas') {
+          const snapshot = visit.sourceCommandState;
+          assert.match(manifest.state.visibleText, new RegExp(`TEST CODE repd-${scenario.project} \\| ENGINE COMPLETED`));
+          assert.match(manifest.state.visibleText, new RegExp(`REPD\\s+${scenario.project}\\b`));
+          for (const control of snapshot.controls) {
+            const form = manifest.state.forms.find(form => form.root === 'document' && form.index === control.index);
+            assert.ok(form && form.type === 'checkbox', `Source manifest missing layer form ${control.key}.`);
+            assert.equal(form.checked, control.checked, `Source manifest layer ${control.key} differs from the printed view.`);
+          }
+          for (const layer of scenario.layers) {
+            const mapLayer = manifest.state.map?.layers?.find(item => item.id === `l-${layer}`);
+            assert.ok(mapLayer, `Source map is missing layer l-${layer}.`);
+            assert.equal(mapLayer.layout?.visibility !== 'none', snapshot.selectedLayerKeys.includes(`engine:${layer}`));
+          }
+          for (const control of snapshot.controls.filter(input => input.checked && input.intersectsViewport)) {
+            assert.ok(manifest.state.visibleText.includes(control.label), `Source visible text is missing selected legend ${control.label}.`);
+          }
+          visit.sourceCapturedLayerKeys = [...new Set(snapshot.controls.filter(control => manifest.state.forms.find(form => form.root === 'document' && form.index === control.index)?.checked).map(control => control.key))].sort();
+        }
         assert.equal(manifest.baseManifest?.commit, candidate.sourceCommit, 'Source capture commit differs from frozen candidate.');
         assert.equal(manifest.baseManifest?.sha256, pins[scenario.kind].sha256, 'Source capture bytes differ from the app source pin.');
         assert.equal(manifest.failures?.length, 0, 'Runtime source capture reports unavailable or failed resources; see saved manifest.');
@@ -234,7 +302,8 @@ for (const scenario of scenarios.slice(0, limit)) {
   result.pairStateMatches = !!(pdf.state && source.state && pdf.state.url === source.state.url &&
     JSON.stringify(pdf.state.selectedLayerKeys || []) === JSON.stringify(source.state.selectedLayerKeys || []) &&
     pdf.state.project === source.state.project && pdf.state.search === source.state.search &&
-    pdf.state.firstRow === source.state.firstRow);
+    pdf.state.firstRow === source.state.firstRow && (scenario.kind !== 'atlas' ||
+      JSON.stringify(pdf.captureState?.selectedLayerKeys) === JSON.stringify(source.sourceCapturedLayerKeys)));
   await saveReceipt();
 }
 receipt.finishedAt = new Date().toISOString();

@@ -1,7 +1,7 @@
 {
-  "base": "https://globalgrid2050.com/testcode/202609051457/",
-  "output": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-10-30-521Z",
-  "startedAt": "2026-09-05T15:10:30.721Z",
+  "base": "http://127.0.0.2:8887/testcode/202609051517/",
+  "output": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z",
+  "startedAt": "2026-09-05T15:19:27.521Z",
   "physicalSafariOrIPhoneTested": false,
   "screenshotChooserCovered": false,
   "captureMethod": "Playwright viewport capture binding",
@@ -14,20 +14,20 @@
         "height": 900
       },
       "deviceScaleFactor": 1,
-      "startedAt": "2026-09-05T15:08:08.923Z",
+      "startedAt": "2026-09-05T15:19:27.521Z",
       "ok": true,
-      "url": "https://globalgrid2050.com/testcode/202609051457/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788620890713-78b214",
+      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621568547-da639f",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-08-08-697Z\\Edge-pdf.pdf",
-      "bytes": 196735,
-      "sha256": "bdbd5d9e60194e1a60afdf070a8ff30be6cb79be305e4f99c19333e8e7a820aa",
-      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-08-08-697Z\\Edge-pdf.png",
-      "pngSha256": "c0aa3062e9fcc916f6dd0e2a5387e89c4b9815cf4295a2bb2c54c62eda46e6ad",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Edge-pdf.pdf",
+      "bytes": 195629,
+      "sha256": "0136e4568129d95c0fd7221cbe6d1e4c153c344a1bec6df466f906b8521e220c",
+      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Edge-pdf.png",
+      "pngSha256": "5d834aebb7fd1c03cf63b9a0215fb9139a4e8e398fa65f2381a8c78e06741d07",
       "inspection": {
         "width": 1440,
         "height": 900,
@@ -45,9 +45,9 @@
         "colourProfilePreserved": false,
         "renderedPixelsIdentical": true,
         "renderReference": "raw RGB screenshot",
-        "sha256": "bdbd5d9e60194e1a60afdf070a8ff30be6cb79be305e4f99c19333e8e7a820aa"
+        "sha256": "0136e4568129d95c0fd7221cbe6d1e4c153c344a1bec6df466f906b8521e220c"
       },
-      "finishedAt": "2026-09-05T15:08:14.199Z"
+      "finishedAt": "2026-09-05T15:19:31.277Z"
     },
     {
       "browser": "Edge",
@@ -57,34 +57,34 @@
         "height": 900
       },
       "deviceScaleFactor": 1,
-      "startedAt": "2026-09-05T15:08:14.203Z",
+      "startedAt": "2026-09-05T15:19:31.279Z",
       "ok": true,
-      "url": "https://globalgrid2050.com/testcode/202609051457/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788620896114-663d94",
+      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621571960-aa7675",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-08-08-697Z\\Edge-source.txt",
-      "bytes": 60414960,
-      "sha256": "b3a966dd17c953a307f0869c8bdbd9e071206dae740b3492d83a37d311d0aa19",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Edge-source.txt",
+      "bytes": 60840390,
+      "sha256": "a52486b074496b8a74e2d0aa9dcdb9938129435b20b7f85c8c4f4db4d0b32863",
       "manifest": {
         "format": "codex-runtime-source-v1",
         "counts": {
-          "resources": 51,
-          "included": 48,
+          "resources": 54,
+          "included": 51,
           "unavailable": 0,
           "excluded": 3,
-          "rawBytes": 36927273
+          "rawBytes": 37240364
         },
         "complete": false,
         "observedResourcesComplete": false,
         "failures": [],
-        "sourceCommit": "0bed878926fb027e6db05d6d5c49c4261ff5120c",
-        "stateUrl": "https://globalgrid2050.com/testcode/202609051457/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
+        "sourceCommit": "1579fda7731b62a724124cc3ff798160ca431149",
+        "stateUrl": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
       },
-      "finishedAt": "2026-09-05T15:08:21.298Z"
+      "finishedAt": "2026-09-05T15:19:34.915Z"
     },
     {
       "browser": "Firefox",
@@ -94,20 +94,20 @@
         "height": 852
       },
       "deviceScaleFactor": 2,
-      "startedAt": "2026-09-05T15:08:21.301Z",
+      "startedAt": "2026-09-05T15:19:34.917Z",
       "ok": true,
-      "url": "https://globalgrid2050.com/testcode/202609051457/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788620903922-9315b4",
+      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621576547-8692f1",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-08-08-697Z\\Firefox-pdf.pdf",
-      "bytes": 98396,
-      "sha256": "f992d7912c52b18bd0a29ea99b9ac8d766ceb9b88e751b078f3d88338accfc2b",
-      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-08-08-697Z\\Firefox-pdf.png",
-      "pngSha256": "e72d22967358f9e0207e85473dff53e631b202539f2243daf5d20d0aba3ac1c4",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Firefox-pdf.pdf",
+      "bytes": 96181,
+      "sha256": "7f1bddb3965e5e44d308399e56966104201859181df7dab2fefe8228cdb97faa",
+      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Firefox-pdf.png",
+      "pngSha256": "35ac77de7d3396d0d8a2c3964d22b3fd4d752269dad9cd0270d9817e54ecf046",
       "inspection": {
         "width": 786,
         "height": 1704,
@@ -125,9 +125,9 @@
         "colourProfilePreserved": false,
         "renderedPixelsIdentical": true,
         "renderReference": "raw RGB screenshot",
-        "sha256": "f992d7912c52b18bd0a29ea99b9ac8d766ceb9b88e751b078f3d88338accfc2b"
+        "sha256": "7f1bddb3965e5e44d308399e56966104201859181df7dab2fefe8228cdb97faa"
       },
-      "finishedAt": "2026-09-05T15:08:27.341Z"
+      "finishedAt": "2026-09-05T15:19:39.436Z"
     },
     {
       "browser": "Firefox",
@@ -137,12 +137,34 @@
         "height": 852
       },
       "deviceScaleFactor": 2,
-      "startedAt": "2026-09-05T15:08:27.345Z",
-      "ok": false,
-      "error": "TimeoutError: locator.waitFor: Timeout 90000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText(/TEST CODE .*\\| ENGINE COMPLETED/).first() to be visible\u001b[22m\n",
-      "failurePath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-08-08-697Z\\Firefox-source-failure.json",
-      "failureSha256": "e7583f3405c9f1d7ad969c7c5058d76f9b7b58d43b19c9437cfe5b23e7ec8614",
-      "finishedAt": "2026-09-05T15:09:59.008Z"
+      "startedAt": "2026-09-05T15:19:39.439Z",
+      "ok": true,
+      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621580902-45fcf3",
+      "selectedLayerKeys": [
+        "engine:275",
+        "engine:400",
+        "engine:subs"
+      ],
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\Firefox-source.txt",
+      "bytes": 57990338,
+      "sha256": "fdc03cbf391db908c2454f3aad302e088832fdef1fad55fef9b5282944b0380b",
+      "manifest": {
+        "format": "codex-runtime-source-v1",
+        "counts": {
+          "resources": 51,
+          "included": 48,
+          "unavailable": 0,
+          "excluded": 3,
+          "rawBytes": 36170268
+        },
+        "complete": false,
+        "observedResourcesComplete": false,
+        "failures": [],
+        "sourceCommit": "1579fda7731b62a724124cc3ff798160ca431149",
+        "stateUrl": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
+      },
+      "finishedAt": "2026-09-05T15:19:44.993Z"
     },
     {
       "browser": "WebKit",
@@ -152,20 +174,20 @@
         "height": 768
       },
       "deviceScaleFactor": 2,
-      "startedAt": "2026-09-05T15:09:59.010Z",
+      "startedAt": "2026-09-05T15:19:44.994Z",
       "ok": true,
-      "url": "https://globalgrid2050.com/testcode/202609051457/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621000911-eac4d9",
+      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621585959-fd332c",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-08-08-697Z\\WebKit-pdf.pdf",
-      "bytes": 304752,
-      "sha256": "93d1a49aad53d4f90929b914f21a9f11c6ec7627d0a5b757031133c1a9e5e503",
-      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-08-08-697Z\\WebKit-pdf.png",
-      "pngSha256": "e7de222fc9c141c6b3f344635ca81e1d5fa7c68a3c446729308bd1ecb648e749",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\WebKit-pdf.pdf",
+      "bytes": 302750,
+      "sha256": "b440780a51f94b764144409e30dd650d960f90311a87ce44c6d671e967557d4c",
+      "pngPath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\WebKit-pdf.png",
+      "pngSha256": "98b4b43c38683a2bcc9fcc54c05dab58124890b5d1fa7dd6166b801a16332dcb",
       "inspection": {
         "width": 2048,
         "height": 1536,
@@ -183,9 +205,9 @@
         "colourProfilePreserved": true,
         "renderedPixelsIdentical": true,
         "renderReference": "original PNG through MuPDF colour management",
-        "sha256": "93d1a49aad53d4f90929b914f21a9f11c6ec7627d0a5b757031133c1a9e5e503"
+        "sha256": "b440780a51f94b764144409e30dd650d960f90311a87ce44c6d671e967557d4c"
       },
-      "finishedAt": "2026-09-05T15:10:05.153Z"
+      "finishedAt": "2026-09-05T15:19:51.044Z"
     },
     {
       "browser": "WebKit",
@@ -195,85 +217,36 @@
         "height": 768
       },
       "deviceScaleFactor": 2,
-      "startedAt": "2026-09-05T15:10:05.157Z",
+      "startedAt": "2026-09-05T15:19:51.045Z",
       "ok": true,
-      "url": "https://globalgrid2050.com/testcode/202609051457/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621006324-b450e5",
+      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
+      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621591883-0160c0",
       "selectedLayerKeys": [
         "engine:275",
         "engine:400",
         "engine:subs"
       ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-08-08-697Z\\WebKit-source.txt",
-      "bytes": 59436824,
-      "sha256": "edc039fcc692f194706228d1e2accd224c3df3c61c8bf88f056b53e53045c69f",
+      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-19-27-326Z\\WebKit-source.txt",
+      "bytes": 38148260,
+      "sha256": "07d176095d6d2fecc2b1fe754d431913bd8e52c339ac5a53895269abb5824c6d",
       "manifest": {
         "format": "codex-runtime-source-v1",
         "counts": {
-          "resources": 51,
-          "included": 48,
+          "resources": 44,
+          "included": 41,
           "unavailable": 0,
           "excluded": 3,
-          "rawBytes": 36612889
+          "rawBytes": 26920174
         },
         "complete": false,
         "observedResourcesComplete": false,
         "failures": [],
-        "sourceCommit": "0bed878926fb027e6db05d6d5c49c4261ff5120c",
-        "stateUrl": "https://globalgrid2050.com/testcode/202609051457/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
+        "sourceCommit": "1579fda7731b62a724124cc3ff798160ca431149",
+        "stateUrl": "http://127.0.0.2:8887/testcode/202609051517/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
       },
-      "finishedAt": "2026-09-05T15:10:17.652Z"
-    },
-    {
-      "browser": "Firefox",
-      "mode": "source",
-      "viewport": {
-        "width": 393,
-        "height": 852
-      },
-      "deviceScaleFactor": 2,
-      "startedAt": "2026-09-05T15:10:30.722Z",
-      "ok": false,
-      "url": "https://globalgrid2050.com/testcode/202609051457/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934",
-      "engineStatus": "TEST CODE repd-2484 | ENGINE COMPLETED | 1 measured | visit-1788621033128-26eac8",
-      "selectedLayerKeys": [
-        "engine:275",
-        "engine:400",
-        "engine:subs"
-      ],
-      "path": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-10-30-521Z\\Firefox-source.txt",
-      "bytes": 56898440,
-      "sha256": "4257ff6f252c67d2d362da0a56ae6675091a809f76e5c0de39ec05a51324d999",
-      "manifest": {
-        "format": "codex-runtime-source-v1",
-        "counts": {
-          "resources": 54,
-          "included": 50,
-          "unavailable": 1,
-          "excluded": 3,
-          "rawBytes": 34982599
-        },
-        "complete": false,
-        "observedResourcesComplete": false,
-        "failures": [
-          {
-            "url": "https://ventusltd.github.io/gridatlas/atlas/releases/cartridges/5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993/grid_400kv.geojson",
-            "reason": "Invalid Input Error: No magic bytes found at end of file 'https://ventusltd.github.io/data-gridatlas/202608291237-data-gridatlas/data/partitions/grid_400kv.parquet'",
-            "possibleCause": "Network, CORS, expired blob URL, or 30-second timeout; no body was silently substituted."
-          }
-        ],
-        "sourceCommit": "0bed878926fb027e6db05d6d5c49c4261ff5120c",
-        "stateUrl": "https://globalgrid2050.com/testcode/202609051457/atlas/?repd_ref=2484&technology=wind_offshore&latitude=52.6199968&longitude=2.5499934"
-      },
-      "error": "AssertionError [ERR_ASSERTION]: Source capture has failed resources.\n\n1 !== 0\n",
-      "failurePath": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-10-30-521Z\\Firefox-source-failure.json",
-      "failureSha256": "5fe733d06f7a5545e1d4c875d8f4f194b23be0fb1e62765a46fc0b47c48595fe",
-      "finishedAt": "2026-09-05T15:10:38.049Z"
+      "finishedAt": "2026-09-05T15:20:03.360Z"
     }
   ],
-  "initialStartedAt": "2026-09-05T15:08:08.923Z",
-  "originalOutput": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\file-print-compatibility-2026-09-05T15-08-08-697Z",
-  "retry": "One bounded Firefox source retry; original failures retained.",
-  "finishedAt": "2026-09-05T15:10:38.053Z",
-  "ok": false
+  "finishedAt": "2026-09-05T15:20:03.362Z",
+  "ok": true
 }
