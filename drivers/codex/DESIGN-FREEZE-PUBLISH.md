@@ -69,3 +69,10 @@ cover preservation, idempotence, successor order, conflicting proof, incomplete
 counts/unsafe URL, ambiguous HTML placement, snapshot measurements, and actual
 candidate files with mutation/unlisted-file rejection. These tests do not send
 Git pushes; external publication remains an explicitly selected operation.
+
+The explicit publishing path now re-reads every accepted external registry and
+its original artifact hashes immediately before staging, in addition to the
+initial full gate rerun. Records without an external-review audit, changed
+registry bytes, changed resolution proofs or missing/mutated named audit files
+cannot publish. Registry hashes remain bound through `pins.inputs`, so the
+proof digest formula does not change.

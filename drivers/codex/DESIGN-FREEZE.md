@@ -126,3 +126,49 @@ changed served JS with unchanged manifest, unlisted build file, unreachable
 source commit, failed visit, incomplete report, wrong candidate, duplicate visit,
 path escape, pixel mismatch, header overlap/wrong text, corrupt framed resource,
 and unavailable dependency. No proof can compensate for an incomplete report.
+
+## External evidence is part of the gate
+
+The CLI loads `drivers/codex/external-evidence.json` by default. To specify an
+explicit registry list, add `externalReviewPaths: ["ABSOLUTE_PATH", ...]` to pins.
+An empty list is rejected. **Every registry path must also appear in `pins.inputs`
+with its exact SHA-256.** Missing, malformed or changed registries reject. This
+keeps the proof digest formula unchanged: pinned registry bytes are already
+bound into the proof through its input inventory. Accepted records additionally
+carry `externalReviews` with registry paths/digests, applicable finding IDs and
+any validated resolution proof identities.
+
+Registry schema is `codex-external-evidence-review-v1`, with `runs` and `findings`
+arrays. Each run identifies `generation`, `summaryCreatedAt`, `directory` and
+`artifacts` entries (`filename`, `bytes`, `sha256`). All referenced original
+artifacts must still exist under the offline root with matching bytes/hashes.
+The CLI reads them again after PDF inspection. New unreferenced files appearing
+beside them do not invalidate an old audit. Mutation of a named audit artifact
+does invalidate it, even when its generation differs from the current candidate.
+
+A `severity:"blocker"` finding vetoes only when its `appliesTo` generation matches
+the candidate and an audited run, its `buildSha256` array includes the candidate
+build hash also recorded by an audited run, or an explicit `sharedCodeSha256`
+array matches a candidate build file hash. Unrelated Claude generations do not
+veto a Codex candidate. Existing reviewed positives do not replace the fifty-
+visit gate. Unsupported claims and limitations stay recorded without becoming
+unrelated-code vetoes.
+
+A manual `status:"resolved"` or `ok:true` cannot clear a blocker. If a reviewed
+finding supplies `requiredCondition`, its `resolution` must name `proofPath`,
+`proofSha256` and the exact `condition`. The proof file must itself be pinned in
+`inputs`, be an accepted SHA-named record under `offline-screenshots/design-freeze`,
+match the complete candidate identity, contain 50/25/25/25 counts and no errors,
+record a finish time later than the audited runs, list the specific tested
+condition, and retain all its hashed offline evidence. Conditions currently
+emitted by the gate are `fifty-chrome-visits`, `pdf-frame-pixel-equality`,
+`source-selected-repd`, `source-complete-resource-frames`, and
+`source-pinned-build-identity`. The selected-REPD condition is only emitted when
+at least one selected-project scenario was tested. This can reference an
+independently accepted proof predating a new external review; it is not an
+operator override for an unresolved current failure.
+
+For every scenario with a numeric `project`, the actual downloaded diagnostic's
+`state.visibleText` must include `REPD` followed by that project number. The URL
+alone, an unrelated project, or `SELECT A PROJECT` cannot satisfy it. No
+implementation-specific badge text is required by this additional gate.

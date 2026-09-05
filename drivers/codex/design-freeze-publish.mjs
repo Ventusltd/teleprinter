@@ -60,6 +60,29 @@ export async function verifyCandidateTree(pins, worktree, generation) {
  requireThat(expected.length && stable(expected.sort()) === stable((await inventory(directory)).sort()),'Candidate tree differs from build inventory');
  return directory;
 }
+/** Re-read the exact audited registries and original files immediately before staging publication. */
+export async function verifyExternalAudit(record, pins) {
+ requireThat(Array.isArray(record.externalReviews) && record.externalReviews.length > 0, 'Accepted record has no external review audit');
+ for (const audit of record.externalReviews) {
+  const pin=pins.inputs?.find(input=>input.path===audit.path);
+  const bytes=await fs.readFile(audit.path);
+  requireThat(pin && digest(bytes) === pin.sha256 && digest(bytes) === audit.sha256, `External registry changed before publication: ${audit.path}`);
+  const review=JSON.parse(bytes);
+  const artifacts=(review.runs || []).flatMap(run=>(run.artifacts || []).map(item=>({...item,path:path.resolve(run.directory,item.filename)})));
+  for (const resolution of audit.resolutionProofs || []) {
+   const proofBytes=await fs.readFile(resolution.path);
+   requireThat(digest(proofBytes) === resolution.sha256,'External resolution proof changed before publication');
+   artifacts.push(...JSON.parse(proofBytes).evidence);
+  }
+  const offline=await fs.realpath(OFFLINE_ROOT);
+  for (const artifact of artifacts) {
+   const real=await fs.realpath(artifact.path), relative=path.relative(offline,real);
+   requireThat(relative && !relative.startsWith('..') && !path.isAbsolute(relative),'External artifact escapes offline root');
+   const data=await fs.readFile(artifact.path);
+   requireThat(data.length === artifact.bytes && digest(data) === artifact.sha256,`External artifact changed before publication: ${artifact.path}`);
+  }
+ }
+}
 export async function publishFreeze({recordPath,reportPath,pinsPath,worktree,publish=false}) {
  worktree=await fs.realpath(path.resolve(worktree));
  const record=JSON.parse(await fs.readFile(recordPath,'utf8'));
@@ -113,6 +136,7 @@ export async function publishFreeze({recordPath,reportPath,pinsPath,worktree,pub
  requireThat(git(worktree,['rev-parse','HEAD']) === beforeHead,'HEAD changed while preparing');
  requireThat(!git(worktree,['diff','--cached','--name-only']),'Index changed while preparing');
  await verifyCandidateTree(pins,worktree,record.candidate.generation);
+ await verifyExternalAudit(record,pins);
  git(worktree,['add','--',...paths]);
  requireThat(stable(git(worktree,['diff','--cached','--name-only']).split('\n').sort()) === stable([...paths].sort()),'Staged paths differ from intended publication');
  git(worktree,['commit','-m',`Append Design Freeze ${record.candidate.generation} (${record.proofSha256.slice(0,12)})`]);

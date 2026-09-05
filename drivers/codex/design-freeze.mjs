@@ -41,6 +41,52 @@ export function representedTransportUrls({ diagnostic, candidate, files, buildRo
   requireThat(same(manifest,base) && digest(transport[2]) === base.sha256 && transport[2].length === base.byteCount, 'Selected source transport does not match embedded manifest/source');
   return new Set(represented.map(resource=>resource.url));
 }
+export const DEFAULT_EXTERNAL_REVIEW = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'external-evidence.json');
+const testedConditions = ['fifty-chrome-visits','pdf-frame-pixel-equality','source-selected-repd','source-complete-resource-frames','source-pinned-build-identity'];
+function inspectExternalReviews({pins,candidate,buildManifest,files,checkedPaths,offlineRoot,check}) {
+  const audits = [];
+  const paths = pins.externalReviewPaths ?? [DEFAULT_EXTERNAL_REVIEW];
+  if (!check(Array.isArray(paths) && paths.length > 0 && new Set(paths).size === paths.length, 'Missing or invalid external review paths')) return audits;
+  for (const filename of paths) {
+    const bytes = files[filename], pin = pins.inputs?.find(input => input.path === filename);
+    if (!check(bytes && pin && digest(bytes) === pin.sha256, `Missing or changed pinned external review: ${filename}`)) continue;
+    let review; try { review = JSON.parse(bytes.toString('utf8')); } catch { check(false, `Malformed external review: ${filename}`); continue; }
+    if (!check(review.schema === 'codex-external-evidence-review-v1' && Array.isArray(review.runs) && Array.isArray(review.findings), `Invalid external review schema: ${filename}`)) continue;
+    const audit = {path:filename,sha256:digest(bytes),applicableFindingIds:[],resolutionProofs:[]}; audits.push(audit);
+    for (const run of review.runs) {
+      if (!check(typeof run.generation === 'string' && Array.isArray(run.artifacts), `Malformed audited run: ${filename}`)) continue;
+      for (const artifact of run.artifacts) {
+      const file = path.resolve(run.directory || '',artifact.filename || '');
+      check(inside(file,offlineRoot) && checkedPaths[file] === true && files[file] && files[file].length === artifact.bytes && digest(files[file]) === artifact.sha256, `External evidence missing or mutated: ${file}`);
+    }
+    }
+    const codeHashes = new Set((buildManifest?.files || []).map(entry => entry.sha256));
+    const ids = new Set();
+    for (const finding of review.findings) {
+      if (!check(typeof finding.id === 'string' && !ids.has(finding.id) && typeof finding.finding === 'string' && ['blocker','limitation','unsupported-claim'].includes(finding.severity), `Malformed external finding in ${filename}`)) continue;
+      ids.add(finding.id);
+      const generations = finding.appliesTo || [];
+      const buildHashes = finding.buildSha256 || [];
+      const shared = finding.sharedCodeSha256 || [];
+      if (!check(Array.isArray(generations) && Array.isArray(buildHashes) && Array.isArray(shared) && generations.every(value=>typeof value === 'string') && [...buildHashes,...shared].every(value=>/^[a-f0-9]{64}$/.test(value)), `Invalid finding applicability: ${finding.id}`)) continue;
+      const applicable = generations.includes(candidate.generation) && review.runs.some(run=>run.generation === candidate.generation) || buildHashes.includes(candidate.buildSha256) && review.runs.some(run=>run.buildSha256 === candidate.buildSha256) || shared.some(hash => codeHashes.has(hash));
+      if (!applicable || finding.severity !== 'blocker') continue;
+      audit.applicableFindingIds.push(finding.id);
+      let resolved = false;
+      const resolution = finding.resolution;
+      if (resolution) {
+        const proofBytes = files[resolution.proofPath], proofPin = pins.inputs?.find(input => input.path === resolution.proofPath);
+        let proof; try { proof = JSON.parse(proofBytes?.toString('utf8')); } catch {}
+        const artifactProof = proof?.evidence?.length > 0 && proof.evidence.every(item => inside(item.path,offlineRoot) && checkedPaths[item.path] === true && files[item.path] && files[item.path].length === item.bytes && digest(files[item.path]) === item.sha256);
+        const latestAudit = Math.max(0,...review.runs.map(run => Date.parse(run.summaryCreatedAt || '') || 0));
+        resolved = !!(proofBytes && proofPin && digest(proofBytes) === proofPin.sha256 && proof?.status === 'DESIGN FREEZE' && path.resolve(resolution.proofPath) === path.resolve(offlineRoot,'design-freeze',`${proof.proofSha256}.json`) && proof.counts?.visits === 50 && proof.counts?.pdf === 25 && proof.counts?.source === 25 && proof.counts?.png === 25 && proof.errors?.length === 0 && proof.proofSha256 === resolution.proofSha256 && /^[a-f0-9]{64}$/.test(resolution.proofSha256 || '') && same(proof.candidate,candidate) && testedConditions.includes(finding.requiredCondition) && resolution.condition === finding.requiredCondition && proof.testedConditions?.includes(resolution.condition) && Date.parse(proof.reportFinishedAt || '') > latestAudit && artifactProof);
+        if (resolved) audit.resolutionProofs.push({findingId:finding.id,path:resolution.proofPath,sha256:digest(proofBytes),proofSha256:resolution.proofSha256,condition:resolution.condition});
+      }
+      check(resolved, `External blocking finding ${finding.id}: ${finding.finding}`);
+    }
+  }
+  return audits;
+}
 export function evaluateFreeze({ report, pins, files = {}, inspections = {}, currentHeads = {}, reachableCommits = {}, buildPaths = [], checkedPaths = {}, offlineRoot = OFFLINE_ROOT }) {
   const errors = [], evidence = [];
   const check = (condition, message) => { if (!condition) errors.push(message); return condition; };
@@ -66,6 +112,7 @@ export function evaluateFreeze({ report, pins, files = {}, inspections = {}, cur
   check(Array.isArray(buildManifest?.files) && buildManifest.files.length > 0, 'Empty build inventory');
   check(pins.buildRoot && buildPaths.length > 0 && same([...buildPaths].sort(), (buildManifest?.files || []).map(entry => entry.path).sort()), 'Served directory inventory differs from build manifest');
   for (const entry of buildManifest?.files || []) check(inside(entry.path, pins.buildRoot || '.') && files[entry.path] && digest(files[entry.path]) === entry.sha256, `Changed or missing served build file: ${entry.path}`);
+  const externalReviews = inspectExternalReviews({pins,candidate,buildManifest,files,checkedPaths,offlineRoot,check});
   const scenarios = report.scenarios || [];
   check(scenarios.length === 25 && new Set(scenarios.map(s => s.id)).size === 25, 'Expected twenty-five unique scenarios');
   const visits = scenarios.flatMap(s => s.visits || []);
@@ -102,6 +149,7 @@ export function evaluateFreeze({ report, pins, files = {}, inspections = {}, cur
         let diagnostic; try { diagnostic = JSON.parse(match?.[1]); } catch { check(false, `Missing source diagnostic ${label}`); }
         if (diagnostic) {
           check(diagnostic.format === 'codex-runtime-source-v1' && diagnostic.baseManifest?.commit === candidate.sourceCommit && diagnostic.state?.url === visit.state?.url, `Source identity mismatch ${label}`);
+          if (scenario.project) check(/^\d+$/.test(String(scenario.project)) && new RegExp(`REPD\\s+${scenario.project}\\b`, 'i').test(diagnostic.state?.visibleText || ''), `Printed selected REPD project missing or wrong ${label}`);
           check(typeof diagnostic.state?.visibleText === 'string' && diagnostic.state.visibleText.length > 0 && Array.isArray(diagnostic.state.forms) && diagnostic.state.viewport, `Missing current runtime state ${label}`);
           check(Array.isArray(diagnostic.failures) && diagnostic.failures.length === 0, `Unavailable runtime source dependencies ${label}`);
           check(Array.isArray(diagnostic.limitations) && diagnostic.limitations.length > 0 && Array.isArray(diagnostic.discoveryWarnings), `Source limitations not stated ${label}`);
@@ -132,7 +180,7 @@ export function evaluateFreeze({ report, pins, files = {}, inspections = {}, cur
     }
   }
   const proofSha256 = digest(stable({ report, evidence, inputs:pins.inputs, heads:pins.heads }));
-  return { status:errors.length ? 'REJECTED' : 'DESIGN FREEZE', candidate, proofSha256, counts:{visits:visits.length,pdf:visits.filter(v=>v.mode==='pdf').length,source:visits.filter(v=>v.mode==='source').length,png:evidence.filter(v=>v.kind==='png').length}, evidence, errors, scope:'Installed Chrome emulation; selected runtime dependencies and current state. Known unloaded/computed references are explicit limitations; no universal dependency completeness claim.' };
+  return { status:errors.length ? 'REJECTED' : 'DESIGN FREEZE', candidate, proofSha256, externalReviews, testedConditions:testedConditions.filter(condition=>condition !== 'source-selected-repd' || scenarios.some(scenario=>scenario.project)), reportFinishedAt:report.finishedAt, counts:{visits:visits.length,pdf:visits.filter(v=>v.mode==='pdf').length,source:visits.filter(v=>v.mode==='source').length,png:evidence.filter(v=>v.kind==='png').length}, evidence, errors, scope:'Installed Chrome emulation; selected runtime dependencies and current state. Known unloaded/computed references are explicit limitations; no universal dependency completeness claim.' };
 }
 const here = path.dirname(fileURLToPath(import.meta.url));
 async function inventory(directory) {
@@ -159,6 +207,24 @@ async function run(reportPath, pinsPath) {
   try { files[pins.buildManifestPath] = await fs.readFile(pins.buildManifestPath); buildManifest = JSON.parse(files[pins.buildManifestPath]);
     for (const entry of buildManifest.files || []) { try { files[entry.path] = await fs.readFile(entry.path); } catch {} }
   } catch {}
+  const externalArtifactPaths = [];
+  async function loadExternalArtifact(filename) {
+    externalArtifactPaths.push(filename);
+    try { checkedPaths[filename] = !!inside(await fs.realpath(filename), await fs.realpath(OFFLINE_ROOT)); if (checkedPaths[filename]) files[filename] = await fs.readFile(filename); } catch {}
+  }
+  for (const filename of pins.externalReviewPaths ?? [DEFAULT_EXTERNAL_REVIEW]) {
+    try {
+      files[filename] = await fs.readFile(filename);
+      const review = JSON.parse(files[filename]);
+      for (const run of review.runs || []) for (const artifact of run.artifacts || []) await loadExternalArtifact(path.resolve(run.directory || '',artifact.filename || ''));
+      for (const finding of review.findings || []) if (finding.resolution?.proofPath) {
+        const proofPath = finding.resolution.proofPath;
+        files[proofPath] = await fs.readFile(proofPath);
+        const proof = JSON.parse(files[proofPath]);
+        for (const artifact of proof.evidence || []) await loadExternalArtifact(artifact.path);
+      }
+    } catch { /* Evaluation rejects missing, malformed or changed registries/proofs. */ }
+  }
   for (const head of pins.heads || []) {
     const result = spawnSync('git',['-C',head.repo,'rev-parse','HEAD'],{encoding:'utf8'});
     if (result.status === 0) currentHeads[head.repo] = result.stdout.trim();
@@ -183,7 +249,7 @@ async function run(reportPath, pinsPath) {
     } catch { /* Invalid inspection cannot qualify. */ }
   }
   // Re-read all inputs and HEADs after expensive PDF inspection to catch changes during verification.
-  for (const input of [...(pins.inputs || []), ...(buildManifest?.files || []), ...visits.flatMap(visit => [visit.path,visit.pngPath].filter(Boolean).map(path => ({path}))), {path:pins.buildManifestPath}]) { try { files[input.path] = await fs.readFile(input.path); } catch { delete files[input.path]; } }
+  for (const input of [...(pins.inputs || []), ...(buildManifest?.files || []), ...externalArtifactPaths.map(path => ({path})), ...visits.flatMap(visit => [visit.path,visit.pngPath].filter(Boolean).map(path => ({path}))), {path:pins.buildManifestPath}]) { try { files[input.path] = await fs.readFile(input.path); } catch { delete files[input.path]; } }
   for (const head of pins.heads || []) {
     const result = spawnSync('git',['-C',head.repo,'rev-parse','HEAD'],{encoding:'utf8'});
     if (result.status !== 0 || result.stdout.trim() !== currentHeads[head.repo]) currentHeads[head.repo] = 'CHANGED';

@@ -1,0 +1,415 @@
+{
+  "schema": "codex-external-evidence-review-v1",
+  "reviewedAt": "2026-09-05T15:14:29.281718+00:00",
+  "status": "NOT_ACCEPTED_FOR_DESIGN_FREEZE",
+  "automaticVetoIntegration": true,
+  "scope": "Two independently reviewed local Claude GridAtlas smoke runs; scoped veto integration in Codex Design Freeze.",
+  "provenance": {
+    "gridatlasCommit": "05b8eee7658409dc6e012c5cb20e104470a48139",
+    "teleprinterDriverCommit": "07e9f980007a1f59a3a464c3f20fb291f9a8abb7",
+    "commitBinding": "These commits contain inspected code; the original smoke summaries do not pin those commits or build hashes.",
+    "inspectedFiles": [
+      {
+        "repository": "C:\\Users\\vikra\\OneDrive\\Documents\\GitHub\\teleprinter",
+        "path": "drivers/gridatlas/screen-frame.js",
+        "sha256": "e48826f121cc9d2f011351094dc40f14e68b7c4f96d2f95dcc9acabbe8a6ae96"
+      },
+      {
+        "repository": "C:\\Users\\vikra\\OneDrive\\Documents\\GitHub\\teleprinter",
+        "path": "drivers/gridatlas/print-pdf.js",
+        "sha256": "8eac02d8ea3bad87ae8f9609444e75a828617d1e26a36dc42de1f58bcd40ee2e"
+      },
+      {
+        "repository": "C:\\Users\\vikra\\OneDrive\\Documents\\GitHub\\teleprinter",
+        "path": "drivers/gridatlas/print-source-code.js",
+        "sha256": "edc6029f40fa7722c3cb523c418b0ca32758a9be1f13ac2a5837c198b27893a4"
+      },
+      {
+        "repository": "C:\\Users\\vikra\\OneDrive\\Documents\\GitHub\\gridatlas-main-202609050200",
+        "path": "tools/proofs/teleprint-evidence.browser.mjs",
+        "sha256": "65df999b746c114cd175f90cae2796b80f6d8c88b1618f05669dfde20ce47dfd"
+      }
+    ]
+  },
+  "runs": [
+    {
+      "directory": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\gridatlas-teleprint-smoke",
+      "generation": "202609051503",
+      "version": "v9.129",
+      "summaryCreatedAt": "2026-09-05T15:09:18.787Z",
+      "claimed": {
+        "sessions": 2,
+        "pdf": 1,
+        "source": 1,
+        "passed": 2
+      },
+      "independentStatus": "SMOKE_ONLY_WITH_BLOCKING_FINDINGS",
+      "artifacts": [
+        {
+          "filename": "01-pdf-phone-portrait.pdf",
+          "bytes": 122026,
+          "sha256": "432f570a067a93a0291b9c093ff2f06367e39debc7662c5fdb12b7d93a9b6f38"
+        },
+        {
+          "filename": "01-pdf-phone-portrait.png",
+          "bytes": 180401,
+          "sha256": "36ca72ca35701f902fcb08646fdd3838c9dd47a43b996f7129022f724cff0d4e"
+        },
+        {
+          "filename": "02-source-phone-landscape.png",
+          "bytes": 105917,
+          "sha256": "556b40f85e7176e964faacb399934fff1ddb1d331f63c16469b96be0079cba63"
+        },
+        {
+          "filename": "02-source-phone-landscape.txt",
+          "bytes": 13237685,
+          "sha256": "005fd5ff91ff7fbcf1c50a532a39d2fe1992072e3ef8f3bfbf265d46133f9560"
+        },
+        {
+          "filename": "teleprint-evidence-summary.json",
+          "bytes": 5271,
+          "sha256": "3fd6adfb34c6488f2be87c779b7a04ec011dbb38f4cf8b494502cd8e74239420"
+        }
+      ],
+      "pdf": {
+        "pageCount": 1,
+        "pageSize": [
+          786.0,
+          1762.0
+        ],
+        "imageSize": [
+          786,
+          1704
+        ],
+        "imageRect": [
+          0.0,
+          0.0,
+          786.0,
+          1704.0
+        ],
+        "stripHeight": 58.0,
+        "embeddedPixelSha256": "3ebc6406d751288a193248a043e94b8a2a32b8c753f77b6dd64124c2734b38cb",
+        "renderedImageMatchesEmbeddedBytes": true,
+        "text": "VENTUS  GLOBALGRID2050  GRID ATLAS\nGlobalGrid2050 | UK Region v8 (Experimental)\nhttp://127.0.0.1:8901/atlas/\n2026-09-05 15:09 UTC    capture: display\n",
+        "pngSize": [
+          1179,
+          2556
+        ],
+        "configuredCss": [
+          393,
+          852
+        ],
+        "configuredDpr": 3,
+        "effectiveCaptureScale": [
+          2.0,
+          2.0
+        ]
+      },
+      "source": {
+        "bytes": 13237685,
+        "state": {
+          "url": "http://127.0.0.1:8901/atlas/?repd_ref=2484&technology=wind_offshore",
+          "generation": "202609051503",
+          "viewport": {
+            "width": 852,
+            "height": 393,
+            "devicePixelRatio": 3,
+            "orientation": "landscape"
+          },
+          "selectedProject": null,
+          "layersOn": [
+            "400kV [OK]"
+          ]
+        },
+        "resourceFrames": 33,
+        "truncatedFrames": 0,
+        "replacementCharacters": 71075,
+        "perResourceOriginalByteHashesPresent": false,
+        "selectedProject2484PresentInLiveDomText": false,
+        "codeTruncations": [],
+        "cartridgeChecks": [
+          {
+            "file": "202609041945-streaming-parquet-bridge-v9-5.js",
+            "capturedSha256": "4a6b594f7705bc4d7d62cbe69d2e40726d12f9a759896430cfe5eb00d830d23e",
+            "matchesCurrentLocalBytes": true,
+            "matchesCompositionDigest": true
+          },
+          {
+            "file": "202609041945-place-global-search-v9-5.js",
+            "capturedSha256": "21ab1507e98ee29961d03236e8b7853298104a33ecb1986d4d10ffc420a99c1c",
+            "matchesCurrentLocalBytes": true,
+            "matchesCompositionDigest": true
+          },
+          {
+            "file": "202609051503-substation-intelligence-v9-63.js",
+            "capturedSha256": "8304626dc1b3582ea5482f5b1d66bce04adc7a5882d460091bdb2b367fdc4b7d",
+            "matchesCurrentLocalBytes": true,
+            "matchesCompositionDigest": true
+          },
+          {
+            "file": "202609050354-sld-sandbox-v9-8.js",
+            "capturedSha256": "7c2df5dabb0082d4cef941b98bf31e92161d1e79a7d22bd6c84e81b171507022",
+            "matchesCurrentLocalBytes": true,
+            "matchesCompositionDigest": true
+          }
+        ]
+      },
+      "composition": {
+        "path": "C:\\Users\\vikra\\OneDrive\\Documents\\GitHub\\gridatlas-main-202609050200\\atlas\\manifests\\202609051503-composition.json",
+        "sha256": "dfad5b02ac57d508ae08688456f627223717c678b815edb95d9ce69f85fee4c0"
+      }
+    },
+    {
+      "directory": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\gridatlas-teleprint-smoke2",
+      "generation": "202609051510",
+      "version": "v9.130",
+      "summaryCreatedAt": "2026-09-05T15:10:51.394Z",
+      "claimed": {
+        "sessions": 2,
+        "pdf": 1,
+        "source": 1,
+        "passed": 2
+      },
+      "independentStatus": "SMOKE_ONLY_WITH_BLOCKING_FINDINGS",
+      "artifacts": [
+        {
+          "filename": "01-pdf-phone-portrait.pdf",
+          "bytes": 122027,
+          "sha256": "274b0628b2a793cd1edba5bc4b71f0ec54e6bc541a5bb859c14f398f70863d10"
+        },
+        {
+          "filename": "01-pdf-phone-portrait.png",
+          "bytes": 180401,
+          "sha256": "36ca72ca35701f902fcb08646fdd3838c9dd47a43b996f7129022f724cff0d4e"
+        },
+        {
+          "filename": "02-source-phone-landscape.png",
+          "bytes": 159500,
+          "sha256": "8b74531d2aea5b7ea50745258ba1409070a48b0bcb79d17ac91cdacbecb045e7"
+        },
+        {
+          "filename": "02-source-phone-landscape.txt",
+          "bytes": 1983950,
+          "sha256": "f152159bee0c1b8854276e4472cb54b4da347766d33c984fe5c373b6a590978e"
+        },
+        {
+          "filename": "teleprint-evidence-summary.json",
+          "bytes": 5271,
+          "sha256": "c4930b5e97d254f7b85f0f59997b82753be0585a8efefe73b4e960463ede2d26"
+        }
+      ],
+      "pdf": {
+        "pageCount": 1,
+        "pageSize": [
+          786.0,
+          1762.0
+        ],
+        "imageSize": [
+          786,
+          1704
+        ],
+        "imageRect": [
+          0.0,
+          0.0,
+          786.0,
+          1704.0
+        ],
+        "stripHeight": 58.0,
+        "embeddedPixelSha256": "3ebc6406d751288a193248a043e94b8a2a32b8c753f77b6dd64124c2734b38cb",
+        "renderedImageMatchesEmbeddedBytes": true,
+        "text": "VENTUS  GLOBALGRID2050  GRID ATLAS\nGlobalGrid2050 | UK Region v8 (Experimental)\nhttp://127.0.0.1:8901/atlas/\n2026-09-05 15:10 UTC    capture: display\n",
+        "pngSize": [
+          1179,
+          2556
+        ],
+        "configuredCss": [
+          393,
+          852
+        ],
+        "configuredDpr": 3,
+        "effectiveCaptureScale": [
+          2.0,
+          2.0
+        ]
+      },
+      "source": {
+        "bytes": 1983950,
+        "state": {
+          "url": "http://127.0.0.1:8901/atlas/?repd_ref=2484&technology=wind_offshore",
+          "generation": "202609051510",
+          "viewport": {
+            "width": 852,
+            "height": 393,
+            "devicePixelRatio": 3,
+            "orientation": "landscape"
+          },
+          "selectedProject": null,
+          "layersOn": [
+            "400kV [OK]"
+          ]
+        },
+        "resourceFrames": 33,
+        "truncatedFrames": 22,
+        "replacementCharacters": 3513,
+        "perResourceOriginalByteHashesPresent": false,
+        "selectedProject2484PresentInLiveDomText": false,
+        "codeTruncations": [
+          {
+            "url": "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm",
+            "description": "26009 chars \u00b7 data \u00b7 TRUNCATED: the first 4000 characters of 26009 are shown, because this is data rather than code. Nothing has been summarised or rewritten; the rest is simply not here. \u00b7 found via loaded by the browser (script)",
+            "capturedChars": 4000,
+            "capturedBytes": 4000,
+            "capturedSha256": "3cfe91734d73b9f6d40ea17425e0caf387bc984cc4be0ceeb9feb2d0e8f962ad",
+            "loadedCodeMisclassifiedAsData": true,
+            "truncated": true
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/npm/apache-arrow@17.0.0/+esm",
+            "description": "200034 chars \u00b7 data \u00b7 TRUNCATED: the first 4000 characters of 200034 are shown, because this is data rather than code. Nothing has been summarised or rewritten; the rest is simply not here. \u00b7 found via loaded by the browser (script)",
+            "capturedChars": 4000,
+            "capturedBytes": 4000,
+            "capturedSha256": "20dc6d1dde563ca28a9a729907e7c64248a213ba2c69231c5dd36a3c001b348c",
+            "loadedCodeMisclassifiedAsData": true,
+            "truncated": true
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/npm/tslib@2.6.3/+esm",
+            "description": "10708 chars \u00b7 data \u00b7 TRUNCATED: the first 4000 characters of 10708 are shown, because this is data rather than code. Nothing has been summarised or rewritten; the rest is simply not here. \u00b7 found via loaded by the browser (script)",
+            "capturedChars": 4000,
+            "capturedBytes": 4000,
+            "capturedSha256": "d46effd441d531680582affce68f741979eb0b3911463003fc2c6942327250eb",
+            "loadedCodeMisclassifiedAsData": true,
+            "truncated": true
+          },
+          {
+            "url": "https://cdn.jsdelivr.net/npm/flatbuffers@24.3.25/+esm",
+            "description": "9269 chars \u00b7 data \u00b7 TRUNCATED: the first 4000 characters of 9269 are shown, because this is data rather than code. Nothing has been summarised or rewritten; the rest is simply not here. \u00b7 found via loaded by the browser (script)",
+            "capturedChars": 4000,
+            "capturedBytes": 4000,
+            "capturedSha256": "e40371d04f397da5a44bf6d1040bc810e1a313053b73339e1ced2229efd163ab",
+            "loadedCodeMisclassifiedAsData": true,
+            "truncated": true
+          }
+        ],
+        "cartridgeChecks": [
+          {
+            "file": "202609041945-streaming-parquet-bridge-v9-5.js",
+            "capturedSha256": "4a6b594f7705bc4d7d62cbe69d2e40726d12f9a759896430cfe5eb00d830d23e",
+            "matchesCurrentLocalBytes": true,
+            "matchesCompositionDigest": true
+          },
+          {
+            "file": "202609041945-place-global-search-v9-5.js",
+            "capturedSha256": "21ab1507e98ee29961d03236e8b7853298104a33ecb1986d4d10ffc420a99c1c",
+            "matchesCurrentLocalBytes": true,
+            "matchesCompositionDigest": true
+          },
+          {
+            "file": "202609051510-substation-intelligence-v9-63.js",
+            "capturedSha256": "2db05c263bc549ef5406a796c4f2c6ba278a92da04fd653f470f58564fdbb936",
+            "matchesCurrentLocalBytes": true,
+            "matchesCompositionDigest": true
+          },
+          {
+            "file": "202609050354-sld-sandbox-v9-8.js",
+            "capturedSha256": "7c2df5dabb0082d4cef941b98bf31e92161d1e79a7d22bd6c84e81b171507022",
+            "matchesCurrentLocalBytes": true,
+            "matchesCompositionDigest": true
+          }
+        ]
+      },
+      "composition": {
+        "path": "C:\\Users\\vikra\\OneDrive\\Documents\\GitHub\\gridatlas-main-202609050200\\atlas\\manifests\\202609051510-composition.json",
+        "sha256": "37dfde7c64c734b18c877cfc3ea8028003808bd0d12a426dc0eb56101aa08a0e"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "EXT-001",
+      "severity": "blocker",
+      "appliesTo": [
+        "202609051503",
+        "202609051510"
+      ],
+      "finding": "Only two visits per generation; PDF and source use different scenarios. No fifty-visit or pinned same-candidate proof.",
+      "evidence": "Both summaries record 1 PDF + 1 source and contain no full source/engine commit or build hash."
+    },
+    {
+      "id": "EXT-002",
+      "severity": "blocker",
+      "appliesTo": [
+        "202609051503",
+        "202609051510"
+      ],
+      "finding": "Native-capture fidelity and configured DPR3 are not demonstrated.",
+      "evidence": "PDF image 786x1704 (effective DPR2), later screenshot 1179x2556 (DPR3). No original display frame, track settings or pixel comparison. PDF rendering does preserve the embedded RGB bytes.",
+      "qualification": "No claim that PDF writer downsampled: it writes videoWidth/videoHeight 1:1; lower resolution can originate in display capture."
+    },
+    {
+      "id": "EXT-003",
+      "severity": "blocker",
+      "appliesTo": [
+        "202609051503",
+        "202609051510"
+      ],
+      "finding": "Selected project 2484 not demonstrated.",
+      "evidence": "Source state selectedProject:null; no 2484 in live DOM text; controls say SELECT A PROJECT despite repd_ref=2484 URL. Runner waits only menu/control plus fixed 1000ms, not project engine completion."
+    },
+    {
+      "id": "EXT-004",
+      "severity": "blocker",
+      "appliesTo": [
+        "202609051510"
+      ],
+      "finding": "Four observed JavaScript modules are truncated as data.",
+      "evidence": "DuckDB +esm 26009 chars, Arrow +esm 200034, tslib +esm 10708 and flatbuffers +esm 9269 reduced to 4000 each by extension-only CODE regex."
+    },
+    {
+      "id": "EXT-005",
+      "severity": "blocker",
+      "appliesTo": [
+        "202609051510"
+      ],
+      "finding": "Composition and source responses are incomplete, not an entire dependency record.",
+      "evidence": "22 frames truncated; current.json 46738 chars reduced to 4000, preventing a full embedded composition parse. Code/data distinction also removes map style and configuration JSON needed to explain rendering."
+    },
+    {
+      "id": "EXT-006",
+      "severity": "blocker",
+      "appliesTo": [
+        "202609051503",
+        "202609051510"
+      ],
+      "finding": "Missing dependency and byte-integrity claims are not verified.",
+      "evidence": "Original runner declaresGaps is text.includes(NOT READ) || true; source PASS ignores missing count, project, gaps and hashes. Collector skips blob/data URLs, does not recurse imports, silently slices first 400 discovered resources, and response.text decodes binary bodies. No original per-response byte hashes."
+    },
+    {
+      "id": "EXT-007",
+      "severity": "limitation",
+      "appliesTo": [
+        "202609051503",
+        "202609051510"
+      ],
+      "finding": "Furniture differs from requested header plus footer contract and lacks generation identity.",
+      "evidence": "One 58px bottom provenance strip outside image; no separate top header. PDF text contains date, local URL, capture: display, but no generation or commit."
+    },
+    {
+      "id": "EXT-008",
+      "severity": "unsupported-claim",
+      "appliesTo": [
+        "202609051503",
+        "202609051510"
+      ],
+      "finding": "Attachment-size rationale is not established by this evidence.",
+      "evidence": "No real phone/chat attachment attempt measured. 13237685-byte source largest frames are connection-points JSON ~2.90MB and grid_132kv GeoJSON ~2.84MB; no single 10MB REPD dataset appears in the 33-frame inventory. File size alone does not prove inability to attach."
+    }
+  ],
+  "proposal": {
+    "positiveEvidenceCannotReplaceFiftyVisitGate": true,
+    "vetoOnlyMatchingCandidateOrMatchingExecutableHashes": true,
+    "staleOrDifferentGeneration": "Retain as historical regression evidence; require explicit applicability, never silently transfer acceptance or veto.",
+    "clearanceRequires": "New independently inspected offline artifacts for the corrected exact generation/build, including the previously failing scenario."
+  },
+  "integratedAt": "2026-09-05T15:21:01.169258+00:00"
+}
