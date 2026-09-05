@@ -1,5 +1,6 @@
 import html2canvas from './vendor/html2canvas-1.4.1.mjs';
 import {captureGeometry, assertStableGeometry} from './capture-geometry.mjs';
+import {cloneVisiblePrinterUi} from './clone-visible-ui.js';
 
 /** App-only rendering. No browser chrome, display permission or host binding. */
 export async function captureAppFrame() {
@@ -47,16 +48,7 @@ export async function captureAppFrame() {
         canvas.replaceWith(image);
         imageReady.push(image.decode());
       });
-      // html2canvas does not clone shadow roots. Preserve the visible File menu.
-      const source = document.querySelector('#codex-teleprinter');
-      const target = cloned.querySelector('#codex-teleprinter');
-      if (source?.shadowRoot && target) {
-        const wrapper = cloned.createElement('div');
-        wrapper.id = target.id;
-        wrapper.innerHTML = source.shadowRoot.innerHTML.replaceAll(':host', '#codex-teleprinter');
-        wrapper.querySelectorAll('dialog:not([open])').forEach(node => node.remove());
-        target.replaceWith(wrapper);
-      }
+      cloneVisiblePrinterUi(document, cloned);
       await Promise.all(imageReady);
     }
   });
