@@ -107,17 +107,41 @@ if (verifyOnly) {
     console.error('no vendored teleprint-controls part found');
     process.exit(1);
   }
-  let bad = 0;
-  for (const name of existing) {
-    const current = await readFile(path.join(target, 'atlas', 'modules', name), 'utf8');
-    if (current.replace(/\r\n/g, '\n') !== part.replace(/\r\n/g, '\n')) {
-      console.error(`DRIFT  ${name} differs from the drivers it is built from`);
-      bad += 1;
-    } else {
-      console.log(`OK     ${name}`);
-    }
+  /* ONLY THE PART THAT IS SERVED.
+     ------------------------------------------------------------------------
+     The first version of this compared EVERY vendored part against a fresh
+     build and reported DRIFT on the older ones. That is backwards: a
+     generation is immutable, so a part from an earlier composition is SUPPOSED
+     to differ from today's drivers, and flagging it red trains the reader to
+     ignore the check. The question worth asking is narrower — does the part
+     the CURRENT composition actually serves match the drivers it claims in its
+     own header to be built from?
+
+     Older parts are still listed, as history, without a verdict. */
+  const current = JSON.parse(
+    await readFile(path.join(target, 'atlas', 'current.json'), 'utf8'));
+  const holder = current.cartridges
+    .map(cartridge => cartridge.assembled_from)
+    .filter(Boolean);
+  let servedPart = null;
+  for (const manifest of holder) {
+    const text = await readFile(
+      path.join(target, 'atlas', String(manifest).replace(/^\.\//, '')), 'utf8');
+    const hit = text.match(/(\d{12}-teleprint-controls\.js)/);
+    if (hit) { servedPart = hit[1]; break; }
   }
-  process.exit(bad ? 1 : 0);
+  if (!servedPart) {
+    /* Fall back to the newest, and SAY that is what happened rather than
+       silently verifying something the composition may not use. */
+    servedPart = existing.sort().reverse()[0];
+    console.log(`note   current.json names no parts manifest; verifying newest part ${servedPart}`);
+  }
+  const served = await readFile(path.join(target, 'atlas', 'modules', servedPart), 'utf8');
+  const matches = served.replace(/\r\n/g, '\n') === part.replace(/\r\n/g, '\n');
+  console.log(`${matches ? 'OK    ' : 'DRIFT '} ${servedPart} (served by generation ${current.generation})`);
+  const history = existing.filter(name => name !== servedPart);
+  if (history.length) console.log(`history ${history.length} superseded part(s), not verified: ${history.join(', ')}`);
+  process.exit(matches ? 0 : 1);
 }
 
 /* PARSE THE THING THAT SHIPS, NOT THE THING IT CAME FROM.
