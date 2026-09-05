@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teleprinter</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#08151c; color:#eaf4f6;
+         font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; }
+  header { padding:18px 20px; border-bottom:1px solid #1d3b46; }
+  h1 { margin:0; font-size:16px; letter-spacing:.22em; text-transform:uppercase; }
+  p.lede { margin:6px 0 0; color:#8fb3bd; }
+  main { padding:20px; display:grid; gap:16px; max-width:860px; }
+  button { font:inherit; min-height:48px; padding:12px 18px; cursor:pointer;
+           color:#bdfaff; background:#0f2833; border:1px solid #37656b; }
+  button:hover { background:#164152; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; }
+  pre { background:#0b1e27; border:1px solid #1d3b46; padding:12px;
+        overflow:auto; margin:0; white-space:pre-wrap; }
+  .swatch { display:grid; grid-template-columns:repeat(6,1fr); gap:6px; }
+  .swatch div { height:54px; display:grid; place-items:center; font-size:11px; color:#04121a; }
+  canvas { width:100%; max-width:420px; border:1px solid #1d3b46; display:block; }
+  .note { color:#8fb3bd; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Teleprinter</h1>
+  <p class="lede">Emit the record exactly as it was. No paper, no reflow, no clever processing.</p>
+</header>
+<main>
+  <div class="row">
+    <button id="pdf">Teleprint this screen &rarr; PDF</button>
+    <button id="png">&rarr; PNG</button>
+    <button id="compose">Force the compose fallback</button>
+  </div>
+
+  <p class="note">Everything below is here so a record can be checked against
+  what was on screen: a WebGL canvas, a 2D canvas, colour, and live text.</p>
+
+  <div class="swatch" id="swatch"></div>
+  <canvas id="gl" width="420" height="150"></canvas>
+  <pre id="out">Nothing emitted yet.</pre>
+</main>
+
+<script type="module">
+import { teleprint, canDisplayCapture } from './teleprinter.js';
+
+const out = document.getElementById('out');
+const say = (text) => { out.textContent = text; };
+
+/* Colour, so a record that has silently lost backgrounds is obvious. */
+const swatch = document.getElementById('swatch');
+['#ff4400','#ffb000','#39d353','#22b8cf','#7c6bff','#ff5ea8'].forEach((c) => {
+  const cell = document.createElement('div');
+  cell.style.background = c;
+  cell.textContent = c;
+  swatch.appendChild(cell);
+});
+
+/* A WebGL canvas WITHOUT preserveDrawingBuffer - the exact case that prints
+   blank through a browser print pipeline, and the reason the compose path
+   re-reads every canvas rather than trusting it. */
+const gl = document.getElementById('gl').getContext('webgl');
+if (gl) {
+  gl.clearColor(0.05, 0.35, 0.42, 1);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+}
+
+const run = async (options, label) => {
+  say(`${label}…`);
+  try {
+    const r = await teleprint(options);
+    say([
+      `method       ${r.method}${r.note ? '  (' + r.note + ')' : ''}`,
+      `size         ${r.width} x ${r.height}  ${r.orientation}`,
+      `file         ${r.filename}  ${r.bytes.toLocaleString()} bytes`,
+      `devicePixelRatio ${window.devicePixelRatio}`,
+      `viewport     ${innerWidth} x ${innerHeight}`,
+      '',
+      r.method === 'display'
+        ? 'This is the compositor output: what was on the screen, at screen resolution.'
+        : 'This is a RECONSTRUCTION, not a screen grab. See README, Path B.'
+    ].join('\n'));
+  } catch (error) {
+    say(`failed: ${error}`);
+  }
+};
+
+document.getElementById('pdf').onclick = () => run({}, 'Capturing');
+document.getElementById('png').onclick = () => run({ format: 'png' }, 'Capturing');
+document.getElementById('compose').onclick = () => run({ method: 'compose' }, 'Composing');
+
+say(canDisplayCapture()
+  ? 'Display capture is available: the PDF and PNG buttons will take a real screen grab.\nYou will be asked which tab or window to share.'
+  : 'Display capture is NOT available in this browser (iOS Safari has no getDisplayMedia).\nEvery button will use the compose fallback, which is a reconstruction.');
+</script>
+</body>
+</html>
