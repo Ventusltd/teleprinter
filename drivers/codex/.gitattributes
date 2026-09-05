@@ -1,0 +1,2 @@
+# Source bundles are byte-verified downloads; never rewrite their line endings.
+source-code.txt -text
