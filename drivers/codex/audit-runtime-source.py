@@ -22,6 +22,7 @@ def main():
     parser.add_argument("source", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--report", type=Path)
+    parser.add_argument("--repo", type=Path, help="Optional local Git repository for independent pinned-source byte comparison")
     args = parser.parse_args()
     if args.output.resolve().is_relative_to(Path(__file__).resolve().parents[2]):
         parser.error("Extracted source belongs outside Git.")
@@ -46,12 +47,17 @@ def main():
     begin = raw.index(marker) + len(marker)
     manifest = json.loads(raw[begin:raw.index(b"\n===== END DIAGNOSTIC MANIFEST =====", begin)])
     base = manifest["baseManifest"]
+    if not re.fullmatch(r"[a-f0-9]{40}", base["commit"]): raise ValueError("Invalid pinned Git commit")
     pinned = frame(f"===== BEGIN PINNED SOURCE | bytes={base['byteCount']} | sha256={base['sha256']} =====\n", "\n===== END PINNED SOURCE =====", base["byteCount"], base["sha256"])
     for item in base.get("files", []):
         if item.get("status") == "omitted" or "startByte" not in item: continue
         data = pinned[item["startByte"]:item["startByte"] + item["byteCount"]]
         if len(data) != item["byteCount"] or digest(data) != item["sha256"]:
             errors.append("Pinned file integrity: " + item["path"])
+        if args.repo:
+            committed = subprocess.run(["git", "-C", str(args.repo), "show", base["commit"] + ":" + item["path"]], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            if committed.returncode or committed.stdout != data:
+                errors.append("Pinned source differs from local Git commit: " + item["path"])
         bodies.append(("pinned:" + item["path"], data))
     current = re.search(rb"===== BEGIN CURRENT DOCUMENT \| bytes=(\d+) \| sha256=([a-f0-9]{64}) =====\n", raw)
     if not current: raise ValueError("Missing current document")
@@ -97,7 +103,7 @@ def main():
     report = {"schema": "codex-offline-runtime-source-audit-v1", "artifact": {"filename": args.source.name, "bytes": len(raw), "sha256": digest(raw)},
               "url": state.get("url"), "capturedAt": state.get("capturedAt"), "sourceCommit": base.get("commit"),
               "viewport": state.get("viewport"), "printedEngineBadge": badge[0] if badge else None,
-              "workers": workers, "seconds": round(time.monotonic() - started, 2),
+              "workers": workers, "seconds": round(time.monotonic() - started, 2), "pinnedGitBytesChecked": bool(args.repo),
               "counts": {"verifiedBodies": len(bodies), "javascriptChecks": sum(r["syntax"] == "javascript-parse-only" for r in results), "jsonChecks": sum(r["syntax"] == "json" for r in results), "failures": len(errors)},
               "representedSourceTransport": represented, "ok": not errors, "errors": errors, "results": results,
               "limitations": manifest.get("limitations", []) + ["Offline syntax parsing does not execute code or validate grid mathematics.", "Self-consistent hashes do not independently authenticate a GitHub deployment.", "Browser discovery cannot prove universal dependency completeness."]}
