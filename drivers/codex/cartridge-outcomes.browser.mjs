@@ -11,10 +11,10 @@ const toolsResponse=await fetch(new URL('atlas/tool-layers.json',base));
 const toolConfig=toolsResponse.ok && toolsResponse.headers.get('content-type')?.includes('json') ? await toolsResponse.json() : null;
 const records=[];await fs.mkdir(output,{recursive:true});
 for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
- let browser;const record={viewport,generation:release.generation,engineCommit:release.teleprinter.commit};
+ let browser,page;const record={viewport,generation:release.generation,engineCommit:release.teleprinter.commit};
  try {
   browser=await chromium.launch({channel:'chrome',headless:true});
-  const page=await browser.newPage({viewport,deviceScaleFactor:viewport.width===393?2:1});
+  page=await browser.newPage({viewport,deviceScaleFactor:viewport.width===393?2:1});
   await page.goto(new URL('atlas/?repd_ref=1938&technology=solar',base).href,{waitUntil:'domcontentloaded'});
   await page.getByText(/TEST CODE repd-1938 \| ENGINE COMPLETED/).first().waitFor({timeout:90000});
   const grid=page.locator('#codex-layer-quick-controls [data-layer-command="grid"]');
@@ -24,6 +24,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
   const states=()=>page.evaluate(()=>Object.fromEntries(['400','275','220','132','66','subs'].map(id=>[id,document.querySelector('#scada-ui-container input[data-layer-id="'+id+'"]')?.checked])));
   const panel=page.locator('.scada-wrapper');
   if(Number(release.generation)>=202609051848) assert.equal(await panel.getAttribute('data-gridatlas-collapsed'),'1','Layers must start collapsed');
+  await page.waitForFunction(()=>{const value=JSON.stringify([...document.querySelectorAll('#scada-ui-container input[data-layer-id]')].map(n=>[n.dataset.layerId,n.checked]));const now=performance.now();const previous=window.__controlReadiness;if(!previous||previous.value!==value){window.__controlReadiness={value,since:now};return false;}return now-previous.since>=500;},null,{timeout:15000,polling:100});
   const first=await states();
   // Normalise through the real group button, then prove both directions.
   if(['400','275','220','132','66'].every(id=>first[id])) await grid.click();
@@ -31,7 +32,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
   assert.ok(['400','275','220','132','66'].every(id=>enabled[id]));
   await grid.click();const disabled=await states();
   assert.ok(['400','275','220','132','66'].every(id=>!disabled[id]));
-  await subs.click();await page.waitForFunction(expected=>document.querySelector('#scada-ui-container input[data-layer-id="subs"]')?.checked===expected,!disabled.subs,{timeout:5000});const subChanged=await states();assert.notEqual(subChanged.subs,disabled.subs);
+  record.beforeSubs=disabled;await subs.click();await page.waitForFunction(expected=>document.querySelector('#scada-ui-container input[data-layer-id="subs"]')?.checked===expected,!disabled.subs,{timeout:5000});const subChanged=await states();assert.notEqual(subChanged.subs,disabled.subs);
   assert.ok(['400','275','220','132','66'].every(id=>subChanged[id]===disabled[id]));
   await grid.click();
   const beforePanel=await states();
@@ -71,7 +72,11 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      await frame.locator('#route_name').fill('Chrome integration test');
      await frame.locator('#route_name').press('Tab');
      assert.ok((await frame.locator('#status_box').innerText()).length>0);
-     assert.ok(await frame.locator('svg').count()>0,'Cable geometry must render');
+     const drawingFrame=page.frames().find(f=>f.url().includes('/cable-geometry-visualiser/index.html'));
+     await drawingFrame.waitForFunction(()=>{const canvases=[...document.querySelectorAll('canvas')];return canvases.length===3&&canvases.every(c=>{const data=c.getContext('2d').getImageData(0,0,c.width,c.height).data;for(let i=3;i<data.length;i+=4)if(data[i])return true;return false;});},null,{timeout:15000,polling:200});
+     record.cableCanvases=await frame.locator('canvas').evaluateAll(nodes=>nodes.map(canvas=>{const p=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;let opaque=0;const colors=new Set();for(let i=0;i<p.length;i+=4){if(p[i+3])opaque++;colors.add(p[i]+','+p[i+1]+','+p[i+2]);}return {id:canvas.id,width:canvas.width,height:canvas.height,opaque,colors:colors.size};}));
+     assert.equal(record.cableCanvases.length,3);
+     assert.ok(record.cableCanvases.every(c=>c.opaque>100&&c.colors>4),'Cable canvases must contain drawn geometry');
      await page.screenshot({path:path.join(output,`${viewport.width}-${tool.id}-open.png`)});
     }
     await dialog.getByRole('button',{name:/Close.*return to GridAtlas/}).click();
@@ -85,7 +90,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
   }
   record.layerStates=await states();record.ok=true;
   await page.screenshot({path:path.join(output,`${viewport.width}-controls.png`),fullPage:false});
- } catch(error) {record.ok=false;record.error=String(error);}
+ } catch(error) {record.ok=false;record.error=String(error);if(page){record.failureControls=await page.locator('input[data-layer-id="subs"]').evaluateAll(nodes=>nodes.map(n=>({parent:n.closest('[id]')?.id,checked:n.checked,connected:n.isConnected}))).catch(()=>null);await page.screenshot({path:path.join(output,`${viewport.width}-failure.png`)}).catch(()=>{});}}
  finally {await browser?.close();records.push(record);await fs.writeFile(path.join(output,'results.json'),JSON.stringify({base,records},null,2));console.log(JSON.stringify(record));}
 }
 if(records.some(r=>!r.ok))process.exitCode=1;
