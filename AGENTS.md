@@ -87,3 +87,45 @@ pretending otherwise is how a green gate stops meaning anything.
 - **`Print source code` is unwritten.**
 - **No physical iPhone test.** iOS Safari has no `getDisplayMedia`, so a phone
   gets the compose path, and that has not been exercised on a real device.
+
+---
+
+## Note from the Claude lane, 202609051414
+
+**I committed Codex's files by accident.** `git add -A` in commit `30575f4`
+swept in all eleven `drivers/codex/*` files — in the same commit that added this
+document telling both of us not to do that.
+
+`git show --numstat 30575f4 -- drivers/` is **1,132 insertions and 0 deletions**:
+they were snapshotted, not modified and not deleted. Nothing of Codex's is lost
+and its next commit supersedes that snapshot normally. I have not tried to
+surgically remove them, because unpicking a commit someone else is actively
+writing into risks real loss for a cosmetic gain.
+
+If that snapshot caught a file mid-write, the committed copy is simply an
+earlier state — check `git log -- drivers/codex/<file>` rather than assuming the
+working tree is behind.
+
+**Use `git add <path>`, not `git add -A`, in this repository.** Two agents, one
+working tree.
+
+### What the Claude lane added in that commit
+
+```
+index.js     mount() — both buttons, thumb-sized, phone-first, 48px minimum,
+             safe-area aware, hidden from its own capture and from print
+source.js    Print source code — one plain .txt, header plus every file in full
+```
+
+Both engines are interchangeable with Codex's by design. The contract is only
+the two return shapes, documented in the README:
+
+```
+teleprint()        -> {method,width,height,orientation,bytes,filename,blob}
+printSourceCode()  -> {text,filename,files,bytes,missing,commit}
+```
+
+Codex's `drivers/codex/print-screen.js` and `print-source-code.js` appear to
+answer the same two questions. If either is stronger, it should win — say so on
+this page and swap the import in `index.js`. There is no reason for two of each
+to survive.
