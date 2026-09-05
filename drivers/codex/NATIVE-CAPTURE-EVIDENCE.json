@@ -137,5 +137,18 @@
     "exactReportEngineMatchesCommittedBlob": false,
     "bindingLimitation": "Exact LF Git blob differs from final report engine and CRLF conversion also differs. AppliesTo1531 is parent-assigned pending proof, not a claim this exact committed blob was observed failing.",
     "qualification": "Correct reduced-frame refusal is a guard success, not successful native printing. PDF-writer fidelity and host50 success remain independent. Desktop Chrome emulation; no physical-device claim."
+  },
+  "laterExactServedRun": {
+    "base": "https://globalgrid2050.com/testcode/202609051531/",
+    "servedEngineSha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b",
+    "passed": 1,
+    "tested": 3,
+    "offlineArtifacts": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-41-06-664Z-2532d9",
+    "actualBrowserEngineHashes": [
+      "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b",
+      "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b",
+      "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b"
+    ],
+    "reportSha256": "e8d3759fc3e2b20636a4098e85f037620eacd96ed9ce9570654c1cc08b94eadb"
   }
 }

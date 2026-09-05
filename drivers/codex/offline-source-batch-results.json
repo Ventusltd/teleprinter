@@ -1,0 +1,343 @@
+{
+  "schema": "codex-offline-source-batch-v1",
+  "candidate": {
+    "url": "https://globalgrid2050.com/testcode/202609051531/",
+    "generation": "202609051531",
+    "sourceCommit": "6c2cc1453129378e8e8bc6413af401e7d2c7e333",
+    "engineCommit": "97ef8043a3f29ec162932838b44b2d6163845727",
+    "buildSha256": "da8e97ba58b3e06e7851f783c72b83e78488e5f533ea70e7c0ba95c20c72e122"
+  },
+  "sources": 25,
+  "passed": 25,
+  "seconds": 44.05,
+  "outerWorkers": 2,
+  "ok": true,
+  "results": [
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-01-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "0d9b103442feb65574b67b8fb7e1696a55e3e8d534f1fa8252a149c18998ace1",
+      "counts": {
+        "verifiedBodies": 65,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-02-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "13ca99e693f15e834b0df325d0ab1e62b471b88ed9724dd5b0569521c5470333",
+      "counts": {
+        "verifiedBodies": 66,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-03-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "e1a0fdc6772027af8a7aea99f3175c04103d44025e7e7033cd675c20b614fde5",
+      "counts": {
+        "verifiedBodies": 66,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-04-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "3421f89bb4f92e6857dff3ce362a1d68746c543f3dd2984ef423c732897a9e09",
+      "counts": {
+        "verifiedBodies": 65,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-05-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "fc844ae51172ee1a58e67242f621917afc14237d885f8669de4d06e36f9e2018",
+      "counts": {
+        "verifiedBodies": 66,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-06-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "5619a04efe8d61e0a6a5b8fc7bd59d9202d577994128a20b00268ea144c19578",
+      "counts": {
+        "verifiedBodies": 65,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-07-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "ecb4a56b6aca46eeb4e50dae825817ac7f351346e1431a8dab51a4d643298499",
+      "counts": {
+        "verifiedBodies": 66,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-08-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "afb53c39ac0ba5f633eff2c0425f6e795461711b1dea7d785068b42f961e09de",
+      "counts": {
+        "verifiedBodies": 63,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-09-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "154d8306abde67c19a686f3bfe529c7e9fbe8b451d9a35886f0fc33d97c078f7",
+      "counts": {
+        "verifiedBodies": 66,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-10-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "52326530a519749d82a998977a3e1ab575beff5b61b3e4e10e4f0ff70c508825",
+      "counts": {
+        "verifiedBodies": 66,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-11-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "37f49f27331644afdde490522b49650a3564f5f8ce0b29a6bfe2bee4f157e665",
+      "counts": {
+        "verifiedBodies": 65,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-12-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "bbd2b3f61fc374b14cceeb4093012b182d0b372b3b7cfa8adcf16c5fa8a20865",
+      "counts": {
+        "verifiedBodies": 63,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-13-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "0c9853d925d3ecc2ce5fd8058fd7caa352a9fd5527d97770eb67e0259f6faf8f",
+      "counts": {
+        "verifiedBodies": 66,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-14-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "73ec0e53cfc30fa12db57ee26314b769ce0ea3a4024ef78db372c1023ae97e4c",
+      "counts": {
+        "verifiedBodies": 63,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-15-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "33218466357d1ea5a5f5c31645607ecf3194aa58c4a559590e11543e8998bb9c",
+      "counts": {
+        "verifiedBodies": 65,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-16-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "d35a617b05fbda9189fc1aeb563b039b452d6e197000757daa7de8963ce7f615",
+      "counts": {
+        "verifiedBodies": 142,
+        "javascriptChecks": 80,
+        "jsonChecks": 43,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-17-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "0e85bc7f1aaaf10fdb45ba6df1e42b0bbbf8f5cb9033982debc17cd6a88e3f9d",
+      "counts": {
+        "verifiedBodies": 142,
+        "javascriptChecks": 80,
+        "jsonChecks": 43,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-18-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "a20b59ea6c22f3bb57cc70e37a631fa6abf8712e30f41f24ede26333a4dce5b6",
+      "counts": {
+        "verifiedBodies": 142,
+        "javascriptChecks": 80,
+        "jsonChecks": 43,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-19-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "64e1da77844ecef05ead9fbc48e4e37c0cee6c8c7ad8fd88649c9d8483f0fcec",
+      "counts": {
+        "verifiedBodies": 142,
+        "javascriptChecks": 80,
+        "jsonChecks": 43,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-20-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "6eb62368fa8fcdfeeb10f9efdd80272dfd2debe15867d632c95ef70a754aec83",
+      "counts": {
+        "verifiedBodies": 142,
+        "javascriptChecks": 80,
+        "jsonChecks": 43,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-21-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "906cf524305fa9805271ae7fedf04c04914d6f3d6a5b73628d8fa43138ec9483",
+      "counts": {
+        "verifiedBodies": 142,
+        "javascriptChecks": 80,
+        "jsonChecks": 43,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-22-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "e7b1fc0afd9e8ac33e7fdd1fe53a1ef2fe7904aebd7649486ec9e2747784cfca",
+      "counts": {
+        "verifiedBodies": 142,
+        "javascriptChecks": 80,
+        "jsonChecks": 43,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-23-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "0a18851fabe6cdc791d70d750d01e309f88de9d9d51395f90927a0e713a228f3",
+      "counts": {
+        "verifiedBodies": 142,
+        "javascriptChecks": 80,
+        "jsonChecks": 43,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-24-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "94bd2c0acdaf627e0167764247c3dff8839b4f89e363eb6825826698b615fda6",
+      "counts": {
+        "verifiedBodies": 20,
+        "javascriptChecks": 16,
+        "jsonChecks": 1,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-25-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "83e04a03f9cae351487ec4a19681e88d9dc18ef8e902c69d2795bc875ac04a71",
+      "counts": {
+        "verifiedBodies": 20,
+        "javascriptChecks": 16,
+        "jsonChecks": 1,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    }
+  ],
+  "scope": "Every actual source download rehashed, framed bodies verified, pinned files compared to local Git, JS parsed without execution, JSON parsed. No network or AI calls."
+}

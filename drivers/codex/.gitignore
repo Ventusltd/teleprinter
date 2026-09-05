@@ -1,0 +1,3 @@
+# Full browser receipts include large DOM/state observations; keep them local.
+fifty-prints-results.json
+fifty-prints-????????????.json
