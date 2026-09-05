@@ -69,7 +69,9 @@ function inspectExternalReviews({pins,candidate,buildManifest,files,checkedPaths
       const buildHashes = finding.buildSha256 || [];
       const shared = finding.sharedCodeSha256 || [];
       if (!check(Array.isArray(generations) && Array.isArray(buildHashes) && Array.isArray(shared) && generations.every(value=>typeof value === 'string') && [...buildHashes,...shared].every(value=>/^[a-f0-9]{64}$/.test(value)), `Invalid finding applicability: ${finding.id}`)) continue;
-      const applicable = generations.includes(candidate.generation) && review.runs.some(run=>run.generation === candidate.generation) || buildHashes.includes(candidate.buildSha256) && review.runs.some(run=>run.buildSha256 === candidate.buildSha256) || shared.some(hash => codeHashes.has(hash));
+      // Explicitly assigned requirements apply before a test exists. Missing
+      // runtime evidence must not silently turn an open blocker into acceptance.
+      const applicable = generations.includes(candidate.generation) || buildHashes.includes(candidate.buildSha256) || shared.some(hash => codeHashes.has(hash));
       if (!applicable || finding.severity !== 'blocker') continue;
       audit.applicableFindingIds.push(finding.id);
       let resolved = false;

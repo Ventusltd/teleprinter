@@ -581,7 +581,8 @@
       "id": "CODEX-NATIVE-001",
       "severity": "blocker",
       "appliesTo": [
-        "202609051531"
+        "202609051531",
+        "202609051608"
       ],
       "sharedCodeSha256": [
         "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b"
@@ -590,7 +591,7 @@
       "conditions": [
         "native-full-resolution-capture"
       ],
-      "finding": "Candidate1531 has no fresh passing native full-resolution proof after bounded Atlas failures; host-screenshot success cannot clear this open native requirement.",
+      "finding": "Candidates1531 and1608 require fresh passing native full-resolution proof; host-screenshot success cannot clear this requirement. 1608 fixes undefined rejection handling but has no measured native-capture clearance.",
       "evidence": "Final report0passes/1completed,2not-completed: required1365x900, track1365x900, actual1364x898 visibly refused without reduced PDF. Prior different-engine report1/3passes (Pipeline1200x800), two Atlas failures.",
       "engineCommit": "97ef8043a3f29ec162932838b44b2d6163845727",
       "engineBlobPath": "drivers/codex/print-screen.js",
@@ -598,7 +599,7 @@
       "reportedFinalEngineSha256": "8d84cf39d0506a795e66fcc989764981368bc5eb8d59433f6615442cd7f1abbb",
       "exactReportEngineMatchesCommittedBlob": false,
       "bindingLimitation": "Exact LF Git blob differs from final report engine and CRLF conversion also differs. AppliesTo1531 is parent-assigned pending proof, not a claim this exact committed blob was observed failing.",
-      "qualification": "Correct reduced-frame refusal is a guard success, not successful native printing. PDF-writer fidelity and host50 success remain independent. Desktop Chrome emulation; no physical-device claim."
+      "qualification": "Correct reduced-frame refusal is a guard success, not successful native printing. PDF-writer fidelity and host50 success remain independent. Desktop Chrome emulation; no physical-device claim. Applicability to1608 is an explicitly inherited acceptance requirement, not a claim that its exact bytes have failed."
     }
   ],
   "proposal": {

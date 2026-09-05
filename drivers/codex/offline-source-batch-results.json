@@ -1,25 +1,25 @@
 {
   "schema": "codex-offline-source-batch-v1",
   "candidate": {
-    "url": "https://globalgrid2050.com/testcode/202609051531/",
-    "generation": "202609051531",
-    "sourceCommit": "6c2cc1453129378e8e8bc6413af401e7d2c7e333",
-    "engineCommit": "97ef8043a3f29ec162932838b44b2d6163845727",
-    "buildSha256": "da8e97ba58b3e06e7851f783c72b83e78488e5f533ea70e7c0ba95c20c72e122"
+    "url": "https://globalgrid2050.com/testcode/202609051608/",
+    "generation": "202609051608",
+    "sourceCommit": "9261119c1bfa0fb99b2342e46f5adff672c46357",
+    "engineCommit": "0f666854e19d9f798cbeb189b540008f2daec7c9",
+    "buildSha256": "3ddacbcf44083dac340bf7c9e723dda0f837d47ac01b2e5563ebbc66825c3ef4"
   },
   "sources": 25,
   "passed": 25,
-  "seconds": 44.05,
+  "seconds": 52.98,
   "outerWorkers": 2,
   "ok": true,
   "results": [
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-01-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-01-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "0d9b103442feb65574b67b8fb7e1696a55e3e8d534f1fa8252a149c18998ace1",
+      "artifactSha256": "41e2ab989d50716509dbe297e4227730b76245dfd4935b04d7f0345ca9e65daf",
       "counts": {
-        "verifiedBodies": 65,
+        "verifiedBodies": 64,
         "javascriptChecks": 28,
         "jsonChecks": 20,
         "failures": 0
@@ -27,23 +27,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-02-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-02-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "13ca99e693f15e834b0df325d0ab1e62b471b88ed9724dd5b0569521c5470333",
-      "counts": {
-        "verifiedBodies": 66,
-        "javascriptChecks": 28,
-        "jsonChecks": 20,
-        "failures": 0
-      },
-      "pinnedGitBytesChecked": true
-    },
-    {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-03-source",
-      "ok": true,
-      "exitCode": 0,
-      "artifactSha256": "e1a0fdc6772027af8a7aea99f3175c04103d44025e7e7033cd675c20b614fde5",
+      "artifactSha256": "34503165363c889e4e06beed8751828be6836e1a56797717db0485511ec6d2e0",
       "counts": {
         "verifiedBodies": 66,
         "javascriptChecks": 28,
@@ -53,23 +40,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-04-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-03-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "3421f89bb4f92e6857dff3ce362a1d68746c543f3dd2984ef423c732897a9e09",
-      "counts": {
-        "verifiedBodies": 65,
-        "javascriptChecks": 28,
-        "jsonChecks": 20,
-        "failures": 0
-      },
-      "pinnedGitBytesChecked": true
-    },
-    {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-05-source",
-      "ok": true,
-      "exitCode": 0,
-      "artifactSha256": "fc844ae51172ee1a58e67242f621917afc14237d885f8669de4d06e36f9e2018",
+      "artifactSha256": "dc9c020313adaf2091e929f620e290d06d10cb51fa6db0a02acd029d5928a1fe",
       "counts": {
         "verifiedBodies": 66,
         "javascriptChecks": 28,
@@ -79,23 +53,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-06-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-04-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "5619a04efe8d61e0a6a5b8fc7bd59d9202d577994128a20b00268ea144c19578",
-      "counts": {
-        "verifiedBodies": 65,
-        "javascriptChecks": 28,
-        "jsonChecks": 20,
-        "failures": 0
-      },
-      "pinnedGitBytesChecked": true
-    },
-    {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-07-source",
-      "ok": true,
-      "exitCode": 0,
-      "artifactSha256": "ecb4a56b6aca46eeb4e50dae825817ac7f351346e1431a8dab51a4d643298499",
+      "artifactSha256": "87827b6cedabcf4bee46253b67d0d0d968b29aa145df6c69530e39d58c434166",
       "counts": {
         "verifiedBodies": 66,
         "javascriptChecks": 28,
@@ -105,10 +66,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-08-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-05-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "afb53c39ac0ba5f633eff2c0425f6e795461711b1dea7d785068b42f961e09de",
+      "artifactSha256": "bdc6713d0d0a16b9a63d1d8e9a83f16b74a14fcdf9f79932abd0c5a7f5ac884b",
       "counts": {
         "verifiedBodies": 63,
         "javascriptChecks": 28,
@@ -118,49 +79,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-09-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-06-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "154d8306abde67c19a686f3bfe529c7e9fbe8b451d9a35886f0fc33d97c078f7",
-      "counts": {
-        "verifiedBodies": 66,
-        "javascriptChecks": 28,
-        "jsonChecks": 20,
-        "failures": 0
-      },
-      "pinnedGitBytesChecked": true
-    },
-    {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-10-source",
-      "ok": true,
-      "exitCode": 0,
-      "artifactSha256": "52326530a519749d82a998977a3e1ab575beff5b61b3e4e10e4f0ff70c508825",
-      "counts": {
-        "verifiedBodies": 66,
-        "javascriptChecks": 28,
-        "jsonChecks": 20,
-        "failures": 0
-      },
-      "pinnedGitBytesChecked": true
-    },
-    {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-11-source",
-      "ok": true,
-      "exitCode": 0,
-      "artifactSha256": "37f49f27331644afdde490522b49650a3564f5f8ce0b29a6bfe2bee4f157e665",
-      "counts": {
-        "verifiedBodies": 65,
-        "javascriptChecks": 28,
-        "jsonChecks": 20,
-        "failures": 0
-      },
-      "pinnedGitBytesChecked": true
-    },
-    {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-12-source",
-      "ok": true,
-      "exitCode": 0,
-      "artifactSha256": "bbd2b3f61fc374b14cceeb4093012b182d0b372b3b7cfa8adcf16c5fa8a20865",
+      "artifactSha256": "7605271462c1174bf2658b52214ddbafc510f3816c3f9afe34ab6c476451967f",
       "counts": {
         "verifiedBodies": 63,
         "javascriptChecks": 28,
@@ -170,10 +92,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-13-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-07-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "0c9853d925d3ecc2ce5fd8058fd7caa352a9fd5527d97770eb67e0259f6faf8f",
+      "artifactSha256": "9c6ab9e4cfe6aa791ce90f79c6c5c08c676af121b64127b364c1a5e97679f989",
       "counts": {
         "verifiedBodies": 66,
         "javascriptChecks": 28,
@@ -183,10 +105,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-14-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-08-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "73ec0e53cfc30fa12db57ee26314b769ce0ea3a4024ef78db372c1023ae97e4c",
+      "artifactSha256": "67b996fc400a08c0578031a1558b0d71d435f461feb019ed124271165ba2d78e",
       "counts": {
         "verifiedBodies": 63,
         "javascriptChecks": 28,
@@ -196,10 +118,49 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-15-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-09-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "33218466357d1ea5a5f5c31645607ecf3194aa58c4a559590e11543e8998bb9c",
+      "artifactSha256": "b79376c5fa8a83f786b1b3b2c24f8c2ca7fc5fdeed13b861f4bf529c942fec22",
+      "counts": {
+        "verifiedBodies": 66,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-10-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "9965ed362ad9393012e46181fc71596296ece3b87439ecf815aa62eb64072cf7",
+      "counts": {
+        "verifiedBodies": 66,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-11-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "16a7f2ec58c07b8be658ac37e459451006cee322309a24d4e188ded13dc17f92",
+      "counts": {
+        "verifiedBodies": 63,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-12-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "c0da2f9f51560aa87f815f29c1fefa652cf1b8ae4111d902a110bc798c4264c2",
       "counts": {
         "verifiedBodies": 65,
         "javascriptChecks": 28,
@@ -209,10 +170,49 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-16-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-13-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "d35a617b05fbda9189fc1aeb563b039b452d6e197000757daa7de8963ce7f615",
+      "artifactSha256": "c84f395ae5759b370617fd7574abf173b46242e7759352a86220423a1e4e889a",
+      "counts": {
+        "verifiedBodies": 67,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-14-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "8e609e00cf52d70cecf871e5d5f5eadba4d53914ed873be4a6650416b3478e83",
+      "counts": {
+        "verifiedBodies": 66,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-15-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "0d54a184518b5b5bb682e66f2681326b25f63c5c2c5f10e261616c5f24a8d2ed",
+      "counts": {
+        "verifiedBodies": 65,
+        "javascriptChecks": 28,
+        "jsonChecks": 20,
+        "failures": 0
+      },
+      "pinnedGitBytesChecked": true
+    },
+    {
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-16-source",
+      "ok": true,
+      "exitCode": 0,
+      "artifactSha256": "b211d1446a8604e60ea78c0d4ee4d5452b616de2b4e8403be0122fb2173213e6",
       "counts": {
         "verifiedBodies": 142,
         "javascriptChecks": 80,
@@ -222,10 +222,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-17-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-17-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "0e85bc7f1aaaf10fdb45ba6df1e42b0bbbf8f5cb9033982debc17cd6a88e3f9d",
+      "artifactSha256": "1f15e6a2d50797c4d48484b8dcc64dc1bbf9dca4506c50e11df05cb1881bab47",
       "counts": {
         "verifiedBodies": 142,
         "javascriptChecks": 80,
@@ -235,10 +235,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-18-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-18-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "a20b59ea6c22f3bb57cc70e37a631fa6abf8712e30f41f24ede26333a4dce5b6",
+      "artifactSha256": "867c5c7b34f9ebe4e79e2f07472d05e79e99e94936cd7cc58a757da3f7745aad",
       "counts": {
         "verifiedBodies": 142,
         "javascriptChecks": 80,
@@ -248,10 +248,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-19-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-19-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "64e1da77844ecef05ead9fbc48e4e37c0cee6c8c7ad8fd88649c9d8483f0fcec",
+      "artifactSha256": "ef3779fe51477eeb0c60ab76cd0439580edc967b3da4e0a28e40bb28b634e550",
       "counts": {
         "verifiedBodies": 142,
         "javascriptChecks": 80,
@@ -261,10 +261,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-20-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-20-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "6eb62368fa8fcdfeeb10f9efdd80272dfd2debe15867d632c95ef70a754aec83",
+      "artifactSha256": "cfd026890a8f830b3889f8c4b40d7175e876bc3d3606a003552ea69c97c4ce09",
       "counts": {
         "verifiedBodies": 142,
         "javascriptChecks": 80,
@@ -274,10 +274,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-21-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-21-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "906cf524305fa9805271ae7fedf04c04914d6f3d6a5b73628d8fa43138ec9483",
+      "artifactSha256": "73061d2dba26156bc4a24bbe4fd8652eb250cc9e9a1c98a414c81ee2fc23a899",
       "counts": {
         "verifiedBodies": 142,
         "javascriptChecks": 80,
@@ -287,10 +287,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-22-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-22-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "e7b1fc0afd9e8ac33e7fdd1fe53a1ef2fe7904aebd7649486ec9e2747784cfca",
+      "artifactSha256": "03d95fceec106b37e831ec70cec5f7c8700aef1a16bf709a3a7dfac94fe10b93",
       "counts": {
         "verifiedBodies": 142,
         "javascriptChecks": 80,
@@ -300,10 +300,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-23-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-23-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "0a18851fabe6cdc791d70d750d01e309f88de9d9d51395f90927a0e713a228f3",
+      "artifactSha256": "642fc9c8cd99ce413d48474ee00ffc7c7c641cf481447d6522d60af89c6677a4",
       "counts": {
         "verifiedBodies": 142,
         "javascriptChecks": 80,
@@ -313,10 +313,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-24-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-24-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "94bd2c0acdaf627e0167764247c3dff8839b4f89e363eb6825826698b615fda6",
+      "artifactSha256": "07bf9d0501546faa25b55401b242c3446c00e4a399fb26acfa4634bf1e492b28",
       "counts": {
         "verifiedBodies": 20,
         "javascriptChecks": 16,
@@ -326,10 +326,10 @@
       "pinnedGitBytesChecked": true
     },
     {
-      "visitId": "teleprinter-2026-09-05T15-37-01-522Z-10396-25-source",
+      "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-25-source",
       "ok": true,
       "exitCode": 0,
-      "artifactSha256": "83e04a03f9cae351487ec4a19681e88d9dc18ef8e902c69d2795bc875ac04a71",
+      "artifactSha256": "79b6e26e8b188ebdcbd6fdae7ffbde761e5e8cbc7d4010a8ee150e1afa04b3d4",
       "counts": {
         "verifiedBodies": 20,
         "javascriptChecks": 16,

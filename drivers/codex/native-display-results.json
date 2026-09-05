@@ -1,7 +1,7 @@
 {
-  "startedAt": "2026-09-05T15:41:07.058Z",
-  "base": "https://globalgrid2050.com/testcode/202609051531/",
-  "offlineArtifacts": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-41-06-664Z-2532d9",
+  "startedAt": "2026-09-05T16:16:03.321Z",
+  "base": "https://globalgrid2050.com/testcode/202609051608/",
+  "offlineArtifacts": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T16-16-02-896Z-7f837b",
   "scope": "Real native getDisplayMedia call, initial and draw-time browser-provided track settings, actual drawn frame and PDF geometry, nonzero RGB, external header/footer bands, and stopped tracks.",
   "limitations": [
     "Post-download screenshots are visual context only and are NOT pixel-equality references.",
@@ -26,15 +26,15 @@
       "mobile": false,
       "ok": false,
       "browserVersion": "152.0.7977.76",
-      "url": "https://globalgrid2050.com/testcode/202609051531/atlas/",
+      "url": "https://globalgrid2050.com/testcode/202609051608/atlas/",
       "actualEngineResponse": {
-        "sha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b"
+        "sha256": "442b9293ae781ba4fbd0d24261ec876461a8bdaf5fe0d4a4a38b754a6dba1075"
       },
       "nativeCapture": {
         "unavailable": false,
         "calls": [
           {
-            "startedAt": "2026-09-05T15:41:10.658Z",
+            "startedAt": "2026-09-05T16:16:06.652Z",
             "arguments": [
               {
                 "video": {
@@ -54,7 +54,7 @@
             "delegatedToOriginal": true,
             "videoTracks": [
               {
-                "label": "current-web-contents-media-stream://964FE3A2214045F7920839D1CDC71B04",
+                "label": "current-web-contents-media-stream://DBECB99F46FBF21DA78536EA7E66EECE",
                 "readyState": "live",
                 "settings": {
                   "aspectRatio": 1.5166666666666666,
@@ -75,7 +75,7 @@
         "tracks": [
           {
             "kind": "video",
-            "label": "current-web-contents-media-stream://964FE3A2214045F7920839D1CDC71B04",
+            "label": "current-web-contents-media-stream://DBECB99F46FBF21DA78536EA7E66EECE",
             "readyState": "ended",
             "settings": {
               "deviceId": "web-contents-media-stream://6:8"
@@ -87,11 +87,11 @@
       "error": "AssertionError [ERR_ASSERTION]: TimeoutError: page.waitForEvent: Timeout 45000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================\n    at file:///C:/Users/vikra/OneDrive/Documents/GitHub/teleprinter/drivers/codex/native-display-proof.mjs:128:12",
       "failureState": {
         "title": "GlobalGrid2050 | UK Region v8 (Experimental)",
-        "url": "https://globalgrid2050.com/testcode/202609051531/atlas/",
+        "url": "https://globalgrid2050.com/testcode/202609051608/atlas/",
         "status": "The browser supplied a reduced screen frame (1364 × 898; required 1365 × 900, track 1365 × 900). No reduced PDF was created. Use Print a screenshot instead.",
         "calls": [
           {
-            "startedAt": "2026-09-05T15:41:10.658Z",
+            "startedAt": "2026-09-05T16:16:06.652Z",
             "arguments": [
               {
                 "video": {
@@ -111,7 +111,7 @@
             "delegatedToOriginal": true,
             "videoTracks": [
               {
-                "label": "current-web-contents-media-stream://964FE3A2214045F7920839D1CDC71B04",
+                "label": "current-web-contents-media-stream://DBECB99F46FBF21DA78536EA7E66EECE",
                 "readyState": "live",
                 "settings": {
                   "aspectRatio": 1.5166666666666666,
@@ -147,15 +147,15 @@
       "mobile": true,
       "ok": false,
       "browserVersion": "152.0.7977.76",
-      "url": "https://globalgrid2050.com/testcode/202609051531/atlas/",
+      "url": "https://globalgrid2050.com/testcode/202609051608/atlas/",
       "actualEngineResponse": {
-        "sha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b"
+        "sha256": "442b9293ae781ba4fbd0d24261ec876461a8bdaf5fe0d4a4a38b754a6dba1075"
       },
       "nativeCapture": {
         "unavailable": false,
         "calls": [
           {
-            "startedAt": "2026-09-05T15:41:59.211Z",
+            "startedAt": "2026-09-05T16:16:54.920Z",
             "arguments": [
               {
                 "video": {
@@ -175,7 +175,7 @@
             "delegatedToOriginal": true,
             "videoTracks": [
               {
-                "label": "current-web-contents-media-stream://7889A78B0C72DEB8F5C09F27AC316FFB",
+                "label": "current-web-contents-media-stream://30F571FA73C6D541FB1E27A1A2A2A25D",
                 "readyState": "live",
                 "settings": {
                   "aspectRatio": 0.4612676056338028,
@@ -196,7 +196,7 @@
         "tracks": [
           {
             "kind": "video",
-            "label": "current-web-contents-media-stream://7889A78B0C72DEB8F5C09F27AC316FFB",
+            "label": "current-web-contents-media-stream://30F571FA73C6D541FB1E27A1A2A2A25D",
             "readyState": "ended",
             "settings": {
               "deviceId": "web-contents-media-stream://6:8"
@@ -208,11 +208,11 @@
       "error": "AssertionError [ERR_ASSERTION]: TimeoutError: page.waitForEvent: Timeout 45000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================\n    at file:///C:/Users/vikra/OneDrive/Documents/GitHub/teleprinter/drivers/codex/native-display-proof.mjs:128:12",
       "failureState": {
         "title": "GlobalGrid2050 | UK Region v8 (Experimental)",
-        "url": "https://globalgrid2050.com/testcode/202609051531/atlas/",
-        "status": "Cannot read properties of undefined (reading 'code')",
+        "url": "https://globalgrid2050.com/testcode/202609051608/atlas/",
+        "status": "The browser supplied a reduced screen frame (786 × 1704; required 1179 × 2556, track 1179 × 2556). No reduced PDF was created. Use Print a screenshot instead.",
         "calls": [
           {
-            "startedAt": "2026-09-05T15:41:59.211Z",
+            "startedAt": "2026-09-05T16:16:54.920Z",
             "arguments": [
               {
                 "video": {
@@ -232,7 +232,7 @@
             "delegatedToOriginal": true,
             "videoTracks": [
               {
-                "label": "current-web-contents-media-stream://7889A78B0C72DEB8F5C09F27AC316FFB",
+                "label": "current-web-contents-media-stream://30F571FA73C6D541FB1E27A1A2A2A25D",
                 "readyState": "live",
                 "settings": {
                   "aspectRatio": 0.4612676056338028,
@@ -268,15 +268,15 @@
       "mobile": false,
       "ok": true,
       "browserVersion": "152.0.7977.76",
-      "url": "https://globalgrid2050.com/testcode/202609051531/pipeline/",
+      "url": "https://globalgrid2050.com/testcode/202609051608/pipeline/",
       "actualEngineResponse": {
-        "sha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b"
+        "sha256": "442b9293ae781ba4fbd0d24261ec876461a8bdaf5fe0d4a4a38b754a6dba1075"
       },
       "nativeCapture": {
         "unavailable": false,
         "calls": [
           {
-            "startedAt": "2026-09-05T15:42:45.985Z",
+            "startedAt": "2026-09-05T16:17:41.789Z",
             "arguments": [
               {
                 "video": {
@@ -296,7 +296,7 @@
             "delegatedToOriginal": true,
             "videoTracks": [
               {
-                "label": "current-web-contents-media-stream://A01848D249D45A7C01825F69E1534CF3",
+                "label": "current-web-contents-media-stream://54BDC2410C71A386A0B64B0A2500C7F3",
                 "readyState": "live",
                 "settings": {
                   "aspectRatio": 1.5,
@@ -343,7 +343,7 @@
           "method": "display-capture",
           "width": 1200,
           "height": 800,
-          "bytes": 255315,
+          "bytes": 255359,
           "filename": "Pipeline News-screen.pdf",
           "status": "download-requested",
           "capture": {
@@ -359,7 +359,7 @@
         "tracks": [
           {
             "kind": "video",
-            "label": "current-web-contents-media-stream://A01848D249D45A7C01825F69E1534CF3",
+            "label": "current-web-contents-media-stream://54BDC2410C71A386A0B64B0A2500C7F3",
             "readyState": "ended",
             "settings": {
               "deviceId": "web-contents-media-stream://6:8"
@@ -368,10 +368,10 @@
         ],
         "hostCaptureProvider": "undefined"
       },
-      "pdf": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-41-06-664Z-2532d9\\pipeline-landscape.pdf",
-      "pdfBytes": 255315,
-      "sha256": "1e47da2acab54ebf5d777d9ed6810dc94f2ad1d302df67941e3ca7dc23fe4773",
-      "postDownloadScreenshot": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-41-06-664Z-2532d9\\pipeline-landscape-post-download.png",
+      "pdf": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T16-16-02-896Z-7f837b\\pipeline-landscape.pdf",
+      "pdfBytes": 255359,
+      "sha256": "f109e08f682643fa9af706b1476ffcd942da4d923a14f0e0eb99ed85654640a0",
+      "postDownloadScreenshot": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T16-16-02-896Z-7f837b\\pipeline-landscape-post-download.png",
       "pdfInspection": {
         "imageWidth": 1200,
         "imageHeight": 800,
@@ -405,9 +405,9 @@
   ],
   "chooserAutomation": "Chrome auto-select/auto-accept flags automate the native chooser only; getDisplayMedia and returned track/frame data remain original browser implementations.",
   "temporaryEngineOverride": null,
-  "servedEngineUrl": "https://globalgrid2050.com/testcode/202609051531/teleprinter/print-screen.js",
-  "servedEngineSha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b",
-  "finishedAt": "2026-09-05T15:42:49.230Z",
+  "servedEngineUrl": "https://globalgrid2050.com/testcode/202609051608/teleprinter/print-screen.js",
+  "servedEngineSha256": "442b9293ae781ba4fbd0d24261ec876461a8bdaf5fe0d4a4a38b754a6dba1075",
+  "finishedAt": "2026-09-05T16:17:45.113Z",
   "passed": 1,
   "initialSettingsGeometryPassed": 1,
   "requestedViewportGeometryPassed": 1
