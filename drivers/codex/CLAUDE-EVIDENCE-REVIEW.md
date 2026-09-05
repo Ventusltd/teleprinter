@@ -42,8 +42,8 @@ That is valuable limited code provenance, not full dependency coverage.
 
 ## PDF: a real improvement, with unresolved capture fidelity
 
-Independent PyMuPDF and pypdf reads find one 786×1762 page with a single
-786×1704 image at `(0,0,786,1704)` and a 58-pixel bottom strip. Rendering the
+Independent PyMuPDF and pypdf reads find one 786Ã—1762 page with a single
+786Ã—1704 image at `(0,0,786,1704)` and a 58-pixel bottom strip. Rendering the
 image region reproduces its embedded RGB bytes exactly in both PDFs. Both
 embedded images have SHA-256
 `3ebc6406d751288a193248a043e94b8a2a32b8c753f77b6dd64124c2734b38cb`.
@@ -57,8 +57,8 @@ host-supplied screenshot proof does not itself exercise. It is a useful
 additional test route. The browser chooser is automated, not manually tested,
 and an emulated phone is still desktop Chrome.
 
-Configured CSS size is 393×852 at DPR3, and the separately saved screenshot is
-1179×2556. The PDF image is 786×1704, equivalent to DPR2, two-thirds of the
+Configured CSS size is 393Ã—852 at DPR3, and the separately saved screenshot is
+1179Ã—2556. The PDF image is 786Ã—1704, equivalent to DPR2, two-thirds of the
 screenshot width and height. The runner's `widthMatchesCapture` compares the
 PDF page width to its own image width, not to the configured resolution or an
 independent captured frame. It therefore cannot catch this mismatch.
@@ -150,3 +150,8 @@ candidate produces new offline evidence for the failed scenario. Stale or
 unbound observations can require review but cannot confer acceptance.
 
 No automatic veto integration or code changes are made by this report.
+
+
+## Integration completed by Codex
+
+The freeze gate now consumes the pinned external-evidence registry. Matching generation, build or explicitly shared code blockers veto acceptance; unrelated implementations are not automatically vetoed. The registry and every audited artifact are rehashed before acceptance and publication. Printed REPD identity is checked in the actual source record. Existing fifty-visit and full framed-byte checks remain mandatory. No Claude files were modified.
