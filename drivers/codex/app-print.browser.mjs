@@ -28,11 +28,11 @@ for(let i=0;i<count;i++){
   const toggle=page.locator('#gridatlas-dash-toggle');if(!/HIDE LAYERS/.test(await toggle.innerText()))await toggle.click();
   await page.locator('.gm-title').filter({hasText:/^File$/i}).click();
   await page.evaluate(()=>document.querySelector('#codex-teleprinter').addEventListener('teleprint',e=>window.__printReceipt=e.detail));
-  await page.screenshot({path:path.join(output,`${i}-${name}-reference.png`),scale:'device'});
   const downloaded=await clickAndReadDownload(page,page.locator('button[data-gm-export]').filter({hasText:/Print/i}).first(),{timeout:60000});
   assert.ok(downloaded.ok,downloaded.error);
+  await page.screenshot({path:path.join(output,`${i}-${name}-reference.png`),scale:'device'});
   await fs.writeFile(path.join(output,`${i}-${name}.pdf`),downloaded.bytes);
-  record.top=await page.evaluate(()=>document.elementsFromPoint(650,20).map(e=>({tag:e.tagName,id:e.id,shadow:!!e.shadowRoot,html:e.outerHTML.slice(0,200)})));record.receipt=await page.evaluate(()=>window.__printReceipt);record.forbiddenCalls=await page.evaluate(()=>window.__forbiddenPrintCalls);
+  record.receipt=await page.evaluate(()=>window.__printReceipt);record.forbiddenCalls=await page.evaluate(()=>window.__forbiddenPrintCalls);
   assert.equal(record.forbiddenCalls,0);assert.equal(record.receipt.method,'app-render');assert.equal(record.receipt.width,viewport.width*(i%2?2:1));assert.equal(record.receipt.height,viewport.height*(i%2?2:1));
   record.ok=true;
  }catch(error){record.ok=false;record.error=String(error);}finally{await browser?.close();records.push(record);await fs.writeFile(path.join(output,'results.json'),JSON.stringify(records,null,2));console.log(JSON.stringify(record));}
