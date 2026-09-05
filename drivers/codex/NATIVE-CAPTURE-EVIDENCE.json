@@ -1,0 +1,141 @@
+{
+  "engineCommit": "97ef8043a3f29ec162932838b44b2d6163845727",
+  "engineGitBlobSha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b",
+  "candidateGeneration": "202609051531",
+  "status": "BLOCKED_PENDING_FRESH_NATIVE_PROOF",
+  "reports": [
+    {
+      "directory": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-28-54-320Z-d193fe",
+      "generation": "202609051531",
+      "observedAppGeneration": "202609051517",
+      "generationBinding": "Parent explicitly targets candidate1531 pending fresh passing native proof; original browser app URL1517 used temporary engine override. Report engine hash differs from committed97ef804; exact-current-engine failure is not claimed.",
+      "summaryCreatedAt": "2026-09-05T15:30:25.991Z",
+      "artifacts": [
+        {
+          "filename": "atlas-desktop-metadata.json",
+          "bytes": 3772,
+          "sha256": "9477f062ffe078fe2b9df28c4dab26c941c639d34a2477777e86e6fa77907440"
+        },
+        {
+          "filename": "results.json",
+          "bytes": 5675,
+          "sha256": "f5967d32a83a2b3fb7ca6a5ce260c33a6216210fba01b89182d89e1de5953679"
+        }
+      ],
+      "evidenceKind": "Codex-native-display-regression",
+      "reportedPassed": 0,
+      "reportedCompleted": 1,
+      "cases": [
+        {
+          "id": "atlas-desktop",
+          "ok": false,
+          "status": null,
+          "failureStatus": "The browser supplied a reduced screen frame (1364 \u00d7 898; required 1365 \u00d7 900, track 1365 \u00d7 900). No reduced PDF was created. Use Print a screenshot instead.",
+          "temporaryEngineSha256": "8d84cf39d0506a795e66fcc989764981368bc5eb8d59433f6615442cd7f1abbb"
+        },
+        {
+          "id": "atlas-mobile-portrait",
+          "ok": false,
+          "status": "not-completed",
+          "failureStatus": null,
+          "temporaryEngineSha256": null
+        },
+        {
+          "id": "pipeline-landscape",
+          "ok": false,
+          "status": "not-completed",
+          "failureStatus": null,
+          "temporaryEngineSha256": null
+        }
+      ]
+    },
+    {
+      "directory": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-26-45-929Z-09b99c",
+      "generation": "202609051531",
+      "observedAppGeneration": "202609051517",
+      "generationBinding": "Parent explicitly targets candidate1531 pending fresh passing native proof; original browser app URL1517 used temporary engine override. Report engine hash differs from committed97ef804; exact-current-engine failure is not claimed.",
+      "summaryCreatedAt": "2026-09-05T15:28:23.808Z",
+      "artifacts": [
+        {
+          "filename": "atlas-desktop-metadata.json",
+          "bytes": 3750,
+          "sha256": "c0088bf111e4b07bf85ac323d4434d704e2cbe8ed4921269b0426ba860c8d0d3"
+        },
+        {
+          "filename": "atlas-mobile-portrait-metadata.json",
+          "bytes": 3664,
+          "sha256": "3adea52b4485e185c07f580c92a94a1227ae16779f2095726c682e7c498157b1"
+        },
+        {
+          "filename": "pipeline-landscape-metadata.json",
+          "bytes": 4052,
+          "sha256": "52f7ab50c801caa86a906b8d689f45cc83e012f2c166d2b3ad13a38f6db929d9"
+        },
+        {
+          "filename": "pipeline-landscape-post-download.png",
+          "bytes": 91216,
+          "sha256": "b5feb171b630a120f38a292785bf5d58495a83c1c7a7998cfed7849e04f06da8"
+        },
+        {
+          "filename": "pipeline-landscape.pdf",
+          "bytes": 255319,
+          "sha256": "26bb863320263aa8d84820c5e1893662a3f1c4f73c3c88280d6b5d4bd81cc26e"
+        },
+        {
+          "filename": "results.json",
+          "bytes": 14505,
+          "sha256": "05221e976207e0bace78e74af33a246ce0de37f73a962d8259f2f0fe70d2089d"
+        }
+      ],
+      "evidenceKind": "Codex-native-display-regression",
+      "reportedPassed": 1,
+      "reportedCompleted": 3,
+      "cases": [
+        {
+          "id": "atlas-desktop",
+          "ok": false,
+          "status": null,
+          "failureStatus": "The browser supplied a reduced screen frame (1364 \u00d7 898; track 1365 \u00d7 900). No reduced PDF was created. Use Print a screenshot instead.",
+          "temporaryEngineSha256": "37f84ac2a57206cad6d92147c6045821951338324c7bac91b8c16b75bb0cd552"
+        },
+        {
+          "id": "atlas-mobile-portrait",
+          "ok": false,
+          "status": null,
+          "failureStatus": "No screen frame arrived. Try Print again.",
+          "temporaryEngineSha256": "37f84ac2a57206cad6d92147c6045821951338324c7bac91b8c16b75bb0cd552"
+        },
+        {
+          "id": "pipeline-landscape",
+          "ok": true,
+          "status": null,
+          "failureStatus": null,
+          "temporaryEngineSha256": "37f84ac2a57206cad6d92147c6045821951338324c7bac91b8c16b75bb0cd552"
+        }
+      ]
+    }
+  ],
+  "finding": {
+    "id": "CODEX-NATIVE-001",
+    "severity": "blocker",
+    "appliesTo": [
+      "202609051531"
+    ],
+    "sharedCodeSha256": [
+      "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b"
+    ],
+    "requiredCondition": "native-full-resolution-capture",
+    "conditions": [
+      "native-full-resolution-capture"
+    ],
+    "finding": "Candidate1531 has no fresh passing native full-resolution proof after bounded Atlas failures; host-screenshot success cannot clear this open native requirement.",
+    "evidence": "Final report0passes/1completed,2not-completed: required1365x900, track1365x900, actual1364x898 visibly refused without reduced PDF. Prior different-engine report1/3passes (Pipeline1200x800), two Atlas failures.",
+    "engineCommit": "97ef8043a3f29ec162932838b44b2d6163845727",
+    "engineBlobPath": "drivers/codex/print-screen.js",
+    "engineBlobSha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b",
+    "reportedFinalEngineSha256": "8d84cf39d0506a795e66fcc989764981368bc5eb8d59433f6615442cd7f1abbb",
+    "exactReportEngineMatchesCommittedBlob": false,
+    "bindingLimitation": "Exact LF Git blob differs from final report engine and CRLF conversion also differs. AppliesTo1531 is parent-assigned pending proof, not a claim this exact committed blob was observed failing.",
+    "qualification": "Correct reduced-frame refusal is a guard success, not successful native printing. PDF-writer fidelity and host50 success remain independent. Desktop Chrome emulation; no physical-device claim."
+  }
+}

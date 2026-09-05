@@ -1,0 +1,410 @@
+{
+  "schema": "codex-offline-runtime-source-audit-v1",
+  "artifact": {
+    "filename": "202609051634-GridAtlas-screen-source-code(1).txt",
+    "bytes": 27568130,
+    "sha256": "d23d8bed84180af0bb110406e1c299806d8772e20788e955116960d40b9ae9b5"
+  },
+  "url": "https://globalgrid2050.com/testcode/202609051517/atlas/?testcode_case=repd-3947&testcode_entity_kind=repd&testcode_entity_id=3947&repd_ref=3947&technology=wind_onshore&project=Bewick+Drift&capacity_mw=2.3&longitude=-1.5571581&latitude=55.2152247",
+  "capturedAt": "2026-09-05T15:33:56.135Z",
+  "sourceCommit": "1579fda7731b62a724124cc3ff798160ca431149",
+  "viewport": {
+    "width": 1657,
+    "height": 934,
+    "devicePixelRatio": 1.5,
+    "scrollX": 0,
+    "scrollY": 0
+  },
+  "printedEngineBadge": "TEST CODE repd-3947 | ENGINE COMPLETED | 6 measured | visit-1788622431177-2a17f0",
+  "workers": 8,
+  "seconds": 0.76,
+  "counts": {
+    "verifiedBodies": 52,
+    "javascriptChecks": 24,
+    "jsonChecks": 13,
+    "failures": 0
+  },
+  "representedSourceTransport": [
+    "https://globalgrid2050.com/testcode/202609051517/teleprinter/atlas-source-pin.json",
+    "https://globalgrid2050.com/testcode/202609051517/teleprinter/atlas-source-code.manifest.json",
+    "https://globalgrid2050.com/testcode/202609051517/teleprinter/atlas-source-code.txt"
+  ],
+  "ok": true,
+  "errors": [],
+  "results": [
+    {
+      "name": "pinned:sandbox/202609051517/atlas/cartridges/202609051517-sld-sandbox.js",
+      "bytes": 384025,
+      "sha256": "2a8cb3aa9c8bbe57b187c66ed05b34acef7d9c868e5f770321082c6c1921e9f2",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/atlas/cartridges/202609051517-streaming-parquet-bridge.js",
+      "bytes": 13656,
+      "sha256": "80ebac3061f634433554c6dc992b21a34405e5afd2a9b09f968086229b8d8b2c",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/atlas/cartridges/202609051517-substation-intelligence.js",
+      "bytes": 370349,
+      "sha256": "b4c60331ca78aa432536ff0b072e5cd93ce0d0a20cfa1a389be6d2bb9831128a",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/atlas/cartridges/202609051517-uk-gazetteer-flyto.js",
+      "bytes": 36378,
+      "sha256": "ea193b7347ed222bca92c393256001047d198fae617483bacdb4d4a0540b7068",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/atlas/current.json",
+      "bytes": 49217,
+      "sha256": "c63ea665c272b8b0c2160369641a6655a066b231446d820e3360ed31d1c0c431",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/atlas/index.html",
+      "bytes": 5684,
+      "sha256": "32fd1bbd96f6467fda05eb461c11030ecaf4b76b224cbb9014a3b2cbe0240743",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/atlas/source/menu-bar.js",
+      "bytes": 74704,
+      "sha256": "1e48cef2cec2de5b3ede750e1bb9877540573e79fdafcf7041b79f8367962b5d",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/atlas/teleprinter-bootstrap.js",
+      "bytes": 1058,
+      "sha256": "30ee942409772e982af59d2e7157be79e5401b0c4254707ef3d797010875bcb8",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/teleprinter/SOURCE-SCOPE.md",
+      "bytes": 1702,
+      "sha256": "94ed70ad03eb1682a7b0b0cf9e910269130fd8a69ff1781b7751045d9a5bd939",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/teleprinter/controls.js",
+      "bytes": 10405,
+      "sha256": "3e25605a7f490eb265ede11e7c382f11f5f373f1ff0e83a7376e9731abf9f6a3",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/teleprinter/png-pixels.mjs",
+      "bytes": 8455,
+      "sha256": "01bf5485aa2deec7dd8a7d0efea94a02ba10df733f6e71b293c5396373772481",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/teleprinter/print-screen.js",
+      "bytes": 3753,
+      "sha256": "df93873ca25052ed3fe5093caeb9eea09efd8f0d92cc93d73f4b8d3279558c9c",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/teleprinter/print-source-code.js",
+      "bytes": 10680,
+      "sha256": "78f6dba08fe4b7b44f6b40c85b17b469aa10a50676b77e17e74e2fa62065778f",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/teleprinter/runtime-source.js",
+      "bytes": 26282,
+      "sha256": "4e6a423ee68b715df5fd07a6d6d9b0380eddc0047006244681cb7e087680c274",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "pinned:sandbox/202609051517/teleprinter/screen-pdf.mjs",
+      "bytes": 10220,
+      "sha256": "ef8b7d5c213754d93141c362b2bb981457bf16dada199ba6549ae1dda8828039",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/atlas/?testcode_case=repd-3947&testcode_entity_kind=repd&testcode_entity_id=3947&repd_ref=3947&technology=wind_onshore&project=Bewick+Drift&capacity_mw=2.3&longitude=-1.5571581&latitude=55.2152247",
+      "bytes": 5684,
+      "sha256": "32fd1bbd96f6467fda05eb461c11030ecaf4b76b224cbb9014a3b2cbe0240743",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/atlas/current.json",
+      "bytes": 49217,
+      "sha256": "c63ea665c272b8b0c2160369641a6655a066b231446d820e3360ed31d1c0c431",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/index.html",
+      "bytes": 21238,
+      "sha256": "87a3aaf463843ce33ed5c151096395715cbc80f2575bcb7208f271e94d2ec467",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/atlas/cartridges/202609051517-streaming-parquet-bridge.js",
+      "bytes": 13656,
+      "sha256": "80ebac3061f634433554c6dc992b21a34405e5afd2a9b09f968086229b8d8b2c",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/atlas/cartridges/202609051517-uk-gazetteer-flyto.js",
+      "bytes": 36378,
+      "sha256": "ea193b7347ed222bca92c393256001047d198fae617483bacdb4d4a0540b7068",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/atlas/cartridges/202609051517-substation-intelligence.js",
+      "bytes": 370349,
+      "sha256": "b4c60331ca78aa432536ff0b072e5cd93ce0d0a20cfa1a389be6d2bb9831128a",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/atlas/cartridges/202609051517-sld-sandbox.js",
+      "bytes": 384025,
+      "sha256": "2a8cb3aa9c8bbe57b187c66ed05b34acef7d9c868e5f770321082c6c1921e9f2",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css",
+      "bytes": 63722,
+      "sha256": "731181d400d65a8b09d842f55b70bc4dc11010b15b8549e2c65a69d233fbdd2e",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/ventusv8.css",
+      "bytes": 14893,
+      "sha256": "1d4be1b676666192183e772562f8cb7ee91e0c6e2ee8919f5f9d6d257f59a8b4",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/atlas/teleprinter-bootstrap.js",
+      "bytes": 1058,
+      "sha256": "30ee942409772e982af59d2e7157be79e5401b0c4254707ef3d797010875bcb8",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js",
+      "bytes": 762783,
+      "sha256": "c46084df69bbaa995b301a515274a86ec53905c78459b80dccbc27a0c0b8d13b",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/teleprinter/controls.js",
+      "bytes": 10405,
+      "sha256": "3e25605a7f490eb265ede11e7c382f11f5f373f1ff0e83a7376e9731abf9f6a3",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/teleprinter/print-screen.js",
+      "bytes": 3753,
+      "sha256": "df93873ca25052ed3fe5093caeb9eea09efd8f0d92cc93d73f4b8d3279558c9c",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/teleprinter/print-source-code.js",
+      "bytes": 10680,
+      "sha256": "78f6dba08fe4b7b44f6b40c85b17b469aa10a50676b77e17e74e2fa62065778f",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/teleprinter/runtime-source.js",
+      "bytes": 26282,
+      "sha256": "4e6a423ee68b715df5fd07a6d6d9b0380eddc0047006244681cb7e087680c274",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/teleprinter/screen-pdf.mjs",
+      "bytes": 10220,
+      "sha256": "ef8b7d5c213754d93141c362b2bb981457bf16dada199ba6549ae1dda8828039",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/teleprinter/png-pixels.mjs",
+      "bytes": 8455,
+      "sha256": "01bf5485aa2deec7dd8a7d0efea94a02ba10df733f6e71b293c5396373772481",
+      "ok": true,
+      "syntax": "javascript-parse-only"
+    },
+    {
+      "name": "https://raw.githubusercontent.com/Ventusltd/data-grid-gb/1c9909d1138704b29235c27fd769436dda8a0b18/derived/connection-points.v3.json",
+      "bytes": 2896561,
+      "sha256": "11e28859a6d17cc8ee4047c2032d55d043be98f7123743f3b2b03225e07a4c0c",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+      "bytes": 70431,
+      "sha256": "fc5bdb44e1d74c0602dd82bba3837b368fe3a96437d0edbbcf96d9dfe96b8a75",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "https://globalgrid2050.com/testcode/202609051517/atlas/data/repd-identities/3.json",
+      "bytes": 281903,
+      "sha256": "5eae3b5982daa4e6ba9005bbf04a81dd35d03f7c01300082c8157c58a9001c62",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/sprite@2x.png",
+      "bytes": 396,
+      "sha256": "76b5a3bdf8b93e95122edbedaeee8e765458630b870f901bffd1c4aba486afd3",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "https://tiles.basemaps.cartocdn.com/vector/carto.streets/v1/tiles.json",
+      "bytes": 44256,
+      "sha256": "119c67859c18c271f33ebbd95e06f45ddba911f2e5fa78619e12cea787385370",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/sprite@2x.json",
+      "bytes": 103,
+      "sha256": "fbd8db78293f0d61571601ba932d59a2e1ac905558ba4d12258b6604f597e3f0",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "https://tiles.basemaps.cartocdn.com/fonts/Montserrat%20Regular%20Italic%2COpen%20Sans%20Italic%2CNoto%20Sans%20Regular%2CHanWangHeiLight%20Regular%2CNanumBarunGothic%20Regular/0-255.pbf",
+      "bytes": 78371,
+      "sha256": "d491eea8c37214c4839a982b422945744ca25bb1225bda9b586f72761fae0595",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson",
+      "bytes": 1192748,
+      "sha256": "87976435766a58ddf19c99540b58cd7f18a224148af42ba55075d8851f9e6251",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "https://raw.githubusercontent.com/Ventusltd/data-grid-gb/1c9909d1138704b29235c27fd769436dda8a0b18/derived/gb-transmission-network.v1.json",
+      "bytes": 10069966,
+      "sha256": "fc331cc20b061f85adf18d890762a164328a1c5e84acef6a23d35d36f849fc8a",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "https://tiles.basemaps.cartocdn.com/fonts/Montserrat%20Regular%20Italic,Open%20Sans%20Italic,Noto%20Sans%20Regular,HanWangHeiLight%20Regular,NanumBarunGothic%20Regular/0-255.pbf",
+      "bytes": 78371,
+      "sha256": "d491eea8c37214c4839a982b422945744ca25bb1225bda9b586f72761fae0595",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "https://tiles.basemaps.cartocdn.com/fonts/Montserrat%20Medium,Open%20Sans%20Bold,Noto%20Sans%20Regular,HanWangHeiLight%20Regular,NanumBarunGothic%20Regular/0-255.pbf",
+      "bytes": 81323,
+      "sha256": "a05dfcdeafa2d6354ef0d9729d9a94cb70c7d75bb91ea400e2278219d233c651",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "https://tiles.basemaps.cartocdn.com/fonts/Montserrat%20Medium%20Italic,Open%20Sans%20Italic,Noto%20Sans%20Regular,HanWangHeiLight%20Regular,NanumBarunGothic%20Regular/0-255.pbf",
+      "bytes": 87348,
+      "sha256": "7b9e888421dc773297eca4897802f90986f140205cef3b3d1a40e49e4eb1c909",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/grid_220kv.geojson",
+      "bytes": 62037,
+      "sha256": "c00259f41260a6662c97b4f5b90b72fac59fe1e7f50330a9e5b6892b24cb88b2",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "https://ventusltd.github.io/ventus-grid-engine/genome/engine-graph.json",
+      "bytes": 34413,
+      "sha256": "be9cf7c64ebbd81d53f836d3de10d20cef114922319e6b7d709422a2c9a24d50",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/power_plants.geojson",
+      "bytes": 35625,
+      "sha256": "c7478e14724602fc378afc6257ef2cadb7c540ac1e60ce87717f0ffeab072bdf",
+      "ok": true,
+      "syntax": "json"
+    },
+    {
+      "name": "blob:https://globalgrid2050.com/f529b4bc-aec1-492d-9e81-402b46f5ca5e",
+      "bytes": 13656,
+      "sha256": "80ebac3061f634433554c6dc992b21a34405e5afd2a9b09f968086229b8d8b2c",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "blob:https://globalgrid2050.com/55486dbb-2648-4e47-9390-3d8d153a2b0d",
+      "bytes": 36378,
+      "sha256": "ea193b7347ed222bca92c393256001047d198fae617483bacdb4d4a0540b7068",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "blob:https://globalgrid2050.com/5881f33d-f498-4e20-b63e-97cf5bde7a84",
+      "bytes": 370349,
+      "sha256": "b4c60331ca78aa432536ff0b072e5cd93ce0d0a20cfa1a389be6d2bb9831128a",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "blob:https://globalgrid2050.com/fa38d650-9ee8-4e04-b2ee-97286a572d26",
+      "bytes": 384025,
+      "sha256": "2a8cb3aa9c8bbe57b187c66ed05b34acef7d9c868e5f770321082c6c1921e9f2",
+      "ok": true,
+      "syntax": "not-applicable"
+    },
+    {
+      "name": "https://ventusltd.github.io/gridatlas/atlas/releases/cartridges/5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993/grid_400kv.geojson",
+      "bytes": 1469778,
+      "sha256": "5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993",
+      "ok": true,
+      "syntax": "json"
+    }
+  ],
+  "limitations": [
+    "A browser cannot prove it has found ALL dependencies: dormant code, computed URLs, service-worker/cache history, server-side code, closed shadow roots, and cross-origin frame internals may be unavailable.",
+    "Resource timing may omit older, cleared, or worker requests; exact rendered tile/glyph sets cannot be reconstructed by inventing template coordinates.",
+    "Full inline source geometry is included in map state. Public rendered features are derived viewport diagnostics, not original worker tile bytes. URL-backed GeoJSON responses are included in full.",
+    "Fetched resource bytes may differ from the bytes originally executed. Inline and blob source is included without executing it.",
+    "No screenshots or PDF files are generated. Binary response bodies are complete base64, not text approximations.",
+    "Offline syntax parsing does not execute code or validate grid mathematics.",
+    "Self-consistent hashes do not independently authenticate a GitHub deployment.",
+    "Browser discovery cannot prove universal dependency completeness."
+  ]
+}
