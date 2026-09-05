@@ -179,6 +179,22 @@ for (const scenario of scenarios.slice(offset, offset + limit)) {
       } });
       if(appRender) await page.addInitScript(()=>{window.__forbiddenPrintCalls=0;const forbid=()=>{window.__forbiddenPrintCalls++;throw Error('Forbidden screen/browser capture');};if(navigator.mediaDevices)navigator.mediaDevices.getDisplayMedia=forbid;window.print=forbid;window.__codexTeleprinterCapture=forbid;});
       visit.state = await prepare(page, scenario, progress);
+      if(appRender && mode==='pdf' && scenario.kind==='pipeline') {
+        await page.evaluate(()=>document.fonts.ready);
+        let previous='', stableSince=0, settled=false;
+        const started=Date.now();
+        while(Date.now()-started<15000) {
+          const snapshot=await page.evaluate(()=>JSON.stringify({
+            canvases:[...document.querySelectorAll('canvas')].map(c=>c.toDataURL()),
+            scroll:[...document.querySelectorAll('*')].filter(e=>e.scrollTop||e.scrollLeft).map(e=>[e.id,e.scrollTop,e.scrollLeft])
+          }));
+          if(snapshot!==previous){previous=snapshot;stableSince=Date.now();}
+          else if(Date.now()-stableSince>=600){settled=true;break;}
+          await page.waitForTimeout(150);
+        }
+        assert.ok(settled,'Pipeline chart/scroll state did not settle before the visual comparison');
+        visit.visualReadiness={method:'unchanged canvas bytes and scroll positions',stableMs:600};
+      }
       if(appRender)await page.evaluate(()=>document.querySelector('#codex-teleprinter').addEventListener('teleprint',e=>window.__appPrintReceipt=e.detail));
       let downloaded;
       if (mode === 'pdf') {
