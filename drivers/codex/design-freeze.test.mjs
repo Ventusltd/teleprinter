@@ -1,4 +1,5 @@
 import test from 'node:test';
+import path from 'node:path';
 import assert from 'node:assert/strict';
 import { evaluateFreeze, digest, OFFLINE_ROOT } from './design-freeze.mjs';
 function fixture() {
@@ -41,3 +42,28 @@ for(const [name,mutate] of Object.entries({
  'source frame altered but outer hash updated':x=>{const v=x.report.scenarios[0].visits[1];x.files[v.path]=Buffer.from(x.files[v.path].toString().replace('export const current = true;','export const current = fake;'));v.sha256=digest(x.files[v.path]);v.bytes=x.files[v.path].length;},
  'source dependency unavailable':x=>{const v=x.report.scenarios[0].visits[1];x.files[v.path]=Buffer.from(x.files[v.path].toString().replace('"status":"included"','"status":"unavailable"'));v.sha256=digest(x.files[v.path]);v.bytes=x.files[v.path].length;}
 })) test(name+' rejects',()=>{const input=fixture();mutate(input);assert.equal(evaluateFreeze(input).status,'REJECTED');});
+
+// Shape copied from the real 2026-09-05T14-52-04-724Z-7712 runtime diagnostic:
+// resources retain discoveredBy/status; exclusions add the explicit recursion reason.
+function withRepresentedTransport() {
+ const input=fixture(), visit=input.report.scenarios[0].visits[1];
+ const source=input.files[visit.path].toString('utf8');
+ const marker=/===== BEGIN DIAGNOSTIC MANIFEST =====\n([\s\S]*?)\n===== END DIAGNOSTIC MANIFEST =====/;
+ const manifest=JSON.parse(source.match(marker)[1]);
+ const reason='Source transport/pin excluded to prevent recursive capture. The selected verified pinned source and its original manifest are included below; sibling app bundles are references only.';
+ const records=['source-pin.json','source-code.manifest.json','source-code.txt'].map(suffix=>({url:new URL(`teleprinter/atlas-${suffix}`,input.pins.candidate.url).href,discoveredBy:[{from:'https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/',reason:'observed resource (fetch)'}],status:'already-represented'}));
+ manifest.resources.push(...records);manifest.exclusions=records.map(resource=>({...resource,reason}));
+ const pin={generation:input.pins.candidate.generation,app:'atlas',commit:input.pins.candidate.sourceCommit,sha256:manifest.baseManifest.sha256,byteCount:manifest.baseManifest.byteCount};
+ const transport=[JSON.stringify(pin),JSON.stringify(manifest.baseManifest),'PRINT SOURCE CODE\n'];
+ const build=JSON.parse(input.files.build.toString('utf8'));
+ records.forEach((record,index)=>{const filename=path.resolve(input.pins.buildRoot,'teleprinter',new URL(record.url).pathname.split('/').at(-1));input.files[filename]=Buffer.from(transport[index]);input.buildPaths.push(filename);build.files.push({path:filename,sha256:digest(input.files[filename])});});
+ input.files.build=Buffer.from(JSON.stringify(build));input.pins.candidate.buildSha256=digest(input.files.build);input.pins.inputs[0].sha256=input.pins.candidate.buildSha256;
+ function saveManifest() {input.files[visit.path]=Buffer.from(source.replace(marker,`===== BEGIN DIAGNOSTIC MANIFEST =====\n${JSON.stringify(manifest)}\n===== END DIAGNOSTIC MANIFEST =====`));visit.sha256=digest(input.files[visit.path]);visit.bytes=input.files[visit.path].length;}
+ saveManifest();return {input,manifest,saveManifest};
+}
+test('selected app transports represented by matching pinned source are accepted',()=>{const {input}=withRepresentedTransport();const result=evaluateFreeze(input);assert.equal(result.status,'DESIGN FREEZE',result.errors.join('\n'));});
+test('arbitrary already-represented source file is rejected',()=>{const {input,manifest,saveManifest}=withRepresentedTransport();manifest.resources.at(-1).url=input.pins.candidate.url+'secret-source-code.txt';manifest.exclusions.at(-1).url=manifest.resources.at(-1).url;saveManifest();assert.equal(evaluateFreeze(input).status,'REJECTED');});
+test('sibling app transport does not represent selected app',()=>{const {input,manifest,saveManifest}=withRepresentedTransport();manifest.resources.at(-1).url=manifest.resources.at(-1).url.replace('atlas-source','pipeline-source');manifest.exclusions.at(-1).url=manifest.resources.at(-1).url;saveManifest();assert.equal(evaluateFreeze(input).status,'REJECTED');});
+test('missing recursion reason rejects represented transport',()=>{const {input,manifest,saveManifest}=withRepresentedTransport();manifest.exclusions[0].reason='Ignore this resource';saveManifest();assert.equal(evaluateFreeze(input).status,'REJECTED');});
+test('transport exception never accepts actual unavailable dependency',()=>{const {input,manifest,saveManifest}=withRepresentedTransport();manifest.resources[0].status='unavailable';manifest.failures=[{url:manifest.resources[0].url,reason:'CORS unavailable'}];saveManifest();assert.equal(evaluateFreeze(input).status,'REJECTED');});
+test('represented base must match pinned build transport bytes',()=>{const {input}=withRepresentedTransport();const file=input.buildPaths.find(file=>file.endsWith('atlas-source-code.txt'));input.files[file]=Buffer.from('wrong transport');assert.equal(evaluateFreeze(input).status,'REJECTED');});

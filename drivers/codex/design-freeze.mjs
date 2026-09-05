@@ -10,6 +10,37 @@ const stable = value => JSON.stringify(value, (_, v) => v && !Array.isArray(v) &
 const identityKeys = ['url','generation','sourceCommit','engineCommit','buildSha256'];
 const same = (a,b) => stable(a) === stable(b);
 const inside = (file, root) => { const relative = path.relative(path.resolve(root), path.resolve(file)); return relative && !relative.startsWith('..') && !path.isAbsolute(relative); };
+const recursionReason = 'Source transport/pin excluded to prevent recursive capture. The selected verified pinned source and its original manifest are included below; sibling app bundles are references only.';
+/** Only selected-app source transport may be represented by the verified embedded base. */
+export function representedTransportUrls({ diagnostic, candidate, files, buildRoot }) {
+  const resources = diagnostic.resources || [];
+  const represented = resources.filter(resource => resource.status === 'already-represented');
+  const exclusions = diagnostic.exclusions || [];
+  if (!represented.length && !exclusions.length) return new Set();
+  const requireThat = (value, message) => { if (!value) throw new Error(message); };
+  const current = new URL(diagnostic.state.url), baseUrl = new URL(candidate.url);
+  const app = ['atlas','pipeline','landing'].find(name => {
+    const appUrl = new URL(name === 'landing' ? './' : name + '/', baseUrl);
+    return current.origin === appUrl.origin && [appUrl.pathname, appUrl.pathname+'index.html'].includes(current.pathname);
+  });
+  requireThat(app, 'Cannot identify selected app for source transport');
+  const suffixes = ['source-pin.json','source-code.manifest.json','source-code.txt'];
+  const allowed = new Set(suffixes.map(suffix => new URL(`teleprinter/${app}-${suffix}`, baseUrl).href));
+  for (const resource of represented) {
+    requireThat(allowed.has(resource.url), `Unrepresented source transport: ${resource.url}`);
+    const matches = exclusions.filter(exclusion => exclusion.url === resource.url && exclusion.status === 'already-represented' && exclusion.reason === recursionReason);
+    requireThat(matches.length === 1, `Missing exact recursion exclusion: ${resource.url}`);
+  }
+  for (const exclusion of exclusions) requireThat(allowed.has(exclusion.url) && represented.some(resource => resource.url === exclusion.url) && exclusion.reason === recursionReason, `Arbitrary source exclusion: ${exclusion.url}`);
+  requireThat(new Set(represented.map(resource=>resource.url)).size === represented.length, 'Duplicate represented source transport');
+  const transport = suffixes.map(suffix => files[path.resolve(buildRoot, 'teleprinter', `${app}-${suffix}`)]);
+  requireThat(transport.every(Boolean), 'Selected source transport missing from pinned build');
+  const pin = JSON.parse(transport[0].toString('utf8')), manifest = JSON.parse(transport[1].toString('utf8'));
+  const base = diagnostic.baseManifest;
+  requireThat(pin.app === app && pin.generation === candidate.generation && pin.commit === candidate.sourceCommit && pin.repository === base.repository && pin.sha256 === base.sha256 && pin.byteCount === base.byteCount, 'Selected source pin does not represent embedded base');
+  requireThat(same(manifest,base) && digest(transport[2]) === base.sha256 && transport[2].length === base.byteCount, 'Selected source transport does not match embedded manifest/source');
+  return new Set(represented.map(resource=>resource.url));
+}
 export function evaluateFreeze({ report, pins, files = {}, inspections = {}, currentHeads = {}, reachableCommits = {}, buildPaths = [], checkedPaths = {}, offlineRoot = OFFLINE_ROOT }) {
   const errors = [], evidence = [];
   const check = (condition, message) => { if (!condition) errors.push(message); return condition; };
@@ -89,7 +120,10 @@ export function evaluateFreeze({ report, pins, files = {}, inspections = {}, cur
           const document = text.match(/===== BEGIN CURRENT DOCUMENT \| bytes=(\d+) \| sha256=([a-f0-9]{64}) =====\n/);
           check(!!document, `Current document missing ${label}`);
           if (document) framed(document[0], '\n===== END CURRENT DOCUMENT =====', Number(document[1]), document[2]);
+          let represented = new Set();
+          try { represented = representedTransportUrls({diagnostic,candidate,files,buildRoot:pins.buildRoot}); } catch (error) { check(false, `Invalid source exclusion ${label}: ${error.message}`); }
           for (const resource of diagnostic.resources || []) {
+            if (resource.status === 'already-represented' && represented.has(resource.url)) continue;
             check(resource.status === 'included' && ['utf-8','base64'].includes(resource.encoding), `Unavailable runtime dependency ${label}: ${resource.url}`);
             framed(`===== BEGIN RESOURCE ${JSON.stringify(resource.url)} | originalBytes=${resource.byteCount} | encoding=${resource.encoding} | sha256=${resource.sha256} =====\n`, `\n===== END RESOURCE ${JSON.stringify(resource.url)} =====`, resource.byteCount, resource.sha256, resource.encoding);
           }

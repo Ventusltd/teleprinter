@@ -16,11 +16,13 @@ export function mountTeleprinter({ manifestUrl, textUrl, expectedCommit, expecte
   const status = el('status');
   el('name').textContent = appName;
   let sourceControls;
-  el('open').onclick = () => {
+  const openSource = () => {
     dialog.showModal();
     sourceControls?.();
     sourceControls = attachPrintSourceCode({button:el('source'),copyButton:el('copy'),shareButton:el('share'),status,fallbackContainer:el('fallback'),manifestUrl,textUrl,expectedCommit,expectedRepository,filename:`${appName}-screen-source-code.txt`,prepareSource:({bytes,manifest})=>captureRuntimeSource({baseBytes:bytes,baseManifest:manifest})});
+    return sourceControls;
   };
+  el('open').onclick = openSource;
   el('close').onclick = () => dialog.close();
   const capture = window.__codexTeleprinterCapture ? async () => {
     const value = await window.__codexTeleprinterCapture();
@@ -56,5 +58,33 @@ export function mountTeleprinter({ manifestUrl, textUrl, expectedCommit, expecte
     print();
   };
   document.addEventListener('click',appPrint,true);
-  return () => { document.removeEventListener('click',appPrint,true); sourceControls?.(); host.remove(); };
+  // File is the reader's existing home for both print commands. The Atlas menu
+  // installs asynchronously, so attach once when its real Print control exists.
+  let fileSource;
+  let menuObserver;
+  const installFileSource = () => {
+    if (!printButtons || fileSource) return;
+    const filePrint = [...document.querySelectorAll(printButtons)].find(button => /\bprint\b/i.test(button.textContent));
+    if (!filePrint) return;
+    menuObserver?.disconnect();
+    fileSource = document.createElement('button');
+    fileSource.type = 'button';
+    fileSource.dataset.codexPrintSource = '1';
+    fileSource.className = filePrint.className;
+    fileSource.style.cssText = filePrint.style.cssText;
+    fileSource.style.minHeight = '44px';
+    fileSource.textContent = 'Print source code';
+    fileSource.addEventListener('click', async () => {
+      const current = openSource();
+      const result = await current.ready;
+      if (result && sourceControls === current && dialog.open) el('source').click();
+    });
+    filePrint.insertAdjacentElement('afterend', fileSource);
+  };
+  installFileSource();
+  if (printButtons && !fileSource) {
+    menuObserver = new MutationObserver(installFileSource);
+    menuObserver.observe(document.body, {childList:true,subtree:true});
+  }
+  return () => { menuObserver?.disconnect(); fileSource?.remove(); document.removeEventListener('click',appPrint,true); sourceControls?.(); host.remove(); };
 }

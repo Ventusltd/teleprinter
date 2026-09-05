@@ -59,11 +59,14 @@ const receipt = { createdAt: new Date().toISOString(), base, candidate, output, 
 const receiptPath = path.join(here, 'fifty-prints-results.json');
 async function saveReceipt() { await fs.writeFile(receiptPath, JSON.stringify(receipt, null, 2) + '\n'); }
 
-async function prepare(page, scenario) {
+async function prepare(page, scenario, progress) {
+  progress('navigate');
   await page.goto(new URL(scenario.route, base).href, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  progress('wait for Teleprinter');
   await page.getByRole('button', { name: 'Teleprinter', exact: true }).waitFor({ timeout: 90000 });
   const state = { url: page.url(), project: scenario.project, layers: [] };
   if (scenario.kind === 'atlas') {
+    progress('wait for visible engine completion');
     const badge = page.getByText(/TEST CODE .*\| ENGINE COMPLETED/).first();
     await badge.waitFor({ state: 'visible', timeout: 90000 });
     state.engineStatus = await badge.innerText();
@@ -71,20 +74,24 @@ async function prepare(page, scenario) {
     assert.match(body, new RegExp(`REPD\\s+${scenario.project}\\b`), 'Project identity missing from visible body.');
     assert.match(body, /Nearest|substation|connection/i, 'Project calculation missing from visible body.');
     state.projectBody = body;
+    progress('wait for File menu and layers panel');
+    await page.locator('.gm-title').filter({ hasText: /^File$/i }).waitFor({ state: 'visible', timeout: 60000 });
     const toggle = page.locator('#gridatlas-dash-toggle');
     if (!/HIDE LAYERS/i.test(await toggle.innerText())) await toggle.click();
     for (const layer of scenario.layers) {
-      const input = page.locator(`input[data-gridatlas-layer-proxy="engine:${layer}"]:visible`).first();
+      progress(`toggle layer ${layer}`);
+      const input = page.locator(`input[data-gridatlas-layer-proxy="engine:${layer}"]:visible, input[data-layer-id="${layer}"]:visible`).first();
       await input.waitFor({ state: 'visible', timeout: 60000 });
       const before = await input.isChecked();
-      await input.locator('..').click();
+      await input.locator('xpath=ancestor::label[1]').click();
       assert.equal(await input.isChecked(), !before, `Layer ${layer} failed to toggle.`);
     }
-    state.layers = await page.locator('input[data-gridatlas-layer-proxy]:visible').evaluateAll(inputs =>
-      inputs.filter(input => input.checked).map(input => ({ key: input.dataset.gridatlasLayerProxy,
+    state.layers = await page.locator('input[data-gridatlas-layer-proxy]:visible, input[data-layer-id]:visible').evaluateAll(inputs =>
+      inputs.filter(input => input.checked).map(input => ({ key: input.dataset.gridatlasLayerProxy || `engine:${input.dataset.layerId}`,
         label: input.getAttribute('aria-label') || input.parentElement.textContent.trim() })).sort((a, b) => a.key.localeCompare(b.key)));
     state.selectedLayerKeys = state.layers.map(layer => layer.key);
   } else if (scenario.kind === 'pipeline') {
+    progress(`wait for Pipeline rows, search ${scenario.search}`);
     await page.locator('#tbody tr td:nth-child(2)').first().waitFor({ state: 'visible', timeout: 90000 });
     await page.locator('#search').fill(scenario.search);
     await page.waitForFunction(query => {
@@ -111,7 +118,11 @@ for (const scenario of scenarios.slice(0, limit)) {
     const visit = { visitId: `${path.basename(output)}-${scenario.id}-${mode}`, browser: 'installed Chrome', candidate,
       mode, startedAt: new Date().toISOString(), ok: false, console: [], networkFailures: [] };
     result.visits.push(visit);
+    let currentStep = 'launch Chrome';
+    const progress = step => { currentStep = step; console.log(`STEP ${scenario.id} ${mode}: ${step}`); };
+    const heartbeat = setInterval(() => console.log(`WAIT ${scenario.id} ${mode}: ${currentStep}`), 30000);
     try {
+      progress('launch Chrome');
       browser = await chromium.launch({ channel: 'chrome', headless: true });
       const { width, height, dpr } = scenario.geometry;
       context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: dpr, acceptDownloads: true });
@@ -120,9 +131,10 @@ for (const scenario of scenarios.slice(0, limit)) {
       page.on('pageerror', error => visit.console.push({ type: 'pageerror', text: String(error) }));
       page.on('requestfailed', request => { if (visit.networkFailures.length < 150) visit.networkFailures.push({ url: request.url(), error: request.failure()?.errorText }); });
       await attachScreenCapture(page, { onCapture: png => { captured = png; } });
-      visit.state = await prepare(page, scenario);
+      visit.state = await prepare(page, scenario, progress);
       let downloaded;
       if (mode === 'pdf') {
+        progress(`download PDF via ${scenario.pdfRoute}`);
         if (scenario.pdfRoute === 'File > Print') {
           await page.locator('.gm-title').filter({ hasText: /^File$/i }).click();
           downloaded = await clickAndReadDownload(page, page.locator('button[data-gm-export]').filter({ hasText: /Print/i }).first(), { timeout: 60000 });
@@ -140,14 +152,22 @@ for (const scenario of scenarios.slice(0, limit)) {
         visit.pngPath = visit.path.replace(/\.pdf$/, '.png');
         visit.pngSha256 = sha256(captured);
         await fs.writeFile(visit.pngPath, captured, { flag: 'wx' });
+        progress('inspect embedded and rendered PDF pixels');
         const inspected = spawnSync('python', [path.join(here, 'inspect-pdf.py')], {
           input: JSON.stringify({ pdf: downloaded.bytes.toString('base64'), png: captured.toString('base64') }), encoding: 'utf8', maxBuffer: 2000000, timeout: 60000
         });
         assert.equal(inspected.status, 0, inspected.stderr || String(inspected.error));
         visit.inspection = JSON.parse(inspected.stdout);
       } else {
-        await page.getByRole('button', { name: 'Teleprinter', exact: true }).click();
-        downloaded = await clickAndReadDownload(page, page.getByRole('button', { name: 'Print source code', exact: true }), { timeout: 120000 });
+        progress('open Teleprinter and prepare runtime source download');
+        if (scenario.kind === 'atlas') {
+          progress('download source through File > Print source code');
+          await page.locator('.gm-title').filter({hasText:/^File$/i}).click();
+          downloaded = await clickAndReadDownload(page, page.locator('button[data-codex-print-source]'), { timeout: 120000 });
+        } else {
+          await page.getByRole('button', { name: 'Teleprinter', exact: true }).click();
+          downloaded = await clickAndReadDownload(page, page.getByRole('button', { name: 'Print source code', exact: true }), { timeout: 120000 });
+        }
         assert.ok(downloaded.ok, downloaded.error);
         visit.bytes = downloaded.bytes.length;
         visit.sha256 = sha256(downloaded.bytes);
@@ -160,6 +180,7 @@ for (const scenario of scenarios.slice(0, limit)) {
         const framed = source.match(/===== BEGIN DIAGNOSTIC MANIFEST =====\r?\n([\s\S]*?)\r?\n===== END DIAGNOSTIC MANIFEST =====/);
         assert.ok(framed, 'Source print has no runtime diagnostic manifest.');
         const manifest = JSON.parse(framed[1]);
+        progress(`verify runtime manifest (${manifest.counts?.resources ?? '?'} resources)`);
         visit.runtimeManifestPath = visit.path.replace(/\.txt$/, '-manifest.json');
         await fs.writeFile(visit.runtimeManifestPath, JSON.stringify(manifest, null, 2) + '\n', { flag: 'wx' });
         visit.runtimeManifest = { format: manifest.format, complete: manifest.complete,
@@ -170,6 +191,7 @@ for (const scenario of scenarios.slice(0, limit)) {
         assert.equal(manifest.state?.url, visit.state.url, 'Source capture URL differs from the actual app view.');
         assert.equal(manifest.baseManifest?.commit, candidate.sourceCommit, 'Source capture commit differs from frozen candidate.');
         assert.equal(manifest.baseManifest?.sha256, pins[scenario.kind].sha256, 'Source capture bytes differ from the app source pin.');
+        assert.equal(manifest.failures?.length, 0, 'Runtime source capture reports unavailable or failed resources; see saved manifest.');
       }
       visit.bytes = downloaded.bytes.length;
       visit.sha256 = sha256(downloaded.bytes);
@@ -190,6 +212,7 @@ for (const scenario of scenarios.slice(0, limit)) {
       }
       console.log(`FAIL ${scenario.id} ${mode}: ${error.message}`);
     } finally {
+      clearInterval(heartbeat);
       captured = undefined;
       await context?.close().catch(() => {});
       await browser?.close().catch(() => {});

@@ -84,7 +84,14 @@ parses the existing `BEGIN DIAGNOSTIC MANIFEST` JSON and requires current URL,
 visible text, form state, viewport and matching `baseManifest.commit`. It checks
 exact byte counts/hashes for the PINNED SOURCE, CURRENT DOCUMENT, and every
 RESOURCE frame, decoding complete base64 bodies where specified. Every resource
-must be `included`; unavailable dependencies, HTTP-error bodies, manifest
+must be `included`, except the selected app's three explicitly represented source
+transport files (`APP-source-pin.json`, `APP-source-code.manifest.json`, and
+`APP-source-code.txt`). That narrow exception requires exact same-origin/current-
+generation URLs, the recorded recursion-prevention exclusion reason, and all
+three pinned build files. The pin's app/generation/commit/hash/byte count must
+match the embedded base; the original manifest and source bytes must match it
+exactly. Sibling bundles and arbitrary exclusions cannot use this exception.
+Unavailable dependencies, HTTP-error bodies, manifest
 failures, missing frames and hash mismatches reject. Failures remain visible in
 the original diagnostic and rejection output. `limitations` and
 `discoveryWarnings` are required: known unloaded or computed references are

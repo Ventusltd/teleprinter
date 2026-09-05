@@ -7,7 +7,7 @@ const { captureRuntimeSource } = await import(`data:text/javascript;base64,${Buf
 const baseBytes = new TextEncoder().encode('PRINT SOURCE CODE\nPinned café source\n');
 const baseManifest = { byteCount: baseBytes.length, sha256: createHash('sha256').update(baseBytes).digest('hex'), commit: 'a'.repeat(40) };
 
-function install({ blocked = false, many = false } = {}) {
+function install({ blocked = false, many = false, mapStyle, documentBase } = {}) {
   const base = 'https://app.test/view/';
   const binary = Uint8Array.from([0, 255, 3, 128]);
   const responses = new Map([
@@ -38,13 +38,13 @@ function install({ blocked = false, many = false } = {}) {
   const globals = {
     location: { href: base, origin: 'https://app.test' }, innerWidth: 393, innerHeight: 852, devicePixelRatio: 3, scrollX: 0, scrollY: 21,
     performance: { getEntriesByType: () => many ? Array.from({ length: 1501 }, (_, i) => ({ name: base + i + '.js' })) : [{ name: base + 'app.js', initiatorType: 'script' }, { name: base + 'style.css' }, { name: 'https://cdn.test/library.js' }, { name: base + 'atlas-source-code.txt' }, { name: base + 'atlas-source-code.manifest.json' }, { name: base + 'atlas-source-pin.json' }, ...(blocked ? [{ name: 'https://blocked.test/lib.js' }, { name: base + 'missing.json' }] : [])] },
-    document: { title: 'Live Grid Atlas', baseURI: base, documentElement: { outerHTML: '<html><body>Current DOM + inline source</body></html>' }, body: { innerText: 'Current visible layers' }, querySelectorAll: selector => lists[selector] ?? [] },
-    window: { __GRIDATLAS_V9_MAP__: { getCenter: () => ({ lng: -2.5, lat: 52 }), getZoom: () => 10, getBearing: () => 20, getPitch: () => 30, getStyle: () => ({ layers: [{ id: 'grid', layout: { visibility: 'visible' } }], sources: { substations: { type: 'geojson' } } }) } },
+    document: { title: 'Live Grid Atlas', baseURI: documentBase || base, documentElement: { outerHTML: '<html><body>Current DOM + inline source</body></html>' }, body: { innerText: 'Current visible layers' }, querySelectorAll: selector => lists[selector] ?? [] },
+    window: { __GRIDATLAS_V9_MAP__: { getCenter: () => ({ lng: -2.5, lat: 52 }), getZoom: () => 10, getBearing: () => 20, getPitch: () => 30, getStyle: () => mapStyle || ({ layers: [{ id: 'grid', layout: { visibility: 'visible' } }], sources: { substations: { type: 'geojson' } } }) } },
   };
   const saved = new Map(Object.keys(globals).map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)]));
   for (const [key, value] of Object.entries(globals)) Object.defineProperty(globalThis, key, { configurable: true, value });
   return {
-    calls, binary,
+    calls, binary, lists, responses,
     fetchImpl: async (url, options) => {
       calls.push({ url, options });
       if (url.startsWith('https://blocked.test')) throw new TypeError('CORS blocked');
@@ -110,5 +110,102 @@ test('tampered pinned bytes and an excessive dependency graph fail explicitly', 
     await assert.rejects(captureRuntimeSource({ baseBytes: new Uint8Array(baseBytes.length), baseManifest, fetchImpl: env.fetchImpl }), /SHA256 check/);
     await assert.rejects(captureRuntimeSource({ baseBytes, baseManifest, fetchImpl: env.fetchImpl }), /1,500-resource limit/);
     assert.equal(env.calls.length, 0);
+  } finally { env.restore(); }
+});
+
+test('worker-only live GeoJSON resolves against the remote document base and is included completely', async () => {
+  const documentBase = 'https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/';
+  const data = '../cartridges/5f5fbec83f9ce307b47ddc6e7277743f0bba1a2445b0f3ca50a9a1806146e993/grid_400kv.geojson';
+  const full = new URL(data, documentBase).href;
+  const geojson = JSON.stringify({ type: 'FeatureCollection', features: [{ type: 'Feature', properties: { voltage: 400000 }, geometry: { type: 'LineString', coordinates: [[1, 2], [3, 4]] } }] });
+  const env = install({ documentBase, mapStyle: { layers: [{ id: 'l-400', source: 'src-400', layout: { visibility: 'visible' } }], sources: { 'src-400': { type: 'geojson', data }, inline: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } } } } });
+  env.lists.script = env.lists.script.filter(script => script.src);
+  env.responses.set(full, [geojson, 'application/geo+json']);
+  try {
+    const result = await captureRuntimeSource({ baseBytes, baseManifest, fetchImpl: env.fetchImpl });
+    const resource = result.manifest.resources.find(resource => resource.url === full);
+    assert.equal(resource.status, 'included');
+    assert.deepEqual(resource.expectedKinds, ['geojson']);
+    assert.ok(resource.discoveredBy.some(item => item.reason.includes('src-400') && item.reason.includes('l-400')));
+    assert.equal(resource.byteCount, Buffer.byteLength(geojson));
+    assert.equal(resource.sha256, createHash('sha256').update(geojson).digest('hex'));
+    assert.ok(new TextDecoder().decode(result.bytes).includes(geojson));
+    assert.equal(env.calls.filter(call => call.url === full).length, 1);
+    assert.ok(result.manifest.mapDependencies.some(item => item.status === 'embedded-state'));
+    assert.deepEqual(result.manifest.state.map.sources.inline.data.features, []);
+    assert.equal(result.manifest.state.resourceTiming.historyComplete, false);
+    assert.equal(result.manifest.complete, false);
+    assert.equal(result.manifest.failures.length, 0);
+  } finally { env.restore(); }
+});
+
+test('TileJSON advertised URLs and DPR sprite pair are fetched; tile/glyph templates are explicit gaps', async () => {
+  const env = install({ mapStyle: {
+    layers: [{ id: 'roads', source: 'vector', layout: { visibility: 'visible' } }],
+    sources: { vector: { type: 'vector', url: './tiles/tilejson.json' }, raster: { type: 'raster', tiles: ['https://tiles.test/{z}/{x}/{y}.png'] } },
+    glyphs: './fonts/{fontstack}/{range}.pbf', sprite: './sprites/default?key=public',
+  } });
+  env.responses.set('https://app.test/view/tiles/tilejson.json', [JSON.stringify({ tilejson: '3.0.0', tiles: ['./7/2/3.pbf', './{z}/{x}/{y}.pbf'], data: ['./metadata.json'] }), 'application/json']);
+  env.responses.set('https://app.test/view/tiles/7/2/3.pbf', [env.binary, 'application/x-protobuf']);
+  env.responses.set('https://app.test/view/tiles/metadata.json', ['{"source":"roads"}', 'application/json']);
+  env.responses.set('https://app.test/view/sprites/default@2x.json?key=public', ['{"marker":{"x":0,"y":0,"width":1,"height":1}}', 'application/json']);
+  env.responses.set('https://app.test/view/sprites/default@2x.png?key=public', [Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10]), 'image/png']);
+  try {
+    const result = await captureRuntimeSource({ baseBytes, baseManifest, fetchImpl: env.fetchImpl });
+    assert.ok(env.calls.some(call => call.url.endsWith('/tiles/7/2/3.pbf')));
+    assert.ok(env.calls.some(call => call.url.endsWith('/tiles/metadata.json')));
+    assert.ok(env.calls.some(call => call.url.endsWith('/default@2x.png?key=public')));
+    assert.ok(env.calls.every(call => !/[{}]|%7B|%7D/i.test(call.url)), 'templates must never be fetched as invented coordinates');
+    assert.equal(result.manifest.mapDependencies.filter(item => item.status === 'unresolved-template').length, 3);
+    assert.ok(result.manifest.discoveryWarnings.some(item => item.reason.includes('Exact rendered worker tile set')));
+    assert.equal(result.manifest.observedResourcesComplete, false);
+    assert.equal(result.manifest.failures.length, 0);
+  } finally { env.restore(); }
+});
+
+test('HTML or invalid JSON masquerading as live GeoJSON/TileJSON is retained but fails validation', async () => {
+  const env = install({ mapStyle: { layers: [], sources: { bad: { type: 'geojson', data: './bad.geojson' }, vector: { type: 'vector', url: './bad-tilejson.json' } } } });
+  env.responses.set('https://app.test/view/bad.geojson', ['<html>error page returned with status 200</html>', 'text/html']);
+  env.responses.set('https://app.test/view/bad-tilejson.json', ['{"message":"missing tiles"}', 'application/json']);
+  try {
+    const result = await captureRuntimeSource({ baseBytes, baseManifest, fetchImpl: env.fetchImpl });
+    assert.equal(result.manifest.failures.length, 2);
+    assert.equal(result.manifest.resources.filter(resource => resource.status === 'included-invalid-map-data').length, 2);
+    assert.ok(new TextDecoder().decode(result.bytes).includes('<html>error page returned with status 200</html>'));
+    assert.equal(result.manifest.observedResourcesComplete, false);
+  } finally { env.restore(); }
+});
+
+test('nested open shadow roots retain HTML, live forms, and stylesheet dependencies', async () => {
+  const env = install();
+  const inner = { innerHTML: '<textarea>default</textarea>', textContent: 'default', querySelectorAll: selector => selector === 'input,textarea,select' ? [{ tagName: 'TEXTAREA', id: 'shadow-notes', value: 'Edited in shadow', type: 'textarea' }] : [] };
+  const outer = { innerHTML: '<style>.x{background:url("./shadow.png")}</style><nested-widget></nested-widget>', textContent: 'shadow content', querySelectorAll: selector => selector === '*' ? [{ tagName: 'NESTED-WIDGET', shadowRoot: inner }] : selector === 'style' ? [{ textContent: '.x{background:url("./shadow.png")}' }] : [] };
+  env.lists['*'] = [{ tagName: 'TELEPRINTER-TOOLS', id: 'tools', shadowRoot: outer }];
+  env.responses.set('https://app.test/view/shadow.png', [env.binary, 'image/png']);
+  try {
+    const result = await captureRuntimeSource({ baseBytes, baseManifest, fetchImpl: env.fetchImpl });
+    assert.equal(result.manifest.state.openShadowRoots.length, 2);
+    assert.ok(result.manifest.state.openShadowRoots[0].html.includes('nested-widget'));
+    const form = result.manifest.state.forms.find(control => control.id === 'shadow-notes');
+    assert.equal(form.value, 'Edited in shadow');
+    assert.ok(form.root.includes('NESTED-WIDGET'));
+    assert.ok(env.calls.some(call => call.url.endsWith('/shadow.png')));
+    assert.ok(new TextDecoder().decode(result.bytes).includes('Edited in shadow'));
+  } finally { env.restore(); }
+});
+
+test('global inline map geometry remains complete while public rendered features are clearly derived', async () => {
+  const inlineData = { type: 'FeatureCollection', features: [{ type: 'Feature', properties: { onlyGlobal: 'not copied' }, geometry: { type: 'Point', coordinates: [12, 34] } }] };
+  const env = install({ mapStyle: { layers: [{ id: 'visible', source: 'inline' }], sources: { inline: { type: 'geojson', data: inlineData } } } });
+  window.__GRIDATLAS_V9_MAP__.queryRenderedFeatures = () => [{ type: 'Feature', id: 7, source: 'inline', layer: { id: 'visible' }, properties: { voltage: 275000 }, geometry: { type: 'Point', coordinates: [1, 2] } }];
+  try {
+    const { manifest, bytes } = await captureRuntimeSource({ baseBytes, baseManifest, fetchImpl: env.fetchImpl });
+    assert.deepEqual(manifest.state.map.sources.inline.data, inlineData);
+    const serialized = new TextDecoder().decode(bytes).split('===== BEGIN DIAGNOSTIC MANIFEST =====\n')[1].split('\n===== END DIAGNOSTIC MANIFEST =====')[0];
+    assert.deepEqual(JSON.parse(serialized).state.map.sources.inline.data, inlineData);
+    assert.equal(manifest.state.map.renderedFeatures.count, 1);
+    assert.equal(manifest.state.map.renderedFeatures.features[0].properties.voltage, 275000);
+    assert.match(manifest.state.map.renderedFeatures.provenance, /NOT original worker tile bytes/);
+    assert.equal(inlineData.features[0].properties.onlyGlobal, 'not copied', 'capture must not mutate live map source');
   } finally { env.restore(); }
 });
