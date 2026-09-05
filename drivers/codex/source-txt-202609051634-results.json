@@ -17,7 +17,8 @@
   },
   "printedEngineBadge": "TEST CODE repd-3947 | ENGINE COMPLETED | 6 measured | visit-1788622431177-2a17f0",
   "workers": 8,
-  "seconds": 0.76,
+  "seconds": 1.86,
+  "pinnedGitBytesChecked": true,
   "counts": {
     "verifiedBodies": 52,
     "javascriptChecks": 24,
