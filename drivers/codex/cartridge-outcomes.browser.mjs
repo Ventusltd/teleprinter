@@ -79,6 +79,18 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.ok(record.cableCanvases.every(c=>c.opaque>100&&c.colors>4),'Cable canvases must contain drawn geometry');
      await page.screenshot({path:path.join(output,`${viewport.width}-${tool.id}-open.png`)});
     }
+    if(process.argv.includes('--focus')) {
+     const close=dialog.getByRole('button',{name:/Close.*return to GridAtlas/});
+     await close.focus();await page.keyboard.press('Tab');
+     const toolFrame=page.frames().find(f=>f.url().includes(tool.id+'/index.html'));
+     assert.ok(await toolFrame.evaluate(()=>document.activeElement!==document.body),'Tab must enter tool');
+     await page.keyboard.press('Shift+Tab');
+     assert.equal(await close.evaluate(n=>n===document.activeElement),true,'Shift Tab must return to close');
+     await page.keyboard.press('Shift+Tab');
+     assert.ok(await toolFrame.evaluate(()=>document.activeElement!==document.body),'Reverse Tab must enter end of tool');
+     await page.keyboard.press('Tab');
+     assert.equal(await close.evaluate(n=>n===document.activeElement),true,'Last tool control must wrap to close');
+    }
     if(process.argv.includes('--escape')) {
      await frame.locator('body').press('Escape');
      await dialog.waitFor({state:'hidden'});
