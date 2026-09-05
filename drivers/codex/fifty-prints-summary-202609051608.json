@@ -1,0 +1,1474 @@
+{
+  "candidate": {
+    "url": "https://globalgrid2050.com/testcode/202609051608/",
+    "generation": "202609051608",
+    "sourceCommit": "9261119c1bfa0fb99b2342e46f5adff672c46357",
+    "engineCommit": "0f666854e19d9f798cbeb189b540008f2daec7c9",
+    "buildSha256": "3ddacbcf44083dac340bf7c9e723dda0f837d47ac01b2e5563ebbc66825c3ef4"
+  },
+  "createdAt": "2026-09-05T16:12:40.235Z",
+  "finishedAt": "2026-09-05T16:15:47.118Z",
+  "ok": true,
+  "browser": "installed Chrome",
+  "physicalDevices": false,
+  "actualVisits": 50,
+  "savedDownloads": 50,
+  "fullReceiptSha256": "ff36572748611ab86b74928e4002465705802737a89d691bc229e726e37ec96a",
+  "offlineReceipt": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\teleprinter-2026-09-05T16-12-40-072Z-44700\\campaign-results.json",
+  "scenarios": [
+    {
+      "id": "01",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "project": "2484",
+      "layers": [
+        "400",
+        "275"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-01-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:12:45.225Z",
+          "bytes": 195794,
+          "sha256": "29b6d9076375cd745936b091fac998807002288fa726f54b7ee773ba567ec82d",
+          "pngSha256": "f2e1d0cda96a654102718518b643df51a34777112a84875bf8166f6aac7551a7",
+          "inspection": {
+            "width": 1440,
+            "height": 900,
+            "pageWidth": 1440,
+            "pageHeight": 1025,
+            "imageRect": [
+              0,
+              60,
+              1440,
+              960
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1296000,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "29b6d9076375cd745936b091fac998807002288fa726f54b7ee773ba567ec82d"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-01-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:12:50.333Z",
+          "bytes": 60623837,
+          "sha256": "41e2ab989d50716509dbe297e4227730b76245dfd4935b04d7f0345ca9e65daf",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-portrait",
+        "width": 900,
+        "height": 1200,
+        "dpr": 1
+      },
+      "project": "18790",
+      "layers": [
+        "220",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-02-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:12:54.023Z",
+          "bytes": 197079,
+          "sha256": "c85defd75b1818013b268109b11406411f79979551c00bf3b28c8b728fbe0df6",
+          "pngSha256": "5730236fbbb37f2328642025a959268613b31a3614fa83e963592b181d138a8b",
+          "inspection": {
+            "width": 900,
+            "height": 1200,
+            "pageWidth": 900,
+            "pageHeight": 1325,
+            "imageRect": [
+              0,
+              60,
+              900,
+              1260
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1080000,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "c85defd75b1818013b268109b11406411f79979551c00bf3b28c8b728fbe0df6"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-02-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:12:58.795Z",
+          "bytes": 61647230,
+          "sha256": "34503165363c889e4e06beed8751828be6836e1a56797717db0485511ec6d2e0",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPad-emulation",
+        "width": 1024,
+        "height": 768,
+        "dpr": 2
+      },
+      "project": "11613",
+      "layers": [
+        "400",
+        "220",
+        "132"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-03-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:02.759Z",
+          "bytes": 312352,
+          "sha256": "d4edb937d186e395e2d955d1c73a0b0d39dcef53ecbbbae17317911ffebc0d6b",
+          "pngSha256": "d06585bdf96ecc82b57c5d7e33050ca3053822cf00f485ab8a31963f1aee83ad",
+          "inspection": {
+            "width": 2048,
+            "height": 1536,
+            "pageWidth": 2048,
+            "pageHeight": 1784,
+            "imageRect": [
+              0,
+              119,
+              2048,
+              1655
+            ],
+            "headersFootersPresent": true,
+            "pixels": 3145728,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "d4edb937d186e395e2d955d1c73a0b0d39dcef53ecbbbae17317911ffebc0d6b"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-03-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:07.262Z",
+          "bytes": 56771746,
+          "sha256": "dc9c020313adaf2091e929f620e290d06d10cb51fa6db0a02acd029d5928a1fe",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPhone-emulation",
+        "width": 393,
+        "height": 852,
+        "dpr": 2
+      },
+      "project": "2484",
+      "layers": [
+        "275",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-04-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:11.076Z",
+          "bytes": 119390,
+          "sha256": "758215bfcf32f3a4178f4ee50c181679fbaf2defad205c95763b765fb5e85217",
+          "pngSha256": "80fab6e77b9b46b65151c7d404940b4e9c31ffb4be12f4ba7a769825adffad88",
+          "inspection": {
+            "width": 786,
+            "height": 1704,
+            "pageWidth": 786,
+            "pageHeight": 1979,
+            "imageRect": [
+              0,
+              119,
+              786,
+              1823
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1339344,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "758215bfcf32f3a4178f4ee50c181679fbaf2defad205c95763b765fb5e85217"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-04-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:15.959Z",
+          "bytes": 58394186,
+          "sha256": "87827b6cedabcf4bee46253b67d0d0d968b29aa145df6c69530e39d58c434166",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "kind": "atlas",
+      "geometry": {
+        "name": "mobile-landscape",
+        "width": 852,
+        "height": 393,
+        "dpr": 2
+      },
+      "project": "18790",
+      "layers": [
+        "400",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-05-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:19.629Z",
+          "bytes": 176724,
+          "sha256": "83737949bb8b6156ddd7bcb3e5d08b2df6a13b026dec863c566df5549641c4c9",
+          "pngSha256": "8c361ecf586c24c8268ea05b82b4b9bd35d058443abf0a6ff4b46925b491ef75",
+          "inspection": {
+            "width": 1704,
+            "height": 786,
+            "pageWidth": 1704,
+            "pageHeight": 1034,
+            "imageRect": [
+              0,
+              119,
+              1704,
+              905
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1339344,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "83737949bb8b6156ddd7bcb3e5d08b2df6a13b026dec863c566df5549641c4c9"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-05-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:23.980Z",
+          "bytes": 57475654,
+          "sha256": "bdc6713d0d0a16b9a63d1d8e9a83f16b74a14fcdf9f79932abd0c5a7f5ac884b",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "project": "11613",
+      "layers": [
+        "400",
+        "275"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-06-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:27.575Z",
+          "bytes": 146260,
+          "sha256": "491855a56ce0fbed3862e6761eb8791a592761ac9a98a067c850162097398082",
+          "pngSha256": "c582032f629f2e22114a9c9365bc16d87658b0f570fba25f8f9da8c77d1ac516",
+          "inspection": {
+            "width": 1440,
+            "height": 900,
+            "pageWidth": 1440,
+            "pageHeight": 1025,
+            "imageRect": [
+              0,
+              60,
+              1440,
+              960
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1296000,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "491855a56ce0fbed3862e6761eb8791a592761ac9a98a067c850162097398082"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-06-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:31.998Z",
+          "bytes": 57233242,
+          "sha256": "7605271462c1174bf2658b52214ddbafc510f3816c3f9afe34ab6c476451967f",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-portrait",
+        "width": 900,
+        "height": 1200,
+        "dpr": 1
+      },
+      "project": "2484",
+      "layers": [
+        "220",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-07-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:35.621Z",
+          "bytes": 159229,
+          "sha256": "e285ec93c1b6b560f053b6ef71fff1e7f0cfe6b411fce73d46b3eef9a098cb74",
+          "pngSha256": "e7f8a470ed96d87fb54abc770c691df51d819ac22c8777d6306dfdb3083ea1bb",
+          "inspection": {
+            "width": 900,
+            "height": 1200,
+            "pageWidth": 900,
+            "pageHeight": 1325,
+            "imageRect": [
+              0,
+              60,
+              900,
+              1260
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1080000,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "e285ec93c1b6b560f053b6ef71fff1e7f0cfe6b411fce73d46b3eef9a098cb74"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-07-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:40.028Z",
+          "bytes": 60695409,
+          "sha256": "9c6ab9e4cfe6aa791ce90f79c6c5c08c676af121b64127b364c1a5e97679f989",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPad-emulation",
+        "width": 1024,
+        "height": 768,
+        "dpr": 2
+      },
+      "project": "18790",
+      "layers": [
+        "400",
+        "220",
+        "132"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-08-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:44.039Z",
+          "bytes": 543989,
+          "sha256": "504869c720fb560925ebb83d985662142053e94a2d6228798a52264263549d9c",
+          "pngSha256": "3f97f56cc4e832424b182cdf577a650be6c7c88bf823a995ced13bf1eacb8ed0",
+          "inspection": {
+            "width": 2048,
+            "height": 1536,
+            "pageWidth": 2048,
+            "pageHeight": 1784,
+            "imageRect": [
+              0,
+              119,
+              2048,
+              1655
+            ],
+            "headersFootersPresent": true,
+            "pixels": 3145728,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "504869c720fb560925ebb83d985662142053e94a2d6228798a52264263549d9c"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-08-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:48.510Z",
+          "bytes": 57489031,
+          "sha256": "67b996fc400a08c0578031a1558b0d71d435f461feb019ed124271165ba2d78e",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPhone-emulation",
+        "width": 393,
+        "height": 852,
+        "dpr": 2
+      },
+      "project": "11613",
+      "layers": [
+        "275",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-09-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:52.607Z",
+          "bytes": 122580,
+          "sha256": "d43e17073933b1e3b02a42155a6414dd12199c7f90ab2ad043d99adeb014def5",
+          "pngSha256": "5f735128fac9ec6ebac996a935b891abd926de6bd8ee82aff4b8ec824481b0e1",
+          "inspection": {
+            "width": 786,
+            "height": 1704,
+            "pageWidth": 786,
+            "pageHeight": 1979,
+            "imageRect": [
+              0,
+              119,
+              786,
+              1823
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1339344,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "d43e17073933b1e3b02a42155a6414dd12199c7f90ab2ad043d99adeb014def5"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-09-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:13:57.059Z",
+          "bytes": 56614727,
+          "sha256": "b79376c5fa8a83f786b1b3b2c24f8c2ca7fc5fdeed13b861f4bf529c942fec22",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "kind": "atlas",
+      "geometry": {
+        "name": "mobile-landscape",
+        "width": 852,
+        "height": 393,
+        "dpr": 2
+      },
+      "project": "2484",
+      "layers": [
+        "400",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-10-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:00.703Z",
+          "bytes": 149966,
+          "sha256": "9c99e9d73a0e8e0b88c8461e367147dec1271c335fa4923576b3ee9e94af28a7",
+          "pngSha256": "526f565d333f06e968d1c45230ff1f711e4ec01df05ca4bb4ac80982ef85ca66",
+          "inspection": {
+            "width": 1704,
+            "height": 786,
+            "pageWidth": 1704,
+            "pageHeight": 1034,
+            "imageRect": [
+              0,
+              119,
+              1704,
+              905
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1339344,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "9c99e9d73a0e8e0b88c8461e367147dec1271c335fa4923576b3ee9e94af28a7"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-10-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:05.497Z",
+          "bytes": 73120837,
+          "sha256": "9965ed362ad9393012e46181fc71596296ece3b87439ecf815aa62eb64072cf7",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "project": "18790",
+      "layers": [
+        "400",
+        "275"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-11-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:09.335Z",
+          "bytes": 337150,
+          "sha256": "b279b50e567fe44770a2091b7bde7a19cc72c5af3350aa5fbf46741fc811c41c",
+          "pngSha256": "b655002cc9e685893738e1b8ca6cdd07d83685b88de163b685fe6d26bdbf62e6",
+          "inspection": {
+            "width": 1440,
+            "height": 900,
+            "pageWidth": 1440,
+            "pageHeight": 1025,
+            "imageRect": [
+              0,
+              60,
+              1440,
+              960
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1296000,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "b279b50e567fe44770a2091b7bde7a19cc72c5af3350aa5fbf46741fc811c41c"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-11-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:14.174Z",
+          "bytes": 58891174,
+          "sha256": "16a7f2ec58c07b8be658ac37e459451006cee322309a24d4e188ded13dc17f92",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "kind": "atlas",
+      "geometry": {
+        "name": "desktop-portrait",
+        "width": 900,
+        "height": 1200,
+        "dpr": 1
+      },
+      "project": "11613",
+      "layers": [
+        "220",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-12-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:18.517Z",
+          "bytes": 150466,
+          "sha256": "7c08fa4a9f19fc04ba8e554185ec6ee0cc9fde874438f76ba3fbf915346d76d0",
+          "pngSha256": "1614167c32be60b0d3776cc742e9d04e63479093274a57e5ef583aa94d6028c3",
+          "inspection": {
+            "width": 900,
+            "height": 1200,
+            "pageWidth": 900,
+            "pageHeight": 1325,
+            "imageRect": [
+              0,
+              60,
+              900,
+              1260
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1080000,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "7c08fa4a9f19fc04ba8e554185ec6ee0cc9fde874438f76ba3fbf915346d76d0"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-12-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:23.422Z",
+          "bytes": 54447633,
+          "sha256": "c0da2f9f51560aa87f815f29c1fefa652cf1b8ae4111d902a110bc798c4264c2",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPad-emulation",
+        "width": 1024,
+        "height": 768,
+        "dpr": 2
+      },
+      "project": "2484",
+      "layers": [
+        "400",
+        "220",
+        "132"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-13-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:27.819Z",
+          "bytes": 344273,
+          "sha256": "07770da012cfb5c0fa0f5e8b83c7482f817c5c2e5e0434f6da63955516c04d09",
+          "pngSha256": "4f5d255980ad8b3f206a26ca0dd5af7992db18356f7b17b7aa1ba822033cb6fb",
+          "inspection": {
+            "width": 2048,
+            "height": 1536,
+            "pageWidth": 2048,
+            "pageHeight": 1784,
+            "imageRect": [
+              0,
+              119,
+              2048,
+              1655
+            ],
+            "headersFootersPresent": true,
+            "pixels": 3145728,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "07770da012cfb5c0fa0f5e8b83c7482f817c5c2e5e0434f6da63955516c04d09"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-13-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:32.743Z",
+          "bytes": 60176864,
+          "sha256": "c84f395ae5759b370617fd7574abf173b46242e7759352a86220423a1e4e889a",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "kind": "atlas",
+      "geometry": {
+        "name": "iPhone-emulation",
+        "width": 393,
+        "height": 852,
+        "dpr": 2
+      },
+      "project": "18790",
+      "layers": [
+        "275",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-14-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:36.970Z",
+          "bytes": 125105,
+          "sha256": "6f5ef41b6ed22702c8029c3464bcb9454370f1c7b6e2177765e5fd3ea0044561",
+          "pngSha256": "f77b8a4e90b577d8096f7b422ef0a4a9636735b139a208cc02c235366816befe",
+          "inspection": {
+            "width": 786,
+            "height": 1704,
+            "pageWidth": 786,
+            "pageHeight": 1979,
+            "imageRect": [
+              0,
+              119,
+              786,
+              1823
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1339344,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "6f5ef41b6ed22702c8029c3464bcb9454370f1c7b6e2177765e5fd3ea0044561"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-14-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:42.431Z",
+          "bytes": 63453136,
+          "sha256": "8e609e00cf52d70cecf871e5d5f5eadba4d53914ed873be4a6650416b3478e83",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "kind": "atlas",
+      "geometry": {
+        "name": "mobile-landscape",
+        "width": 852,
+        "height": 393,
+        "dpr": 2
+      },
+      "project": "11613",
+      "layers": [
+        "400",
+        "132",
+        "66"
+      ],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-15-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:47.147Z",
+          "bytes": 141260,
+          "sha256": "e9c71796f94124811f2b33a53f6272ceea737ee3c892b9694930546945c74eb9",
+          "pngSha256": "1e84c8f9c934c87b9971a95df27349d64b8bf787121f23ed6055820bd2a55038",
+          "inspection": {
+            "width": 1704,
+            "height": 786,
+            "pageWidth": 1704,
+            "pageHeight": 1034,
+            "imageRect": [
+              0,
+              119,
+              1704,
+              905
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1339344,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "e9c71796f94124811f2b33a53f6272ceea737ee3c892b9694930546945c74eb9"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-15-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:53.066Z",
+          "bytes": 61706504,
+          "sha256": "0d54a184518b5b5bb682e66f2681326b25f63c5c2c5f10e261616c5f24a8d2ed",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "project": null,
+      "layers": [],
+      "search": "Berwick",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-16-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:56.222Z",
+          "bytes": 83825,
+          "sha256": "69939b4ede3a281f4e286156da4012d6ba67369bb9951b832deb609458cf2e8f",
+          "pngSha256": "1e778e9a7de8f572ae13f4a266d253bae72c40023ce96b4cbe17621b11981a09",
+          "inspection": {
+            "width": 1440,
+            "height": 900,
+            "pageWidth": 1440,
+            "pageHeight": 1025,
+            "imageRect": [
+              0,
+              60,
+              1440,
+              960
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1296000,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "69939b4ede3a281f4e286156da4012d6ba67369bb9951b832deb609458cf2e8f"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-16-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:14:58.773Z",
+          "bytes": 11620002,
+          "sha256": "b211d1446a8604e60ea78c0d4ee4d5452b616de2b4e8403be0122fb2173213e6",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "desktop-portrait",
+        "width": 900,
+        "height": 1200,
+        "dpr": 1
+      },
+      "project": null,
+      "layers": [],
+      "search": "Ossian",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-17-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:01.566Z",
+          "bytes": 73813,
+          "sha256": "230d32f5336825bbf7ed6e5fc85ce18adbdd43639024abcffbbe3358dc4003fd",
+          "pngSha256": "0136895fe8103ec651455373360de9435f181730941fd7e2759f967b41132710",
+          "inspection": {
+            "width": 900,
+            "height": 1200,
+            "pageWidth": 900,
+            "pageHeight": 1325,
+            "imageRect": [
+              0,
+              60,
+              900,
+              1260
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1080000,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "230d32f5336825bbf7ed6e5fc85ce18adbdd43639024abcffbbe3358dc4003fd"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-17-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:04.440Z",
+          "bytes": 11611182,
+          "sha256": "1f15e6a2d50797c4d48484b8dcc64dc1bbf9dca4506c50e11df05cb1881bab47",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "iPad-emulation",
+        "width": 1024,
+        "height": 768,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": "Hornsea",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-18-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:07.275Z",
+          "bytes": 174452,
+          "sha256": "62ba6c58aeeb1512a3071783be05c038231902e932e62311944c5adc0f9a8743",
+          "pngSha256": "c7d05d80396bab60a2c6f7f4948254ae46b81227c5947f2ef653395a7cea4490",
+          "inspection": {
+            "width": 2048,
+            "height": 1536,
+            "pageWidth": 2048,
+            "pageHeight": 1784,
+            "imageRect": [
+              0,
+              119,
+              2048,
+              1655
+            ],
+            "headersFootersPresent": true,
+            "pixels": 3145728,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "62ba6c58aeeb1512a3071783be05c038231902e932e62311944c5adc0f9a8743"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-18-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:09.726Z",
+          "bytes": 11619876,
+          "sha256": "867c5c7b34f9ebe4e79e2f07472d05e79e99e94936cd7cc58a757da3f7745aad",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "iPhone-emulation",
+        "width": 393,
+        "height": 852,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": "Dogger",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-19-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:12.534Z",
+          "bytes": 78129,
+          "sha256": "5faabd23e2c28a0424f65d1e66da883489bb89e6c60920b279924887baed7658",
+          "pngSha256": "afc7c33c46461799c4907ae6da933d4fab3d32f00361c5084c74dbc47332744b",
+          "inspection": {
+            "width": 786,
+            "height": 1704,
+            "pageWidth": 786,
+            "pageHeight": 1952,
+            "imageRect": [
+              0,
+              119,
+              786,
+              1823
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1339344,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "5faabd23e2c28a0424f65d1e66da883489bb89e6c60920b279924887baed7658"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-19-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:15.591Z",
+          "bytes": 11618207,
+          "sha256": "ef3779fe51477eeb0c60ab76cd0439580edc967b3da4e0a28e40bb28b634e550",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "mobile-landscape",
+        "width": 852,
+        "height": 393,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": "Norfolk",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-20-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:18.125Z",
+          "bytes": 77899,
+          "sha256": "b3f1e189a9c54578cf0c1732c550b535cc7f428463e054df9205b44aa6292377",
+          "pngSha256": "70c38786e1556221b62f9aec430093d3a8e3ff4cfb5b0ccf7ca32f199269a32c",
+          "inspection": {
+            "width": 1704,
+            "height": 786,
+            "pageWidth": 1704,
+            "pageHeight": 1034,
+            "imageRect": [
+              0,
+              119,
+              1704,
+              905
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1339344,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "b3f1e189a9c54578cf0c1732c550b535cc7f428463e054df9205b44aa6292377"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-20-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:20.939Z",
+          "bytes": 11719913,
+          "sha256": "cfd026890a8f830b3889f8c4b40d7175e876bc3d3606a003552ea69c97c4ce09",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "desktop-wide",
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "project": null,
+      "layers": [],
+      "search": "RWE",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-21-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:23.611Z",
+          "bytes": 84411,
+          "sha256": "26311a0a837f0c65fb08e4cd9dadea6ec8e22962d3e7ec70b0b28b2c33105e59",
+          "pngSha256": "f3c2a3f7cafd7c1618cdb673bc0b863a4c94566a1ef95dc7d657cd3a859cf9fa",
+          "inspection": {
+            "width": 1440,
+            "height": 900,
+            "pageWidth": 1440,
+            "pageHeight": 1025,
+            "imageRect": [
+              0,
+              60,
+              1440,
+              960
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1296000,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "26311a0a837f0c65fb08e4cd9dadea6ec8e22962d3e7ec70b0b28b2c33105e59"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-21-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:26.304Z",
+          "bytes": 11718041,
+          "sha256": "73061d2dba26156bc4a24bbe4fd8652eb250cc9e9a1c98a414c81ee2fc23a899",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "22",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "desktop-portrait",
+        "width": 900,
+        "height": 1200,
+        "dpr": 1
+      },
+      "project": null,
+      "layers": [],
+      "search": "SSE",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-22-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:28.741Z",
+          "bytes": 73792,
+          "sha256": "be23882e5217f832a06b24b8baba772032fc9e46a79dd2842e76a8255202c63e",
+          "pngSha256": "2f46822737f2a908a181b839331a9e8b4f093c7513b752d2d830841ebac2c84a",
+          "inspection": {
+            "width": 900,
+            "height": 1200,
+            "pageWidth": 900,
+            "pageHeight": 1325,
+            "imageRect": [
+              0,
+              60,
+              900,
+              1260
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1080000,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "be23882e5217f832a06b24b8baba772032fc9e46a79dd2842e76a8255202c63e"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-22-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:31.526Z",
+          "bytes": 11720764,
+          "sha256": "03d95fceec106b37e831ec70cec5f7c8700aef1a16bf709a3a7dfac94fe10b93",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "kind": "pipeline",
+      "geometry": {
+        "name": "iPad-emulation",
+        "width": 1024,
+        "height": 768,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": "Orsted",
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-23-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:34.531Z",
+          "bytes": 174496,
+          "sha256": "eccd550dfdb81a309e2278fa90701fe463a4205d9ca2eb079bc3efda35c6b198",
+          "pngSha256": "3f51c986377485afc07a8925668b91ec4f6f454ebc4ab985d7802a395c968a69",
+          "inspection": {
+            "width": 2048,
+            "height": 1536,
+            "pageWidth": 2048,
+            "pageHeight": 1784,
+            "imageRect": [
+              0,
+              119,
+              2048,
+              1655
+            ],
+            "headersFootersPresent": true,
+            "pixels": 3145728,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "eccd550dfdb81a309e2278fa90701fe463a4205d9ca2eb079bc3efda35c6b198"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-23-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:37.450Z",
+          "bytes": 11672081,
+          "sha256": "642fc9c8cd99ce413d48474ee00ffc7c7c641cf481447d6522d60af89c6677a4",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "kind": "landing",
+      "geometry": {
+        "name": "iPhone-emulation",
+        "width": 393,
+        "height": 852,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-24-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:40.519Z",
+          "bytes": 128357,
+          "sha256": "1bc82b6f645e2e72a0045cc36d629701cef4377b85b40cb6fc9f851ed8adfdeb",
+          "pngSha256": "d0243012d0f03833fb45477ec42ffe66b33772d863a1c8ddb1fe1206623d7643",
+          "inspection": {
+            "width": 786,
+            "height": 1704,
+            "pageWidth": 786,
+            "pageHeight": 1952,
+            "imageRect": [
+              0,
+              119,
+              786,
+              1823
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1339344,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "1bc82b6f645e2e72a0045cc36d629701cef4377b85b40cb6fc9f851ed8adfdeb"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-24-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:42.890Z",
+          "bytes": 304546,
+          "sha256": "07bf9d0501546faa25b55401b242c3446c00e4a399fb26acfa4634bf1e492b28",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "kind": "landing",
+      "geometry": {
+        "name": "mobile-landscape",
+        "width": 852,
+        "height": 393,
+        "dpr": 2
+      },
+      "project": null,
+      "layers": [],
+      "search": null,
+      "pairStateMatches": true,
+      "visits": [
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-25-pdf",
+          "mode": "pdf",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:45.868Z",
+          "bytes": 87252,
+          "sha256": "06d258c7cf9482aa1332cfa8e36ff267df004ff68576a79aacbe899a2bf3d94c",
+          "pngSha256": "07a1be2adadc24b9f87ff65a215be675380b622ed37195f9dd8b2a517959277b",
+          "inspection": {
+            "width": 1704,
+            "height": 786,
+            "pageWidth": 1704,
+            "pageHeight": 1034,
+            "imageRect": [
+              0,
+              119,
+              1704,
+              905
+            ],
+            "headersFootersPresent": true,
+            "pixels": 1339344,
+            "embeddedPixelsIdentical": true,
+            "colourProfilePreserved": false,
+            "renderedPixelsIdentical": true,
+            "renderReference": "raw RGB screenshot",
+            "sha256": "06d258c7cf9482aa1332cfa8e36ff267df004ff68576a79aacbe899a2bf3d94c"
+          },
+          "error": null
+        },
+        {
+          "visitId": "teleprinter-2026-09-05T16-12-40-072Z-44700-25-source",
+          "mode": "source",
+          "ok": true,
+          "closedAt": "2026-09-05T16:15:47.094Z",
+          "bytes": 304546,
+          "sha256": "79b6e26e8b188ebdcbd6fdae7ffbde761e5e8cbc7d4010a8ee150e1afa04b3d4",
+          "pngSha256": null,
+          "inspection": null,
+          "error": null
+        }
+      ]
+    }
+  ]
+}
