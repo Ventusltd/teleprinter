@@ -209,3 +209,86 @@ test('global inline map geometry remains complete while public rendered features
     assert.equal(inlineData.features[0].properties.onlyGlobal, 'not copied', 'capture must not mutate live map source');
   } finally { env.restore(); }
 });
+
+function installDirectTransport(env, { oversized = false, timedOut = false } = {}) {
+  const savedFetch = globalThis.fetch;
+  const savedXHR = Object.getOwnPropertyDescriptor(globalThis, 'XMLHttpRequest');
+  let overriddenFetchCalls = 0;
+  globalThis.fetch = async () => { overriddenFetchCalls++; throw new Error('DuckDB: No magic bytes found at end of parquet file'); };
+  env.lists.script = env.lists.script.filter(script => !script.src?.startsWith('blob:'));
+  class DiagnosticXHR {
+    open(method, url, async) { assert.equal(method, 'GET'); assert.equal(async, true); this.url = url; }
+    send() {
+      assert.equal(this.responseType, 'arraybuffer');
+      assert.equal(this.withCredentials, false);
+      assert.equal(this.timeout, 30000);
+      queueMicrotask(() => {
+        if (timedOut) { this.ontimeout?.(); return; }
+        if (this.url.startsWith('https://blocked.test')) { this.onerror?.(); return; }
+        if (oversized) { this.onprogress?.({ loaded: 257 * 1024 * 1024 }); return; }
+        const response = env.responses.get(this.url);
+        assert.ok(response, `unexpected direct request ${this.url}`);
+        const bytes = typeof response[0] === 'string' ? new TextEncoder().encode(response[0]) : response[0];
+        this.status = response[2] ?? 200;
+        this.responseURL = this.url;
+        this.contentType = response[1];
+        this.response = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
+        this.onprogress?.({ loaded: bytes.length });
+        this.onload?.();
+      });
+    }
+    getResponseHeader(name) { return name === 'content-type' ? this.contentType : null; }
+    abort() { this.aborted = true; this.onabort?.(); }
+  }
+  globalThis.XMLHttpRequest = DiagnosticXHR;
+  return { calls: () => overriddenFetchCalls, restore() {
+    globalThis.fetch = savedFetch;
+    if (savedXHR) Object.defineProperty(globalThis, 'XMLHttpRequest', savedXHR);
+    else delete globalThis.XMLHttpRequest;
+  } };
+}
+
+test('default HTTP capture bypasses overridden Atlas fetch and preserves actual GeoJSON bytes', async () => {
+  const env = install({ mapStyle: { layers: [{ id: 'grid400', source: 'grid400' }], sources: { grid400: { type: 'geojson', data: './grid_400kv.geojson' } } } });
+  const geojson = JSON.stringify({ type: 'FeatureCollection', features: [{ type: 'Feature', properties: { name: 'café ⚡' }, geometry: { type: 'Point', coordinates: [1, 2] } }] });
+  env.responses.set('https://app.test/view/grid_400kv.geojson', [geojson, 'application/geo+json']);
+  const transport = installDirectTransport(env);
+  try {
+    const { bytes, manifest } = await captureRuntimeSource({ baseBytes, baseManifest });
+    assert.equal(transport.calls(), 0, 'application fetch override must never service HTTP diagnostic requests');
+    assert.equal(manifest.failures.length, 0);
+    const resource = manifest.resources.find(item => item.url.endsWith('/grid_400kv.geojson'));
+    assert.match(resource.transport, /XMLHttpRequest/);
+    assert.equal(resource.status, 'included');
+    assert.equal(resource.sha256, createHash('sha256').update(geojson).digest('hex'));
+    assert.ok(new TextDecoder().decode(bytes).includes(geojson));
+    const binary = manifest.resources.find(item => item.url.endsWith('/asset.bin'));
+    assert.equal(binary.sha256, createHash('sha256').update(env.binary).digest('hex'));
+  } finally { transport.restore(); env.restore(); }
+});
+
+test('direct HTTP preserves error bodies, reports CORS, and aborts excessive byte growth', async () => {
+  const env = install({ blocked: true });
+  const transport = installDirectTransport(env);
+  try {
+    const { bytes, manifest } = await captureRuntimeSource({ baseBytes, baseManifest });
+    assert.equal(transport.calls(), 0);
+    assert.equal(manifest.failures.length, 2);
+    assert.match(new TextDecoder().decode(bytes), /\{"error":"not found"\}/);
+    assert.ok(manifest.failures.some(failure => /network\/CORS/.test(failure.reason)));
+  } finally { transport.restore(); env.restore(); }
+  const largeEnv = install();
+  const largeTransport = installDirectTransport(largeEnv, { oversized: true });
+  try {
+    await assert.rejects(captureRuntimeSource({ baseBytes, baseManifest }), /explicit 256 MiB resource limit/);
+    assert.equal(largeTransport.calls(), 0);
+  } finally { largeTransport.restore(); largeEnv.restore(); }
+  const timeoutEnv = install();
+  const timeoutTransport = installDirectTransport(timeoutEnv, { timedOut: true });
+  try {
+    const { manifest } = await captureRuntimeSource({ baseBytes, baseManifest });
+    assert.ok(manifest.failures.length > 0);
+    assert.ok(manifest.failures.every(failure => /30-second timeout/.test(failure.reason)));
+    assert.equal(timeoutTransport.calls(), 0, 'timeouts must never silently fall back to the application fetch override');
+  } finally { timeoutTransport.restore(); timeoutEnv.restore(); }
+});

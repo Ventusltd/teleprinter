@@ -52,7 +52,7 @@ const scenarios = Array.from({ length: 25 }, (_, i) => {
     route: kind === 'atlas' ? `atlas/?${project.query}` : kind === 'pipeline' ? 'pipeline/' : '',
     project: kind === 'atlas' ? project.ref : null, layers: kind === 'atlas' ? layerSets[i % 5] : [],
     search: kind === 'pipeline' ? pipelineSearches[i - 15] : null,
-    pdfRoute: kind === 'atlas' && i % 4 !== 3 ? 'File > Print' : 'Teleprinter > Print' };
+    pdfRoute: 'File > Print PDF' };
 });
 const receipt = { createdAt: new Date().toISOString(), base, candidate, output, browser: 'installed Chrome', physicalDevices: false,
   requestedScenarios: limit, expectedVisits: limit * 2, expectedDownloads: limit * 2, scenarios: [] };
@@ -62,8 +62,8 @@ async function saveReceipt() { await fs.writeFile(receiptPath, JSON.stringify(re
 async function prepare(page, scenario, progress) {
   progress('navigate');
   await page.goto(new URL(scenario.route, base).href, { waitUntil: 'domcontentloaded', timeout: 60000 });
-  progress('wait for Teleprinter');
-  await page.getByRole('button', { name: 'Teleprinter', exact: true }).waitFor({ timeout: 90000 });
+  progress('wait for app print menus');
+  await page.locator('#codex-teleprinter').waitFor({state:'attached', timeout:90000});
   const state = { url: page.url(), project: scenario.project, layers: [] };
   if (scenario.kind === 'atlas') {
     progress('wait for visible engine completion');
@@ -92,7 +92,8 @@ async function prepare(page, scenario, progress) {
     state.selectedLayerKeys = state.layers.map(layer => layer.key);
   } else if (scenario.kind === 'pipeline') {
     progress(`wait for Pipeline rows, search ${scenario.search}`);
-    await page.locator('#tbody tr td:nth-child(2)').first().waitFor({ state: 'visible', timeout: 90000 });
+    await page.waitForFunction(() => document.querySelector('#tbody tr')?.children.length > 1, null, {timeout:90000});
+    await page.locator('#tbody tr td').first().waitFor({ state: 'visible', timeout: 30000 });
     await page.locator('#search').fill(scenario.search);
     await page.waitForFunction(query => {
       const row = document.querySelector('#tbody tr');
@@ -103,10 +104,12 @@ async function prepare(page, scenario, progress) {
     state.firstRow = await page.locator('#tbody tr').first().innerText();
     state.visibleResultCount = await page.locator('#tbody tr').count();
     assert.ok(state.visibleResultCount > 0, 'Pipeline search returned no visible project rows.');
+    await page.waitForFunction(query => new URL(location.href).searchParams.get('q') === query, scenario.search, {timeout:30000});
   } else {
     state.bodyExcerpt = (await page.locator('body').innerText()).slice(0, 3000);
     assert.ok(state.bodyExcerpt.trim().length > 50, 'Landing body is empty.');
   }
+  state.url = page.url();
   return state;
 }
 
@@ -135,12 +138,12 @@ for (const scenario of scenarios.slice(0, limit)) {
       let downloaded;
       if (mode === 'pdf') {
         progress(`download PDF via ${scenario.pdfRoute}`);
-        if (scenario.pdfRoute === 'File > Print') {
+        if (scenario.kind === 'atlas') {
           await page.locator('.gm-title').filter({ hasText: /^File$/i }).click();
           downloaded = await clickAndReadDownload(page, page.locator('button[data-gm-export]').filter({ hasText: /Print/i }).first(), { timeout: 60000 });
         } else {
-          await page.getByRole('button', { name: 'Teleprinter', exact: true }).click();
-          downloaded = await clickAndReadDownload(page, page.getByRole('button', { name: 'Print', exact: true }), { timeout: 60000 });
+          await page.locator('#codex-teleprinter #file-menu > summary').click();
+          downloaded = await clickAndReadDownload(page, page.locator('#codex-teleprinter [data-codex-print-command="pdf"]'), { timeout:60000 });
         }
         assert.ok(downloaded.ok, downloaded.error);
         visit.bytes = downloaded.bytes.length;
@@ -159,14 +162,14 @@ for (const scenario of scenarios.slice(0, limit)) {
         assert.equal(inspected.status, 0, inspected.stderr || String(inspected.error));
         visit.inspection = JSON.parse(inspected.stdout);
       } else {
-        progress('open Teleprinter and prepare runtime source download');
+        progress('prepare source download through the app File menu');
         if (scenario.kind === 'atlas') {
           progress('download source through File > Print source code');
           await page.locator('.gm-title').filter({hasText:/^File$/i}).click();
           downloaded = await clickAndReadDownload(page, page.locator('button[data-codex-print-source]'), { timeout: 120000 });
         } else {
-          await page.getByRole('button', { name: 'Teleprinter', exact: true }).click();
-          downloaded = await clickAndReadDownload(page, page.getByRole('button', { name: 'Print source code', exact: true }), { timeout: 120000 });
+          await page.locator('#codex-teleprinter #file-menu > summary').click();
+          downloaded = await clickAndReadDownload(page, page.locator('#codex-teleprinter [data-codex-print-command="source"]'), { timeout:120000 });
         }
         assert.ok(downloaded.ok, downloaded.error);
         visit.bytes = downloaded.bytes.length;

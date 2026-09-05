@@ -82,8 +82,55 @@ function cssReferences(text) {
   return [...new Set(references)];
 }
 
+/** HTTP diagnostic bytes must not invoke a host app's fetch-to-data transformation. */
+function readDiagnosticHTTP(url, { signal, account }) {
+  return new Promise((resolve, reject) => {
+    if (typeof globalThis.XMLHttpRequest !== 'function') {
+      reject(new Error('Direct diagnostic HTTP transport is unavailable (XMLHttpRequest missing); application fetch was not used as a fallback.'));
+      return;
+    }
+    const request = new globalThis.XMLHttpRequest();
+    let settled = false, accounted = 0;
+    const finish = (error, value) => {
+      if (settled) return;
+      settled = true;
+      signal?.removeEventListener('abort', abort);
+      request.onload = request.onerror = request.ontimeout = request.onabort = request.onprogress = null;
+      error ? reject(error) : resolve(value);
+    };
+    const abort = () => { finish(new Error('Direct diagnostic HTTP capture aborted or timed out.')); request.abort(); };
+    const charge = size => { account(size - accounted); accounted = size; };
+    request.open('GET', url, true);
+    request.responseType = 'arraybuffer';
+    request.timeout = 30000;
+    // XHR sends same-origin credentials normally; false excludes cross-origin credentials.
+    request.withCredentials = false;
+    request.onprogress = event => {
+      try { charge(event.loaded); }
+      catch (error) { finish(error); request.abort(); }
+    };
+    request.onload = () => {
+      try {
+        if (!request.status) throw new Error('Direct diagnostic HTTP response is unavailable (status 0).');
+        if (!(request.response instanceof ArrayBuffer)) throw new Error('Direct diagnostic HTTP response did not provide complete binary bytes.');
+        const bytes = new Uint8Array(request.response);
+        charge(bytes.length);
+        finish(null, { status: request.status, ok: request.status >= 200 && request.status < 300,
+          url: request.responseURL || url, diagnosticBytes: bytes,
+          headers: { get: name => request.getResponseHeader(name) } });
+      } catch (error) { finish(error); }
+    };
+    request.onerror = () => finish(new Error('Direct diagnostic HTTP network/CORS failure; no response body is accessible.'));
+    request.ontimeout = () => finish(new Error('Direct diagnostic HTTP 30-second timeout.'));
+    request.onabort = () => finish(new Error('Direct diagnostic HTTP request aborted.'));
+    signal?.addEventListener('abort', abort, { once: true });
+    if (signal?.aborted) abort();
+    else { try { request.send(); } catch (error) { finish(error); } }
+  });
+}
+
 /** Includes complete observed responses; manifest.complete stays false because browser discovery cannot prove ALL dependencies. */
-export async function captureRuntimeSource({ baseBytes, baseManifest, fetchImpl = globalThis.fetch } = {}) {
+export async function captureRuntimeSource({ baseBytes, baseManifest, fetchImpl } = {}) {
   const base = baseBytes instanceof Uint8Array ? baseBytes : baseBytes instanceof ArrayBuffer ? new Uint8Array(baseBytes) : null;
   if (!base || !baseManifest?.sha256 || base.length !== baseManifest.byteCount || await sha256(base) !== baseManifest.sha256) throw new Error('The pinned source code did not pass its byte count and SHA256 check.');
   decoder.decode(base);
@@ -217,15 +264,22 @@ export async function captureRuntimeSource({ baseBytes, baseManifest, fetchImpl 
     let reader;
     try {
       const url = new URL(resource.url);
-      const response = await fetchImpl(resource.url, { cache: 'force-cache', credentials: url.origin === location.origin ? 'same-origin' : 'omit', signal: controller.signal });
+      const directHTTP = !fetchImpl && ['http:', 'https:'].includes(url.protocol);
+      resource.transport = directHTTP ? 'XMLHttpRequest arraybuffer (direct HTTP; bypasses application fetch override)' : fetchImpl ? 'injected fetchImpl' : 'fetch (blob/data)';
+      const response = directHTTP
+        ? await readDiagnosticHTTP(resource.url, { signal: controller.signal, account })
+        : await (fetchImpl || globalThis.fetch)(resource.url, { cache: 'force-cache', credentials: url.origin === location.origin ? 'same-origin' : 'omit', signal: controller.signal });
       resource.httpStatus = response.status;
       resource.contentType = response.headers?.get('content-type') ?? '';
       resource.responseUrl = response.url || resource.url;
       resource.fetchedAt = new Date().toISOString();
-      resource.provenance = 'Fetched at diagnostic capture time (force-cache requested); not proof of original execution-time response bytes.';
+      resource.provenance = directHTTP
+        ? 'Direct HTTP response captured through XMLHttpRequest with normal browser cache/CORS rules; bypasses application fetch transforms. Not proof of original execution-time or transformed worker response bytes.'
+        : 'Fetched at diagnostic capture time (force-cache requested); not proof of original execution-time response bytes.';
       if (response.type === 'opaque') throw new Error('Opaque response body is unavailable to this page.');
       let bytes;
-      if (response.body?.getReader) {
+      if (response.diagnosticBytes) bytes = response.diagnosticBytes;
+      else if (response.body?.getReader) {
         reader = response.body.getReader();
         const chunks = []; let size = 0;
         for (;;) {
