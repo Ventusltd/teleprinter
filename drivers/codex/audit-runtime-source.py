@@ -23,6 +23,7 @@ def main():
     parser.add_argument("output", type=Path)
     parser.add_argument("--report", type=Path)
     parser.add_argument("--repo", type=Path, help="Optional local Git repository for independent pinned-source byte comparison")
+    parser.add_argument("--no-extract", action="store_true", help="Keep only audit reports, avoiding duplicate source-body files")
     args = parser.parse_args()
     if args.output.resolve().is_relative_to(Path(__file__).resolve().parents[2]):
         parser.error("Extracted source belongs outside Git.")
@@ -91,7 +92,8 @@ def main():
             result["syntax"] = "json"
             try: json.loads(data)
             except Exception as error: result.update(ok=False, error=str(error))
-        (args.output / (sha + (".mjs" if javascript else ".json" if json_data else ".bin"))).write_bytes(data)
+        if not args.no_extract:
+            (args.output / (sha + (".mjs" if javascript else ".json" if json_data else ".bin"))).write_bytes(data)
         return result
 
     workers = min(8, max(1, (os.cpu_count() or 2) // 2))

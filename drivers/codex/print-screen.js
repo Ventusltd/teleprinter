@@ -77,7 +77,7 @@ async function displayPixels() {
         bitmap = await Promise.race([pending, new Promise((_, reject) => { directTimer = setTimeout(() => { expired = true; reject(new Error('No direct screen frame arrived.')); }, Math.max(1, directDeadline - Date.now())); })]);
         return pixels(bitmap, bitmap.width, bitmap.height, 'ImageCapture.grabFrame');
       } catch (error) {
-        if (error.code === 'REDUCED_SCREEN_FRAME' && Date.now() < directDeadline) {
+        if (error?.code === 'REDUCED_SCREEN_FRAME' && Date.now() < directDeadline) {
           bitmap?.close(); bitmap = undefined;
           await new Promise(resolve => setTimeout(resolve, Math.min(100, directDeadline - Date.now())));
           continue;

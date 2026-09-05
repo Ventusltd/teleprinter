@@ -20,6 +20,10 @@ await fs.mkdir(output, { recursive: false });
 const modulePath = options.playwright || process.env.PLAYWRIGHT_MODULE || path.join(process.env.USERPROFILE || '', 'OneDrive/Documents/GitHub/globalgrid2050/uk_renewables_pipeline/v9.7/node_modules/playwright/index.mjs');
 const { chromium } = await import(pathToFileURL(modulePath).href);
 const flags = ['--auto-select-desktop-capture-source=Entire screen', '--allow-http-screen-capture', '--auto-accept-this-tab-capture'];
+const servedEngineUrl = new URL('teleprinter/print-screen.js', base).href;
+const servedEngineResponse = await fetch(servedEngineUrl);
+assert.ok(servedEngineResponse.ok, 'Cannot read served screen engine');
+const servedEngineSha256 = createHash('sha256').update(Buffer.from(await servedEngineResponse.arrayBuffer())).digest('hex');
 const cases = [
   { id: 'atlas-desktop', app: 'atlas', width: 1365, height: 900, dpr: 1, mobile: false },
   { id: 'atlas-mobile-portrait', app: 'atlas', width: 393, height: 852, dpr: 3, mobile: true },
@@ -52,6 +56,7 @@ const report = {
   originalGetDisplayMediaDelegated: true, hostScreenshotCaptureProvider: false, flags, cases: [],
   chooserAutomation: 'Chrome auto-select/auto-accept flags automate the native chooser only; getDisplayMedia and returned track/frame data remain original browser implementations.',
   temporaryEngineOverride: options['print-screen'] ? path.resolve(options['print-screen']) : null,
+  servedEngineUrl, servedEngineSha256,
 };
 for (const specimen of cases) {
   let browser, context, page;
@@ -92,9 +97,13 @@ for (const specimen of cases) {
       };
     });
     page = await context.newPage();
+    const moduleResponse = page.waitForResponse(response => response.url() === servedEngineUrl, {timeout:60000})
+      .then(async response => ({ sha256:createHash('sha256').update(await response.body()).digest('hex') })).catch(error => ({error:String(error)}));
     const url = new URL(`${specimen.app}/`, base);
     result.url = url.href;
     await page.goto(url.href, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    result.actualEngineResponse = await moduleResponse;
+    assert.equal(result.actualEngineResponse.sha256, result.temporaryEngineSha256 || servedEngineSha256, 'Browser engine response does not match measured bytes');
     if (specimen.app === 'atlas') {
       await page.waitForFunction(() => window.__GRIDATLAS_V9_MAP__?.getStyle?.()?.layers?.length > 0, null, { timeout: 90000 });
       await page.locator('#codex-teleprinter').waitFor({ state: 'attached', timeout: 90000 });

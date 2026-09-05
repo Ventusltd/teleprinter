@@ -1,16 +1,21 @@
 {
-  "finishedAt": "2026-09-05T15:30:25.991Z",
-  "status": "stopped-after-bounded-failure",
-  "offlineArtifacts": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-28-54-320Z-d193fe",
-  "scope": "Final guarded-engine native attempt; interrupted/not-run cases are not passes.",
-  "engineSha256": "8d84cf39d0506a795e66fcc989764981368bc5eb8d59433f6615442cd7f1abbb",
-  "controlledChecks": {
-    "directFrameRamp": true,
-    "reducedRequestedDprRejected": true,
-    "trackAndBitmapCleanup": true,
-    "fullSizeVideoFallback": true,
-    "lateBitmapClosedAfterTimeout": true
-  },
+  "startedAt": "2026-09-05T15:41:07.058Z",
+  "base": "https://globalgrid2050.com/testcode/202609051531/",
+  "offlineArtifacts": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-41-06-664Z-2532d9",
+  "scope": "Real native getDisplayMedia call, initial and draw-time browser-provided track settings, actual drawn frame and PDF geometry, nonzero RGB, external header/footer bands, and stopped tracks.",
+  "limitations": [
+    "Post-download screenshots are visual context only and are NOT pixel-equality references.",
+    "This does not prove original monitor physical resolution or exact source-frame color/pixel fidelity.",
+    "Mobile portrait is desktop Chrome emulation, not physical iPhone/Safari.",
+    "Writer byte/pixel retention is measured by separate unit and host-capture tests."
+  ],
+  "originalGetDisplayMediaDelegated": true,
+  "hostScreenshotCaptureProvider": false,
+  "flags": [
+    "--auto-select-desktop-capture-source=Entire screen",
+    "--allow-http-screen-capture",
+    "--auto-accept-this-tab-capture"
+  ],
   "cases": [
     {
       "id": "atlas-desktop",
@@ -21,13 +26,15 @@
       "mobile": false,
       "ok": false,
       "browserVersion": "152.0.7977.76",
-      "temporaryEngineSha256": "8d84cf39d0506a795e66fcc989764981368bc5eb8d59433f6615442cd7f1abbb",
-      "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/",
+      "url": "https://globalgrid2050.com/testcode/202609051531/atlas/",
+      "actualEngineResponse": {
+        "sha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b"
+      },
       "nativeCapture": {
         "unavailable": false,
         "calls": [
           {
-            "startedAt": "2026-09-05T15:28:56.615Z",
+            "startedAt": "2026-09-05T15:41:10.658Z",
             "arguments": [
               {
                 "video": {
@@ -47,7 +54,7 @@
             "delegatedToOriginal": true,
             "videoTracks": [
               {
-                "label": "current-web-contents-media-stream://B4FBCBEA285328359C10E51E70799D5A",
+                "label": "current-web-contents-media-stream://964FE3A2214045F7920839D1CDC71B04",
                 "readyState": "live",
                 "settings": {
                   "aspectRatio": 1.5166666666666666,
@@ -68,7 +75,7 @@
         "tracks": [
           {
             "kind": "video",
-            "label": "current-web-contents-media-stream://B4FBCBEA285328359C10E51E70799D5A",
+            "label": "current-web-contents-media-stream://964FE3A2214045F7920839D1CDC71B04",
             "readyState": "ended",
             "settings": {
               "deviceId": "web-contents-media-stream://6:8"
@@ -77,14 +84,14 @@
         ],
         "hostCaptureProvider": "undefined"
       },
-      "error": "AssertionError [ERR_ASSERTION]: TimeoutError: page.waitForEvent: Timeout 45000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================\n    at file:///C:/Users/vikra/OneDrive/Documents/GitHub/teleprinter/drivers/codex/native-display-proof.mjs:119:12",
+      "error": "AssertionError [ERR_ASSERTION]: TimeoutError: page.waitForEvent: Timeout 45000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================\n    at file:///C:/Users/vikra/OneDrive/Documents/GitHub/teleprinter/drivers/codex/native-display-proof.mjs:128:12",
       "failureState": {
         "title": "GlobalGrid2050 | UK Region v8 (Experimental)",
-        "url": "http://127.0.0.2:8887/testcode/202609051517/atlas/",
+        "url": "https://globalgrid2050.com/testcode/202609051531/atlas/",
         "status": "The browser supplied a reduced screen frame (1364 × 898; required 1365 × 900, track 1365 × 900). No reduced PDF was created. Use Print a screenshot instead.",
         "calls": [
           {
-            "startedAt": "2026-09-05T15:28:56.615Z",
+            "startedAt": "2026-09-05T15:41:10.658Z",
             "arguments": [
               {
                 "video": {
@@ -104,7 +111,7 @@
             "delegatedToOriginal": true,
             "videoTracks": [
               {
-                "label": "current-web-contents-media-stream://B4FBCBEA285328359C10E51E70799D5A",
+                "label": "current-web-contents-media-stream://964FE3A2214045F7920839D1CDC71B04",
                 "readyState": "live",
                 "settings": {
                   "aspectRatio": 1.5166666666666666,
@@ -133,22 +140,275 @@
     },
     {
       "id": "atlas-mobile-portrait",
+      "app": "atlas",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "mobile": true,
       "ok": false,
-      "status": "not-completed",
-      "reason": "Further native probing stopped at parent request after reduced-frame failure; no completed PDF geometry assertion for this case."
+      "browserVersion": "152.0.7977.76",
+      "url": "https://globalgrid2050.com/testcode/202609051531/atlas/",
+      "actualEngineResponse": {
+        "sha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b"
+      },
+      "nativeCapture": {
+        "unavailable": false,
+        "calls": [
+          {
+            "startedAt": "2026-09-05T15:41:59.211Z",
+            "arguments": [
+              {
+                "video": {
+                  "frameRate": 1,
+                  "width": {
+                    "ideal": 1179
+                  },
+                  "height": {
+                    "ideal": 2556
+                  }
+                },
+                "audio": false,
+                "preferCurrentTab": true,
+                "selfBrowserSurface": "include"
+              }
+            ],
+            "delegatedToOriginal": true,
+            "videoTracks": [
+              {
+                "label": "current-web-contents-media-stream://7889A78B0C72DEB8F5C09F27AC316FFB",
+                "readyState": "live",
+                "settings": {
+                  "aspectRatio": 0.4612676056338028,
+                  "cursor": "motion",
+                  "deviceId": "web-contents-media-stream://6:8",
+                  "displaySurface": "browser",
+                  "frameRate": 1,
+                  "height": 2556,
+                  "logicalSurface": true,
+                  "resizeMode": "crop-and-scale",
+                  "width": 1179
+                }
+              }
+            ]
+          }
+        ],
+        "draws": [],
+        "tracks": [
+          {
+            "kind": "video",
+            "label": "current-web-contents-media-stream://7889A78B0C72DEB8F5C09F27AC316FFB",
+            "readyState": "ended",
+            "settings": {
+              "deviceId": "web-contents-media-stream://6:8"
+            }
+          }
+        ],
+        "hostCaptureProvider": "undefined"
+      },
+      "error": "AssertionError [ERR_ASSERTION]: TimeoutError: page.waitForEvent: Timeout 45000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================\n    at file:///C:/Users/vikra/OneDrive/Documents/GitHub/teleprinter/drivers/codex/native-display-proof.mjs:128:12",
+      "failureState": {
+        "title": "GlobalGrid2050 | UK Region v8 (Experimental)",
+        "url": "https://globalgrid2050.com/testcode/202609051531/atlas/",
+        "status": "Cannot read properties of undefined (reading 'code')",
+        "calls": [
+          {
+            "startedAt": "2026-09-05T15:41:59.211Z",
+            "arguments": [
+              {
+                "video": {
+                  "frameRate": 1,
+                  "width": {
+                    "ideal": 1179
+                  },
+                  "height": {
+                    "ideal": 2556
+                  }
+                },
+                "audio": false,
+                "preferCurrentTab": true,
+                "selfBrowserSurface": "include"
+              }
+            ],
+            "delegatedToOriginal": true,
+            "videoTracks": [
+              {
+                "label": "current-web-contents-media-stream://7889A78B0C72DEB8F5C09F27AC316FFB",
+                "readyState": "live",
+                "settings": {
+                  "aspectRatio": 0.4612676056338028,
+                  "cursor": "motion",
+                  "deviceId": "web-contents-media-stream://6:8",
+                  "displaySurface": "browser",
+                  "frameRate": 1,
+                  "height": 2556,
+                  "logicalSurface": true,
+                  "resizeMode": "crop-and-scale",
+                  "width": 1179
+                }
+              }
+            ]
+          }
+        ],
+        "tracks": [
+          {
+            "readyState": "ended",
+            "settings": {
+              "deviceId": "web-contents-media-stream://6:8"
+            }
+          }
+        ]
+      }
     },
     {
       "id": "pipeline-landscape",
-      "ok": false,
-      "status": "not-completed",
-      "reason": "Further native probing stopped at parent request after reduced-frame failure; no completed PDF geometry assertion for this case."
+      "app": "pipeline",
+      "width": 1200,
+      "height": 800,
+      "dpr": 1,
+      "mobile": false,
+      "ok": true,
+      "browserVersion": "152.0.7977.76",
+      "url": "https://globalgrid2050.com/testcode/202609051531/pipeline/",
+      "actualEngineResponse": {
+        "sha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b"
+      },
+      "nativeCapture": {
+        "unavailable": false,
+        "calls": [
+          {
+            "startedAt": "2026-09-05T15:42:45.985Z",
+            "arguments": [
+              {
+                "video": {
+                  "frameRate": 1,
+                  "width": {
+                    "ideal": 1200
+                  },
+                  "height": {
+                    "ideal": 800
+                  }
+                },
+                "audio": false,
+                "preferCurrentTab": true,
+                "selfBrowserSurface": "include"
+              }
+            ],
+            "delegatedToOriginal": true,
+            "videoTracks": [
+              {
+                "label": "current-web-contents-media-stream://A01848D249D45A7C01825F69E1534CF3",
+                "readyState": "live",
+                "settings": {
+                  "aspectRatio": 1.5,
+                  "cursor": "motion",
+                  "deviceId": "web-contents-media-stream://6:8",
+                  "displaySurface": "browser",
+                  "frameRate": 1,
+                  "height": 800,
+                  "logicalSurface": true,
+                  "resizeMode": "crop-and-scale",
+                  "width": 1200
+                }
+              }
+            ]
+          }
+        ],
+        "draws": [
+          {
+            "instrument": "ImageBitmap",
+            "width": 1200,
+            "height": 800,
+            "arguments": [
+              0,
+              0
+            ],
+            "trackSettings": [
+              {
+                "aspectRatio": 1.5,
+                "cursor": "motion",
+                "deviceId": "web-contents-media-stream://6:8",
+                "displaySurface": "browser",
+                "frameRate": 1,
+                "height": 800,
+                "logicalSurface": true,
+                "resizeMode": "crop-and-scale",
+                "screenPixelRatio": 1,
+                "width": 1200
+              }
+            ],
+            "delegatedToOriginal": true
+          }
+        ],
+        "receipt": {
+          "method": "display-capture",
+          "width": 1200,
+          "height": 800,
+          "bytes": 255315,
+          "filename": "Pipeline News-screen.pdf",
+          "status": "download-requested",
+          "capture": {
+            "instrument": "ImageCapture.grabFrame",
+            "requestedWidth": 1200,
+            "requestedHeight": 800,
+            "trackWidth": 1200,
+            "trackHeight": 800,
+            "currentTab": true,
+            "requestedViewportPixelsRetained": true
+          }
+        },
+        "tracks": [
+          {
+            "kind": "video",
+            "label": "current-web-contents-media-stream://A01848D249D45A7C01825F69E1534CF3",
+            "readyState": "ended",
+            "settings": {
+              "deviceId": "web-contents-media-stream://6:8"
+            }
+          }
+        ],
+        "hostCaptureProvider": "undefined"
+      },
+      "pdf": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-41-06-664Z-2532d9\\pipeline-landscape.pdf",
+      "pdfBytes": 255315,
+      "sha256": "1e47da2acab54ebf5d777d9ed6810dc94f2ad1d302df67941e3ca7dc23fe4773",
+      "postDownloadScreenshot": "C:\\Users\\vikra\\OneDrive\\Desktop\\offline-screenshots\\native-display-2026-09-05T15-41-06-664Z-2532d9\\pipeline-landscape-post-download.png",
+      "pdfInspection": {
+        "imageWidth": 1200,
+        "imageHeight": 800,
+        "pageWidth": 1200,
+        "pageHeight": 925,
+        "headerHeight": 60,
+        "footerHeight": 65,
+        "rgbBytes": 2880000,
+        "nonzeroRgb": true,
+        "imageUnscaled": true,
+        "validPdf": true,
+        "furnitureOutsideImage": true,
+        "initialSettingsGeometryMatch": true,
+        "drawTimeSettingsGeometryMatch": true,
+        "actualDrawnSourceGeometryMatch": true
+      },
+      "initialSettingsGeometryAssertion": {
+        "passed": true,
+        "initial": {
+          "width": 1200,
+          "height": 800
+        },
+        "drawn": {
+          "width": 1200,
+          "height": 800
+        },
+        "explanation": "Initial settings can change before a frame arrives. A mismatch remains recorded; it is not evidence of physical screen-resolution preservation."
+      },
+      "requestedViewportGeometryMatch": true
     }
   ],
-  "passed": 0,
-  "completed": 1,
-  "limitations": [
-    "Current-tab frames below requested viewport pixels are refused; full native capture is not proven.",
-    "Earlier native failures remain in their original offline directories.",
-    "No source or served files in generation1517 were edited."
-  ]
+  "chooserAutomation": "Chrome auto-select/auto-accept flags automate the native chooser only; getDisplayMedia and returned track/frame data remain original browser implementations.",
+  "temporaryEngineOverride": null,
+  "servedEngineUrl": "https://globalgrid2050.com/testcode/202609051531/teleprinter/print-screen.js",
+  "servedEngineSha256": "5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b",
+  "finishedAt": "2026-09-05T15:42:49.230Z",
+  "passed": 1,
+  "initialSettingsGeometryPassed": 1,
+  "requestedViewportGeometryPassed": 1
 }

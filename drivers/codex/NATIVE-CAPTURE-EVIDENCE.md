@@ -18,3 +18,15 @@ engine overrides; mobile means desktop Chrome emulation, not a real device.
 `CODEX-NATIVE-001` applies to1531 and the exact committed shared engine hash.
 Its required native condition is never emitted by the host-screenshot gate,
 so host50 cannot clear it. No engines, browser or gate changed in this review.
+
+## Later exact served-byte check
+
+The published1531 engine was subsequently read from all three actual Chrome
+module responses: SHA256 5bd8dcaf97266ab87bfd2b7fe3ca39ba49c8b2f98e0018bbc7ea268336eec68b.
+One of three cases passed (Pipeline1200x800). Atlas desktop1365x900 was
+refused because the browser supplied1364x898. The emulated mobile Atlas
+returned an undefined capture rejection, exposing an error.code assumption.
+That assumption is now fixed in the repository with a failing-then-passing
+offline regression test; published1531 remains immutable and contains the
+older error path. This is not a full native-resolution success or a Design Freeze.
+The complete later run is in C:\Users\vikra\OneDrive\Desktop\offline-screenshots\native-display-2026-09-05T15-41-06-664Z-2532d9.
