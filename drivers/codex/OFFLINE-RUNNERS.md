@@ -39,3 +39,13 @@ formats rather than reconstructing executable source from PDF page layout.
 Browser capture has a separate failure record in `NATIVE-CAPTURE-EVIDENCE.md`.
 Successful offline parsing or host-screenshot printing cannot clear that
 native-resolution requirement for Design Freeze.
+
+`offline-source-batch.py` rechecks all 25 original source downloads from a
+finished fifty-visit receipt. It runs two source parsers, each with up to eight
+syntax workers, and avoids writing duplicate source bodies. The 1531 campaign
+passed 25/25 in 44.05 seconds. The full browser receipt stays offline; the
+published compact summary binds it by SHA256.
+
+```powershell
+python drivers/codex/offline-source-batch.py drivers/codex/fifty-prints-results.json "C:/Users/vikra/OneDrive/Desktop/offline-screenshots/source-batch-202609051531" "C:/Users/vikra/testcode-source-publication"
+```
