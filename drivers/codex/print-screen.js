@@ -67,6 +67,7 @@ async function displayPixels() {
     try { track.contentHint = 'detail'; } catch { /* Optional browser hint, never evidence of pixel dimensions. */ }
     if (typeof globalThis.ImageCapture === 'function') {
       const directDeadline = Date.now() + 10000;
+      let lastSize = '', repeatedSize = 0, stableRefusal;
       while (Date.now() < directDeadline) {
       let bitmap, expired = false, directTimer;
       try {
@@ -78,6 +79,12 @@ async function displayPixels() {
         return pixels(bitmap, bitmap.width, bitmap.height, 'ImageCapture.grabFrame');
       } catch (error) {
         if (error?.code === 'REDUCED_SCREEN_FRAME' && Date.now() < directDeadline) {
+          const size = `${bitmap?.width}x${bitmap?.height}`;
+          repeatedSize = size === lastSize ? repeatedSize + 1 : 1;
+          lastSize = size;
+          // Repeated dimensions justify an early refusal, never acceptance of
+          // reduced pixels or a claim that the browser cannot improve later.
+          if (repeatedSize >= 4) { stableRefusal = error; break; }
           bitmap?.close(); bitmap = undefined;
           await new Promise(resolve => setTimeout(resolve, Math.min(100, directDeadline - Date.now())));
           continue;
@@ -86,6 +93,7 @@ async function displayPixels() {
         break;
       } finally { expired = true; clearTimeout(directTimer); bitmap?.close(); }
       }
+      if (stableRefusal) throw stableRefusal;
     }
     video = document.createElement('video');
     video.muted = true; video.playsInline = true; video.srcObject = stream;
