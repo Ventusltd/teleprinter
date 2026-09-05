@@ -19,7 +19,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
    record.localToolCapsules=true;
    await page.route('**/tool-layers/*.js',async route=>{
     const name=new URL(route.request().url()).pathname.split('/').at(-1);
-    if(!['host.js','dismissal.js','focus-boundary.js','readiness.js','viewport.js'].includes(name))return route.continue();
+    if(!['host.js','dismissal.js','focus-boundary.js','readiness.js','viewport.js','session-restart.js'].includes(name))return route.continue();
     await route.fulfill({body:await fs.readFile(path.join('C:/Users/vikra/testcode-source-publication/sandbox/capsules/tool-layers',name)),contentType:'text/javascript'});
    });
   }
@@ -102,15 +102,32 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
     }
     if(process.argv.includes('--focus')) {
      const close=dialog.getByRole('button',{name:/Close.*return to GridAtlas/});
-     await close.focus();await page.keyboard.press('Tab');
+     const lastHeader=dialog.locator('header button:visible').last();
+     await lastHeader.focus();await page.keyboard.press('Tab');
      const toolFrame=page.frames().find(f=>f.url().includes(tool.id+'/index.html'));
      assert.ok(await toolFrame.evaluate(()=>document.activeElement!==document.body),'Tab must enter tool');
      await page.keyboard.press('Shift+Tab');
-     assert.equal(await close.evaluate(n=>n===document.activeElement),true,'Shift Tab must return to close');
-     await page.keyboard.press('Shift+Tab');
+     assert.equal(await lastHeader.evaluate(n=>n===document.activeElement),true,'Shift Tab must return to last header control');
+     await close.focus();await page.keyboard.press('Shift+Tab');
      assert.ok(await toolFrame.evaluate(()=>document.activeElement!==document.body),'Reverse Tab must enter end of tool');
      await page.keyboard.press('Tab');
      assert.equal(await close.evaluate(n=>n===document.activeElement),true,'Last tool control must wrap to close');
+    }
+    if(process.argv.includes('--restart') && tool.id==='module-layout') {
+     await dialog.getByRole('button',{name:'Restart tool',exact:true}).click();
+     await dialog.getByRole('button',{name:/Close.*return to GridAtlas/}).click();
+     await page.locator('#codex-tool-layers').getByRole('button',{name:tool.title,exact:true}).click();
+     assert.equal(await dialog.getByRole('button',{name:'Confirm restart',exact:true}).count(),0,'Reopening must clear armed restart');
+     await dialog.getByRole('button',{name:'Restart tool',exact:true}).click();
+     await dialog.getByRole('button',{name:'Keep working',exact:true}).click();
+     assert.equal(await frame.locator('#ml_total_modules').inputValue(),'120','Cancel restart must keep work');
+     await dialog.getByRole('button',{name:'Restart tool',exact:true}).click();
+     await Promise.all([page.waitForEvent('framenavigated',{predicate:f=>f.url().includes('/module-layout/index.html')}),dialog.getByRole('button',{name:'Confirm restart',exact:true}).click()]);
+     await frame.locator('#ml_status').filter({hasText:'Ready. Draw at map centre or pick a site.'}).waitFor({timeout:60000});
+     assert.equal(await frame.locator('#ml_total_modules').inputValue(),'1200','Confirmed restart must restore original session');
+     const gis=page.frames().find(f=>f.url().includes('/gis-sld-financial-sandbox/index.html'));
+     assert.equal(await gis.locator('#mod_wp').inputValue(),'665','Restarting Module must retain GIS work');
+     assert.deepEqual(await states(),beforePanel,'Restarting tool changed Atlas');
     }
     if(process.argv.includes('--escape')) {
      await frame.locator('body').press('Escape');
@@ -118,7 +135,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.equal(await page.locator('#codex-tool-layers').getByRole('button',{name:tool.title,exact:true}).evaluate(n=>n===document.activeElement),true,'Escape must return focus');
      assert.deepEqual(await states(),beforePanel,'Escape changed Atlas layers');
     } else await dialog.getByRole('button',{name:/Close.*return to GridAtlas/}).click();
-    record.tools.push({id:tool.id,opened:true,closed:true,escape:process.argv.includes('--escape'),focusBoundary:process.argv.includes('--focus'),readiness:process.argv.includes('--readiness'),viewport:process.argv.includes('--viewport')});
+    record.tools.push({id:tool.id,opened:true,closed:true,escape:process.argv.includes('--escape'),focusBoundary:process.argv.includes('--focus'),readiness:process.argv.includes('--readiness'),viewport:process.argv.includes('--viewport'),restart:process.argv.includes('--restart')&&tool.id==='module-layout'});
    }
   } else if(Number(release.generation)>=202609051850) {
    await page.locator('.neon-layout').first().waitFor({state:'attached',timeout:30000});
