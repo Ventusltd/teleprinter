@@ -1,4 +1,5 @@
 import { screenPdf } from './screen-pdf.mjs';
+import { decodePngPixels } from './png-pixels.mjs';
 
 export function downloadFile(blob, filename) {
   const url = URL.createObjectURL(blob);
@@ -9,6 +10,11 @@ export function downloadFile(blob, filename) {
 }
 
 export async function imagePixels(blob) {
+  const signature = new Uint8Array(await blob.slice(0,8).arrayBuffer());
+  if (signature.length === 8 && signature.every((byte,index)=>byte===[137,80,78,71,13,10,26,10][index])) {
+    const frame = await decodePngPixels(blob);
+    if (frame) return frame;
+  }
   const url = URL.createObjectURL(blob);
   const image = new Image();
   try {

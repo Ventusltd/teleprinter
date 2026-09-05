@@ -15,6 +15,11 @@ required), with no drawn footer, margins, JPEG encoding, reflow, or scaling.
 The PDF page uses one point per captured pixel. That is a digital page convention,
 not a promise that every PDF viewer's 100% zoom equals the device's CSS pixels.
 
+`png-pixels.mjs` decodes RGB/RGBA 8-bit PNG screenshots without the browser image
+decoder changing their colour values. Embedded ICC profiles travel into the PDF
+unchanged. Other valid image formats use the browser's image decoder. Uploaded
+PNG modes outside this decoder's supported set may undergo browser colour conversion.
+
 `print-screen.js` captures a frame through the browser's screen-sharing chooser.
 It keeps the resolution the browser supplies; the browser/OS may itself limit
 capture resolution. Declined or unavailable capture is an explicit failure. It
@@ -54,6 +59,10 @@ portrait/landscape and mobile portrait/landscape with device pixel ratio 2.
 Tests select a WebGL layer, click the real Print control, read the actual browser
 download, decode its image, render its PDF and compare every RGB pixel to the
 captured screen. Source downloads and manual-copy text are compared byte-for-byte.
+For screenshots carrying an ICC profile, raw RGB and the profile are compared
+exactly, then PDF rendering is compared with colour-managed PNG rendering. The
+actual Pipeline and Atlas checks caught a one-level colour change in WebKit's
+browser image decoder that the simpler fixture did not expose.
 Missing controls and corrupt source bundles must fail without an unhandled
 download rejection. Downloads are deleted and images remain in memory.
 
