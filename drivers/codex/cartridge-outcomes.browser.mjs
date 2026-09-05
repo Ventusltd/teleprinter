@@ -19,9 +19,15 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
    record.localToolCapsules=true;
    await page.route('**/tool-layers/*.js',async route=>{
     const name=new URL(route.request().url()).pathname.split('/').at(-1);
-    if(!['host.js','dismissal.js','focus-boundary.js','readiness.js','viewport.js','session-restart.js','recovery.js'].includes(name))return route.continue();
+    if(!['host.js','dismissal.js','focus-boundary.js','readiness.js','viewport.js','session-restart.js','recovery.js','navigation.js'].includes(name))return route.continue();
     await route.fulfill({body:await fs.readFile(path.join('C:/Users/vikra/testcode-source-publication/sandbox/capsules/tool-layers',name)),contentType:'text/javascript'});
    });
+  }
+  if(process.argv.includes('--navigation-preview')) {
+   record.navigationPreview=true;
+   const {buildNavigationRegistry}=await import(pathToFileURL('C:/Users/vikra/testcode-source-publication/sandbox/capsules/tool-layers/registry.mjs'));
+   toolConfig.navigation=buildNavigationRegistry(toolConfig);
+   await page.route('**/atlas/teleprinter-bootstrap.js',async route=>{const response=await route.fetch();const body=(await response.text()).replace(/mountToolLayers\([^\n]+/,`mountToolLayers(${JSON.stringify(toolConfig.tools)}, import.meta.url, ${JSON.stringify(toolConfig.navigation)});`);await route.fulfill({response,body});});
   }
   if(process.argv.includes('--recover')) {
    record.recoveryFaultInjection=true;let injected=false;
@@ -248,6 +254,25 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
    await page.locator('#codex-layout-command button').click();
    await page.getByText('Layout sandbox',{exact:false}).first().waitFor({state:'visible',timeout:30000});
    record.layoutOpened=true;
+  }
+  if(process.argv.includes('--navigation')) {
+   const navigationLayers=await states();
+   await page.locator('#codex-tool-layers').getByRole('button',{name:'Cable Geometry',exact:true}).click();
+   const cableDialog=page.getByRole('dialog',{name:'Cable Geometry',exact:true});
+   await cableDialog.frameLocator('iframe').getByRole('link',{name:/^Module Layout V7$/i}).click();
+   const linked=page.getByRole('dialog',{name:'Module Layout',exact:true}).filter({visible:true});
+   await linked.waitFor({state:'visible'});const linkedFrame=linked.frameLocator('iframe');
+   const owner=JSON.parse(await linked.getAttribute('data-current-owner'));assert.equal(owner.commit,toolConfig.tools.find(t=>t.id==='module-layout').owner.commit);
+   await linkedFrame.locator('#ml_total_modules').fill('321');
+   await linked.getByRole('button',{name:'Restart tool',exact:true}).click();await linked.getByRole('button',{name:'Confirm restart',exact:true}).click();
+   await linkedFrame.locator('#ml_total_modules').waitFor();assert.equal(await linkedFrame.locator('#ml_total_modules').inputValue(),'1200','Restart must stay on navigated Module');
+   await linkedFrame.getByRole('link',{name:'DC AC LV Topology Review',exact:true}).click();
+   const dc=page.getByRole('dialog',{name:'DC/AC LV Topology Review',exact:true});await dc.waitFor({state:'visible'});
+   assert.equal(JSON.parse(await dc.getAttribute('data-current-owner')).commit,toolConfig.navigation.find(t=>t.id==='dc-ac-lv-topology-review').owner.commit);
+   assert.equal(await dc.locator('[data-tool-readiness]').getAttribute('data-drawing'),'unreported');
+   await page.screenshot({path:path.join(output,`${viewport.width}-sibling-navigation.png`)});
+   await dc.getByRole('button',{name:/Close.*return to GridAtlas/}).click();assert.deepEqual(await states(),navigationLayers);
+   record.siblingNavigation={moduleOwner:owner,currentDocumentRestart:true,dcOwnerResolved:true,atlasRetained:true};
   }
   record.layerStates=await states();record.ok=true;
   await page.screenshot({path:path.join(output,`${viewport.width}-controls.png`),fullPage:false});
