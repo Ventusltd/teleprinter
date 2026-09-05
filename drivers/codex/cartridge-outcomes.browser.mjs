@@ -31,7 +31,7 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
   assert.ok(['400','275','220','132','66'].every(id=>enabled[id]));
   await grid.click();const disabled=await states();
   assert.ok(['400','275','220','132','66'].every(id=>!disabled[id]));
-  await subs.click();const subChanged=await states();assert.notEqual(subChanged.subs,disabled.subs);
+  await subs.click();await page.waitForFunction(expected=>document.querySelector('#scada-ui-container input[data-layer-id="subs"]')?.checked===expected,!disabled.subs,{timeout:5000});const subChanged=await states();assert.notEqual(subChanged.subs,disabled.subs);
   assert.ok(['400','275','220','132','66'].every(id=>subChanged[id]===disabled[id]));
   await grid.click();
   const beforePanel=await states();
@@ -58,10 +58,11 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.equal(await frame.locator('#mod_wp').inputValue(),'665','Reopening lost standalone app state');
     }
     if(tool.id==='module-layout') {
+     await frame.locator('#ml_status').filter({hasText:'Ready. Draw at map centre or pick a site.'}).waitFor({timeout:60000});
      await frame.locator('#ml_total_modules').fill('120');
      await frame.locator('#ml_modules_per_row').fill('20');
      await frame.locator('#ml_draw_center').click();
-     await page.waitForTimeout(500);
+     await frame.locator('#ml_out_rows').filter({hasText:/^6$/}).waitFor({timeout:15000});
      assert.equal((await frame.locator('#ml_out_rows').innerText()).trim(),'6');
      assert.equal((await frame.locator('#ml_out_rendered').innerText()).trim(),'120');
      await page.screenshot({path:path.join(output,`${viewport.width}-${tool.id}-open.png`)});
