@@ -1,0 +1,15 @@
+{
+  "schema": "codex-offline-pdf-sweep-v1",
+  "file": "202609061624-print-source-code-iPhone.pdf",
+  "artifactSha256": "a593fba47c52cc481d62dc26a0d24ccb9406c5f8e4c19c78ef022f269b2bcc03",
+  "workers": 5,
+  "logicalProcessors": 20,
+  "availableMemoryBytesAtStart": 2953408512,
+  "pages": 591,
+  "passed": 591,
+  "failed": [],
+  "pageResultsSha256": "0efa23472cae043b2e301521f1e5fd32451889db5bbbcec9c735dfda35aa25c6",
+  "seconds": 7.12,
+  "scope": "All PDF pages decoded, text extracted and rasterized at96DPI; no source execution or completeness claim.",
+  "ok": true
+}

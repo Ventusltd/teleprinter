@@ -1,0 +1,344 @@
+{
+  "schema": "codex-offline-source-print-audit-v1",
+  "checkedAt": "2026-09-05T15:32:25.741820+00:00",
+  "artifact": {
+    "filename": "202609061624-print-source-code-iPhone.pdf",
+    "bytes": 1998904,
+    "sha256": "a593fba47c52cc481d62dc26a0d24ccb9406c5f8e4c19c78ef022f269b2bcc03",
+    "pages": 591
+  },
+  "generation": "202609051510",
+  "pdfMetadata": {
+    "format": "PDF 1.4",
+    "title": "",
+    "author": "",
+    "subject": "",
+    "keywords": "",
+    "creator": "Safari",
+    "producer": "iOS Version 26.6.1 (Build 23G83) Quartz PDFContext",
+    "creationDate": "D:20260905152225Z00'00'",
+    "modDate": "D:20260905152225Z00'00'",
+    "trapped": "",
+    "encryption": null
+  },
+  "counts": {
+    "inventoryEntries": 32,
+    "truncatedResources": 21,
+    "truncatedScripts": 4,
+    "failedResources": 3
+  },
+  "ok": false,
+  "reasons": [
+    "3 dependency failures are printed in the record.",
+    "21 resource bodies are explicitly truncated, including 4 scripts."
+  ],
+  "resources": [
+    {
+      "index": 1,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/",
+      "printedOriginalCharacters": 5221,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": false,
+      "printedDescription": "code \u00b7 in full \u00b7 found via the page itself"
+    },
+    {
+      "index": 2,
+      "url": "https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js",
+      "printedOriginalCharacters": 762513,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": true,
+      "printedDescription": "code \u00b7 in full \u00b7 found via <script src>, loaded by the browser (script)"
+    },
+    {
+      "index": 3,
+      "url": "https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.css",
+      "printedOriginalCharacters": 63722,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": false,
+      "printedDescription": "code \u00b7 in full \u00b7 found via <link stylesheet>, loaded by the browser (link)"
+    },
+    {
+      "index": 4,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/ventusv8.css",
+      "printedOriginalCharacters": 14877,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": false,
+      "printedDescription": "code \u00b7 in full \u00b7 found via <link stylesheet>, loaded by the browser (link)"
+    },
+    {
+      "index": 5,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/current.json",
+      "printedOriginalCharacters": 46738,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 6,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/index.html",
+      "printedOriginalCharacters": 21193,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": false,
+      "printedDescription": "code \u00b7 in full \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 7,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/cartridges/202609041945-streaming-parquet-bridge-v9-5.js",
+      "printedOriginalCharacters": 13316,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": true,
+      "printedDescription": "code \u00b7 in full \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 8,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/cartridges/202609041945-place-global-search-v9-5.js",
+      "printedOriginalCharacters": 34719,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": true,
+      "printedDescription": "code \u00b7 in full \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 9,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/cartridges/202609051510-substation-intelligence-v9-63.js",
+      "printedOriginalCharacters": 422014,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": true,
+      "printedDescription": "code \u00b7 in full \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 10,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/cartridges/202609050354-sld-sandbox-v9-8.js",
+      "printedOriginalCharacters": 359603,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": true,
+      "printedDescription": "code \u00b7 in full \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 11,
+      "url": "https://raw.githubusercontent.com/Ventusltd/data-grid-gb/1c9909d1138704b29235c27fd769436dda8a0b18/derived/connection-points.v3.json",
+      "printedOriginalCharacters": 2896561,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 12,
+      "url": "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+      "printedOriginalCharacters": 70431,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 13,
+      "url": "https://tiles.basemaps.cartocdn.com/vector/carto.streets/v1/tiles.json",
+      "printedOriginalCharacters": 44256,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 14,
+      "url": "https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/sprite@2x.json",
+      "printedOriginalCharacters": 103,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": false,
+      "printedDescription": "data \u00b7 in full \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 15,
+      "url": "https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/sprite@2x.png",
+      "printedOriginalCharacters": 378,
+      "truncated": false,
+      "printedRetainedCharacters": null,
+      "script": false,
+      "printedDescription": "data \u00b7 in full \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 16,
+      "url": "https://tiles.basemaps.cartocdn.com/fonts/Montserrat%20Regular%20Italic%2COpen%20Sans%20Italic%2CNoto%20Sans%20Regular%2CHanWangHeiLight%20Regular%2CNanumBarunGothic%20Regular/0-255.pbf",
+      "printedOriginalCharacters": 74101,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 17,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson",
+      "printedOriginalCharacters": 1192742,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 18,
+      "url": "https://tiles.basemaps.cartocdn.com/fonts/Montserrat%20Medium,Open%20Sans%20Bold,Noto%20Sans%20Regular,HanWangHeiLight%20Regular,NanumBarunGothic%20Regular/0-255.pbf",
+      "printedOriginalCharacters": 77323,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 19,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/grid_275kv.geojson",
+      "printedOriginalCharacters": 1022277,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 20,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/grid_66kv.geojson",
+      "printedOriginalCharacters": 597382,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 21,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/grid_220kv.geojson",
+      "printedOriginalCharacters": 62037,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 22,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/grid_132kv.geojson",
+      "printedOriginalCharacters": 2835573,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 23,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/power_plants.geojson",
+      "printedOriginalCharacters": 35625,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 24,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/industrial_offtakers.geojson",
+      "printedOriginalCharacters": 1294980,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 25,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/datacentres.geojson",
+      "printedOriginalCharacters": 42847,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 26,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/airports.geojson",
+      "printedOriginalCharacters": 119564,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 27,
+      "url": "https://ventusltd.github.io/gridatlas/atlas/releases/202608300453-atlas-v9/data/railways.geojson",
+      "printedOriginalCharacters": 508859,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 28,
+      "url": "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm",
+      "printedOriginalCharacters": 26009,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": true,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (script)"
+    },
+    {
+      "index": 29,
+      "url": "https://ventusltd.github.io/ventus-grid-engine/genome/engine-graph.json",
+      "printedOriginalCharacters": 34334,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": false,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (fetch)"
+    },
+    {
+      "index": 30,
+      "url": "https://cdn.jsdelivr.net/npm/apache-arrow@17.0.0/+esm",
+      "printedOriginalCharacters": 200034,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": true,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (script)"
+    },
+    {
+      "index": 31,
+      "url": "https://cdn.jsdelivr.net/npm/flatbuffers@24.3.25/+esm",
+      "printedOriginalCharacters": 9269,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": true,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (script)"
+    },
+    {
+      "index": 32,
+      "url": "https://cdn.jsdelivr.net/npm/tslib@2.6.3/+esm",
+      "printedOriginalCharacters": 10708,
+      "truncated": true,
+      "printedRetainedCharacters": 4000,
+      "script": true,
+      "printedDescription": "data \u00b7 TRUNCATED to first 4000 \u00b7 found via loaded by the browser (script)"
+    }
+  ],
+  "failures": [
+    {
+      "url": "https://ventusltd.github.io/npm/apache-arrow@17.0.0/+esm",
+      "printedFailure": "HTTP 404"
+    },
+    {
+      "url": "https://ventusltd.github.io/npm/tslib@2.6.3/+esm",
+      "printedFailure": "HTTP 404"
+    },
+    {
+      "url": "https://ventusltd.github.io/npm/flatbuffers@24.3.25/+esm",
+      "printedFailure": "HTTP 404"
+    }
+  ],
+  "limits": [
+    "Offline only: HTTP failures are what the artifact reports; no live network request is made.",
+    "PDF text is a paginated representation, not original source bytes; no byte-integrity or JavaScript syntax pass is claimed.",
+    "No extracted source is executed. A clean structural audit cannot prove every browser dependency is present."
+  ]
+}
