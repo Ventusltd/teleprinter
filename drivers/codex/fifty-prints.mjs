@@ -16,6 +16,8 @@ const root = path.resolve(process.argv[3]?.startsWith('--') || !process.argv[3]
 assert.ok(!root.toLowerCase().startsWith(path.resolve(here, '../..').toLowerCase()), 'Print artifacts must stay outside Git.');
 const limit = Number(process.argv.find(arg => arg.startsWith('--limit='))?.split('=')[1] || 25);
 assert.ok(Number.isInteger(limit) && limit >= 1 && limit <= 25);
+const offset = Number(process.argv.find(arg => arg.startsWith('--offset='))?.split('=')[1] || 0);
+assert.ok(Number.isInteger(offset) && offset >= 0 && offset + limit <= 25);
 const buildSha256 = process.argv.find(arg => arg.startsWith('--build-sha256='))?.split('=')[1];
 assert.match(buildSha256 || '', /^[a-f0-9]{64}$/i, 'Supply --build-sha256=HASH for the frozen candidate build.');
 async function readCandidateJSON(relative) {
@@ -58,7 +60,7 @@ const scenarios = Array.from({ length: 25 }, (_, i) => {
 const receipt = { createdAt: new Date().toISOString(), base, candidate, output, browser: 'installed Chrome', printRoute:appRender?'app-render, no host capture':'host screenshot', physicalDevices: false,
   requestedScenarios: limit, expectedVisits: limit * 2, expectedDownloads: limit * 2, scenarios: [] };
 const receiptPath = path.join(here, 'fifty-prints-results.json');
-async function saveReceipt() { await fs.writeFile(receiptPath, JSON.stringify(receipt, null, 2) + '\n'); }
+async function saveReceipt() { const text = JSON.stringify(receipt, null, 2) + '\n'; await fs.writeFile(receiptPath, text); await fs.writeFile(path.join(output, 'campaign-results.json'), text); }
 
 async function readAtlasState(page) {
   return page.evaluate(() => {
@@ -150,7 +152,7 @@ async function prepare(page, scenario, progress) {
   return state;
 }
 
-for (const scenario of scenarios.slice(0, limit)) {
+for (const scenario of scenarios.slice(offset, offset + limit)) {
   const result = { ...scenario, visits: [], pairStateMatches: false };
   receipt.scenarios.push(result);
   for (const mode of ['pdf', 'source']) {
