@@ -29,6 +29,25 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
     if(injected)return route.continue();injected=true;return route.fulfill({status:404,contentType:'text/html',body:'<!doctype html><html><body>Injected missing tool</body></html>'});
    });
   }
+  let releaseModuleStyle;
+  if(process.argv.includes('--module-preview')) {
+   record.moduleProducerPreview=true;
+   const root='C:/Users/vikra/OneDrive/Documents/GitHub/layout-tool';
+   const pointer=JSON.parse(await fs.readFile(path.join(root,'derived-latest.json'),'utf8'));
+   const producer=path.join(root,'releases',pointer.generation,'solar-bess-topology-v7/module-layout');
+   await page.route('**/module-layout/*',async route=>{
+    const name=new URL(route.request().url()).pathname.split('/').at(-1);
+    if(!/^[a-zA-Z0-9_.-]+$/.test(name))return route.continue();
+    try {await route.fulfill({body:await fs.readFile(path.join(producer,name)),contentType:name.endsWith('.html')?'text/html':name.endsWith('.css')?'text/css':'text/javascript'});}catch{return route.continue();}
+   });
+  }
+  if(process.argv.includes('--guard')) {
+   record.moduleStyleGate=true;const gate=new Promise(resolve=>releaseModuleStyle=resolve);
+   await page.route('https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',async route=>{
+    if(route.request().frame().url().includes('/module-layout/'))await gate;
+    await route.continue();
+   });
+  }
   await page.goto(new URL('atlas/?repd_ref=1938&technology=solar',base).href,{waitUntil:'domcontentloaded'});
   await page.getByText(/TEST CODE repd-1938 \| ENGINE COMPLETED/).first().waitFor({timeout:90000});
   const grid=page.locator('#codex-layer-quick-controls [data-layer-command="grid"]');
@@ -81,6 +100,18 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.equal(await frame.locator('#mod_wp').inputValue(),'665','Reopening lost standalone app state');
     }
     if(tool.id==='module-layout') {
+     if(process.argv.includes('--guard')) {
+      await frame.locator('#ml-draw-readiness[data-ready="false"]').waitFor({timeout:15000});
+      assert.equal(await frame.locator('#ml_draw_center').isDisabled(),true);
+      assert.equal(await frame.locator('#ml_pick_site').isDisabled(),true);
+      const realm=page.frames().find(f=>f.url().includes('/module-layout/index.html'));
+      const state=()=>realm.evaluate(()=>({centre:mlState.centre,pickMode:mlState.pickMode,features:mlState.currentGeoJSON.features.length}));
+      const before=await state();await frame.locator('#ml_draw_center').dispatchEvent('click');await frame.locator('#ml_pick_site').dispatchEvent('click');
+      assert.deepEqual(await state(),before,'Blocked draw or pick changed original state');
+      await page.screenshot({path:path.join(output,`${viewport.width}-guard-pending.png`)});
+      releaseModuleStyle();await frame.locator('#ml-draw-readiness[data-ready="true"]').waitFor({timeout:60000});
+      assert.equal(await frame.locator('#ml_draw_center').isDisabled(),false);record.moduleGuard={blockedEarly:true,originalStatePreserved:true,enabledAfterMap:true};
+     }
      await frame.locator('#ml_status').filter({hasText:'Ready. Draw at map centre or pick a site.'}).waitFor({timeout:60000});
      await frame.locator('#ml_total_modules').fill('120');
      await frame.locator('#ml_modules_per_row').fill('20');
