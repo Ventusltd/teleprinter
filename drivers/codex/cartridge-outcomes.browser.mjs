@@ -41,6 +41,17 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
     try {await route.fulfill({body:await fs.readFile(path.join(producer,name)),contentType:name.endsWith('.html')?'text/html':name.endsWith('.css')?'text/css':'text/javascript'});}catch{return route.continue();}
    });
   }
+  if(process.argv.includes('--cable-preview')) {
+   record.cableProducerPreview=true;
+   const root='C:/Users/vikra/OneDrive/Documents/GitHub/cable-trench-or-drill';
+   const pointer=JSON.parse(await fs.readFile(path.join(root,'derived-latest.json'),'utf8'));
+   const producer=path.join(root,'releases',pointer.generation,'solar-bess-topology-v7/cable-geometry-visualiser');
+   await page.route('**/cable-geometry-visualiser/*',async route=>{
+    const name=new URL(route.request().url()).pathname.split('/').at(-1);
+    if(!/^[a-zA-Z0-9_.-]+$/.test(name))return route.continue();
+    try {await route.fulfill({body:await fs.readFile(path.join(producer,name)),contentType:name.endsWith('.html')?'text/html':name.endsWith('.css')?'text/css':'text/javascript'});}catch{return route.continue();}
+   });
+  }
   if(process.argv.includes('--guard')) {
    record.moduleStyleGate=true;const gate=new Promise(resolve=>releaseModuleStyle=resolve);
    await page.route('https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',async route=>{
@@ -127,6 +138,22 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.ok((await frame.locator('#status_box').innerText()).length>0);
      const drawingFrame=page.frames().find(f=>f.url().includes('/cable-geometry-visualiser/index.html'));
      await drawingFrame.waitForFunction(()=>{const canvases=[...document.querySelectorAll('canvas')];return canvases.length===3&&canvases.every(c=>{const data=c.getContext('2d').getImageData(0,0,c.width,c.height).data;for(let i=3;i<data.length;i+=4)if(data[i])return true;return false;});},null,{timeout:15000,polling:200});
+     if(process.argv.includes('--cable-signal')) {
+      const ready=()=>drawingFrame.waitForFunction(()=>window.CableGeometryRender?.getState().state==='ready',null,{timeout:15000});
+      await ready();
+      await frame.locator('#route_name').fill('Route readiness regression');await ready();
+      const beforeBlur=await drawingFrame.evaluate(()=>CableGeometryRender.getState());
+      await frame.locator('#route_name').press('Tab');
+      assert.equal(await drawingFrame.evaluate(()=>CableGeometryRender.getState().state),'ready','Route-name blur must not invent a pending render');
+      const revision=beforeBlur.revision;
+      const pending=await drawingFrame.evaluate(()=>{const el=document.getElementById('circuit_qty');el.value='8';el.dispatchEvent(new Event('input',{bubbles:true}));return CableGeometryRender.getState().state;});
+      assert.equal(pending,'pending');await ready();
+      const signal=await drawingFrame.evaluate(async()=>{const text=document.getElementById('snapshot_box').textContent;const hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(x=>x.toString(16).padStart(2,'0')).join('');return {state:CableGeometryRender.getState(),hash,input:document.getElementById('circuit_qty').value};});
+      assert.equal(signal.state.snapshotSha256,signal.hash);assert.ok(signal.state.revision>revision);assert.equal(signal.input,'8');
+      await frame.locator('#circuit_qty').dispatchEvent('input');await ready();
+      assert.ok(await drawingFrame.evaluate(previous=>CableGeometryRender.getState().revision>previous,signal.state.revision),'An identical-value redraw still advances the render revision');
+      record.cableSignal={routeNameBlurStable:true,pendingBeforeRender:true,snapshotHashMatched:true,repeatRenderAdvanced:true,receipt:signal.state};
+     }
      record.cableCanvases=await frame.locator('canvas').evaluateAll(nodes=>nodes.map(canvas=>{const p=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;let opaque=0;const colors=new Set();for(let i=0;i<p.length;i+=4){if(p[i+3])opaque++;colors.add(p[i]+','+p[i+1]+','+p[i+2]);}return {id:canvas.id,width:canvas.width,height:canvas.height,opaque,colors:colors.size};}));
      assert.equal(record.cableCanvases.length,3);
      assert.ok(record.cableCanvases.every(c=>c.opaque>100&&c.colors>4),'Cable canvases must contain drawn geometry');
