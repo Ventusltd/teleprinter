@@ -34,7 +34,7 @@ export function mountLayerQuickControls(doc = document) {
   };
   tray.addEventListener('click', event => event.stopPropagation());
   root.append(style, tray);
-  const observer = new MutationObserver(refresh); observer.observe(root, {childList:true,subtree:true});
+  const observer = new MutationObserver(refresh); observer.observe(doc.body, {childList:true,subtree:true});
   doc.addEventListener('change', refresh); refresh();
   return () => { observer.disconnect(); doc.removeEventListener('change',refresh); tray.remove(); style.remove(); };
 }
