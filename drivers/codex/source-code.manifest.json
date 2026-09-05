@@ -1,0 +1,110 @@
+{
+  "format": "codex-print-source-code-v1",
+  "repository": "https://github.com/Ventusltd/teleprinter",
+  "commit": "9a8b644a747ec5243abcde7b260abbfb77fc4535",
+  "tree": "65b297cc86a89933c89f1221dd74c432263557b4",
+  "scopes": [
+    "drivers/codex/README.md",
+    "drivers/codex/SOURCE-CODE.md",
+    "drivers/codex/controls.js",
+    "drivers/codex/demo.html",
+    "drivers/codex/driver.mjs",
+    "drivers/codex/print-screen.js",
+    "drivers/codex/print-source-code.js",
+    "drivers/codex/screen-pdf.mjs",
+    "drivers/codex/source-code.mjs"
+  ],
+  "policy": {
+    "source": "Committed Git blobs only; working-tree changes are never substituted.",
+    "inclusion": "All regular files and symlink target blobs under each literal scope, including dotfiles and generated files, if valid UTF-8 text.",
+    "omission": "NUL-containing or non-UTF-8 blobs and Git submodules are explicitly listed as omitted. No truncation.",
+    "boundaries": "File startByte and byteCount identify exact original UTF-8 bytes in the bundle; offsets are zero-based. No newline normalization."
+  },
+  "files": [
+    {
+      "mode": "100644",
+      "blobOid": "ca2423f2870acfc5e94b7e835bb935049a196497",
+      "path": "drivers/codex/README.md",
+      "byteCount": 3443,
+      "sha256": "421c06b9815214bfa5e9690df3b22abaa4a2597dab9720cbbd68d5c1d65f1446",
+      "status": "included",
+      "startByte": 3118
+    },
+    {
+      "mode": "100644",
+      "blobOid": "573a100f14457e19345edd60fad68f8dc5dea19c",
+      "path": "drivers/codex/SOURCE-CODE.md",
+      "byteCount": 5676,
+      "sha256": "fe7b0cf385ce3ec92125b368b02e0c4664fa4bba45a48c3429381372af16ec23",
+      "status": "included",
+      "startByte": 6751
+    },
+    {
+      "mode": "100644",
+      "blobOid": "8689ea788fb897f2cd8e2431c58ad5ae06a9f5cb",
+      "path": "drivers/codex/controls.js",
+      "byteCount": 3693,
+      "sha256": "f178b7a247c560bcd9d830868646aa46adc3091eb65b1558a9205cc1014ab5d6",
+      "status": "included",
+      "startByte": 12619
+    },
+    {
+      "mode": "100644",
+      "blobOid": "155ebbdd12383aeca19033f7b77b71c517a522f8",
+      "path": "drivers/codex/demo.html",
+      "byteCount": 4214,
+      "sha256": "b2c078e8ee38d7883c5a477ff714b12c9cfc26a19514597aee431c22a49006a4",
+      "status": "included",
+      "startByte": 16499
+    },
+    {
+      "mode": "100644",
+      "blobOid": "fecd004de137869cd0eb99c3da26c5748a9b21bf",
+      "path": "drivers/codex/driver.mjs",
+      "byteCount": 2054,
+      "sha256": "8b2fa0de776ed9a8d228ed941e278bba09a130cd44d5d9e97f0b6cf54ba5e0e6",
+      "status": "included",
+      "startByte": 20899
+    },
+    {
+      "mode": "100644",
+      "blobOid": "1a384af544f61ca0c13a1afc63cbe330e4f21350",
+      "path": "drivers/codex/print-screen.js",
+      "byteCount": 3412,
+      "sha256": "52e2ed9bed96b47716969d5f15277ddc38aa750aa9a3f719580ee62a825ee24c",
+      "status": "included",
+      "startByte": 23145
+    },
+    {
+      "mode": "100644",
+      "blobOid": "ec79eef1811404d6a88b32177c0fb241a42655d3",
+      "path": "drivers/codex/print-source-code.js",
+      "byteCount": 10062,
+      "sha256": "443043ec1ead5335a86d0525a288aeac8e51203690c8bedf02f7c0cbbb15babf",
+      "status": "included",
+      "startByte": 26760
+    },
+    {
+      "mode": "100644",
+      "blobOid": "8fa2363cc7504804f657988cba6d1c772afe9e87",
+      "path": "drivers/codex/screen-pdf.mjs",
+      "byteCount": 2681,
+      "sha256": "41d6f27b0975e6eaac969ebc4ed1d05ca9538b6553d0eb573302bc9282e077fd",
+      "status": "included",
+      "startByte": 37023
+    },
+    {
+      "mode": "100644",
+      "blobOid": "62f8d81f3edeb53d6ddba44fbc436aac9c557791",
+      "path": "drivers/codex/source-code.mjs",
+      "byteCount": 10435,
+      "sha256": "4247c52add7ef1bd3e776770f481bbeb1b3df623bc31bb113e3f4595fe8d79ed",
+      "status": "included",
+      "startByte": 39901
+    }
+  ],
+  "byteCount": 50425,
+  "sha256": "fcede25c0726ed51c6a42378744bafc2f09b949a7f5497315d27f9a20f87608e",
+  "includedCount": 9,
+  "omittedCount": 0
+}

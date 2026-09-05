@@ -1,0 +1,754 @@
+PRINT SOURCE CODE
+Format: codex-print-source-code-v1
+Repository: https://github.com/Ventusltd/teleprinter
+Commit: 9a8b644a747ec5243abcde7b260abbfb77fc4535
+Tree: 65b297cc86a89933c89f1221dd74c432263557b4
+Scopes: ["drivers/codex/README.md","drivers/codex/SOURCE-CODE.md","drivers/codex/controls.js","drivers/codex/demo.html","drivers/codex/driver.mjs","drivers/codex/print-screen.js","drivers/codex/print-source-code.js","drivers/codex/screen-pdf.mjs","drivers/codex/source-code.mjs"]
+Policy: {"source":"Committed Git blobs only; working-tree changes are never substituted.","inclusion":"All regular files and symlink target blobs under each literal scope, including dotfiles and generated files, if valid UTF-8 text.","omission":"NUL-containing or non-UTF-8 blobs and Git submodules are explicitly listed as omitted. No truncation.","boundaries":"File startByte and byteCount identify exact original UTF-8 bytes in the bundle; offsets are zero-based. No newline normalization."}
+Inventory: [{"mode":"100644","blobOid":"ca2423f2870acfc5e94b7e835bb935049a196497","path":"drivers/codex/README.md","byteCount":3443,"sha256":"421c06b9815214bfa5e9690df3b22abaa4a2597dab9720cbbd68d5c1d65f1446","status":"included"},{"mode":"100644","blobOid":"573a100f14457e19345edd60fad68f8dc5dea19c","path":"drivers/codex/SOURCE-CODE.md","byteCount":5676,"sha256":"fe7b0cf385ce3ec92125b368b02e0c4664fa4bba45a48c3429381372af16ec23","status":"included"},{"mode":"100644","blobOid":"8689ea788fb897f2cd8e2431c58ad5ae06a9f5cb","path":"drivers/codex/controls.js","byteCount":3693,"sha256":"f178b7a247c560bcd9d830868646aa46adc3091eb65b1558a9205cc1014ab5d6","status":"included"},{"mode":"100644","blobOid":"155ebbdd12383aeca19033f7b77b71c517a522f8","path":"drivers/codex/demo.html","byteCount":4214,"sha256":"b2c078e8ee38d7883c5a477ff714b12c9cfc26a19514597aee431c22a49006a4","status":"included"},{"mode":"100644","blobOid":"fecd004de137869cd0eb99c3da26c5748a9b21bf","path":"drivers/codex/driver.mjs","byteCount":2054,"sha256":"8b2fa0de776ed9a8d228ed941e278bba09a130cd44d5d9e97f0b6cf54ba5e0e6","status":"included"},{"mode":"100644","blobOid":"1a384af544f61ca0c13a1afc63cbe330e4f21350","path":"drivers/codex/print-screen.js","byteCount":3412,"sha256":"52e2ed9bed96b47716969d5f15277ddc38aa750aa9a3f719580ee62a825ee24c","status":"included"},{"mode":"100644","blobOid":"ec79eef1811404d6a88b32177c0fb241a42655d3","path":"drivers/codex/print-source-code.js","byteCount":10062,"sha256":"443043ec1ead5335a86d0525a288aeac8e51203690c8bedf02f7c0cbbb15babf","status":"included"},{"mode":"100644","blobOid":"8fa2363cc7504804f657988cba6d1c772afe9e87","path":"drivers/codex/screen-pdf.mjs","byteCount":2681,"sha256":"41d6f27b0975e6eaac969ebc4ed1d05ca9538b6553d0eb573302bc9282e077fd","status":"included"},{"mode":"100644","blobOid":"62f8d81f3edeb53d6ddba44fbc436aac9c557791","path":"drivers/codex/source-code.mjs","byteCount":10435,"sha256":"4247c52add7ef1bd3e776770f481bbeb1b3df623bc31bb113e3f4595fe8d79ed","status":"included"}]
+
+===== BEGIN FILE "drivers/codex/README.md" | bytes=3443 | sha256=421c06b9815214bfa5e9690df3b22abaa4a2597dab9720cbbd68d5c1d65f1446 =====
+# Codex Teleprinter driver
+
+**Print** saves the visible screen as a digital PDF. **Print source code** creates
+a complete text file for the selected app version. A reader can attach that file
+in ChatGPT, use **Copy source code**, or use **Share source code** where the phone
+supports sharing files. No GitHub login or coding knowledge is needed by readers.
+
+This directory is the separate Codex-authored implementation. Claude's root
+`teleprinter.js`, `pdf.js`, and source engine are independent implementations.
+
+## Screen pixels
+
+`screen-pdf.mjs` embeds losslessly compressed RGB pixels (and an alpha mask when
+required), with no drawn footer, margins, JPEG encoding, reflow, or scaling.
+The PDF page uses one point per captured pixel. That is a digital page convention,
+not a promise that every PDF viewer's 100% zoom equals the device's CSS pixels.
+
+`print-screen.js` captures a frame through the browser's screen-sharing chooser.
+It keeps the resolution the browser supplies; the browser/OS may itself limit
+capture resolution. Declined or unavailable capture is an explicit failure. It
+does not substitute a reconstructed DOM image. **Print a screenshot** accepts a
+device screenshot at its existing dimensions when self-capture is unavailable.
+Screenshots already compressed as JPEG cannot recover their lost detail.
+All display tracks stop after capture, including error paths.
+
+`driver.mjs` attaches an in-memory Playwright screenshot provider. Its capture is
+the current viewport including selected layers, WebGL, and DOM. It never writes
+a screenshot file. The PDF method/dimensions are in the returned receipt, outside
+the image, so provenance does not alter what the user saw.
+
+## App integration
+
+Serve this directory's browser modules with the app. Call `mountTeleprinter`
+from `controls.js`, passing `manifestUrl`, `textUrl`, `expectedCommit`,
+`expectedRepository`, and `appName`. Source bytes are prepared when the reader
+opens Teleprinter, preserving the later click gesture for iPhone sharing/copying.
+Only the integration configuration and committed runtime copies belong in the
+app; engine development belongs here.
+
+See [SOURCE-CODE.md](SOURCE-CODE.md) for the Git builder and exact inventory.
+Runtime imports, third-party services, datasets and unselected repository files
+are not magically included: the selected scope and omissions are recorded.
+There is no promise that an AI app will accept an arbitrarily large attachment.
+Nothing is silently shortened to fit.
+
+## Measured tests
+
+Run `node --test drivers/codex/source-code.test.mjs` and
+`node drivers/codex/outcome.test.mjs`. The latter needs Playwright (or its absolute
+`index.mjs` path in `PLAYWRIGHT_MODULE`) and Python `pypdf`, `pymupdf`, `Pillow`.
+
+`outcome-results.json` records Chrome, Edge, Firefox and WebKit, each at desktop
+portrait/landscape and mobile portrait/landscape with device pixel ratio 2.
+Tests select a WebGL layer, click the real Print control, read the actual browser
+download, decode its image, render its PDF and compare every RGB pixel to the
+captured screen. Source downloads and manual-copy text are compared byte-for-byte.
+Missing controls and corrupt source bundles must fail without an unhandled
+download rejection. Downloads are deleted and images remain in memory.
+
+These are automated browser tests, not physical Android/iPhone tests. The screen
+sharing chooser and native mobile share sheet require separate device validation.
+
+===== END FILE "drivers/codex/README.md" =====
+
+===== BEGIN FILE "drivers/codex/SOURCE-CODE.md" | bytes=5676 | sha256=fe7b0cf385ce3ec92125b368b02e0c4664fa4bba45a48c3429381372af16ec23 =====
+# Print source code
+
+This Codex-authored driver creates a plain UTF-8 `.txt` file for reviewing version-pinned GitHub source in an AI chatbot. It is independent of screen/PDF printing and never calls `window.print()`.
+
+The Node builder reads committed Git objects using an explicitly supplied revision, resolves it once to a full commit SHA, and includes the GitHub repository identity, commit, tree, literal scopes, and full selected inventory. Dirty and untracked working-tree files never substitute for committed content. No timestamps are added, so the same input produces identical bytes.
+
+Every included file has its repository-relative path, Git blob object ID, SHA256, original byte count, and zero-based byte offset in the bundle. BEGIN/END markers provide readable boundaries; byte offsets and lengths remain authoritative if source text itself contains marker-like text. BOM, CRLF, Unicode, empty files, and missing final newlines are preserved. The manifest also contains the entire bundle's SHA256 and byte count.
+
+All selected valid UTF-8 regular-file and symlink-target blobs are included, including dotfiles and generated files. Blobs containing NUL, invalid UTF-8 blobs, and submodules are explicitly omitted with reasons. Submodule contents are not recursively fetched. Git LFS pointer files remain their actual committed pointer text. Missing scopes/revisions, unsafe scope paths, and zero included text files fail. There is no truncation; a Git operation exceeding the 256 MiB capture limit fails instead. The repository must already exist locally; fetching/cloning is the caller's responsibility.
+
+```js
+import {
+  createSourceCodeBundle,
+  writeSourceCodeBundle,
+  verifySourceCodeBundle,
+  verifySourceCodeBundleAgainstRepository,
+} from './source-code.mjs';
+
+const options = {
+  repoDir: '/path/to/repository',
+  revision: 'FULL_COMMIT_SHA',
+  paths: ['src', 'README.md'], // literal repository-relative files/directories; default ['.']
+  // repository: 'https://github.com/owner/repo', // defaults to origin remote
+};
+const { text, manifest } = await createSourceCodeBundle(options);
+verifySourceCodeBundle(text, manifest, { expectedCommit: options.revision });
+await verifySourceCodeBundleAgainstRepository(text, manifest, {
+  repoDir: options.repoDir,
+  expectedCommit: options.revision,
+  paths: options.paths,
+});
+await writeSourceCodeBundle({
+  ...options,
+  textPath: '/site/source-code.txt',
+  manifestPath: '/site/source-code.manifest.json',
+});
+```
+
+CLI: `node drivers/codex/source-code.mjs REPO_DIR REVISION TEXT_PATH MANIFEST_PATH [SCOPE ...]`.
+
+Host the text and manifest on the app's own HTTP(S) origin. Attach the browser module to the user-facing button:
+
+```js
+import { attachPrintSourceCode } from './drivers/codex/print-source-code.js';
+const detach = attachPrintSourceCode({
+  button: document.querySelector('#print-source-code'),
+  copyButton: document.querySelector('#copy-source-code'), // optional
+  shareButton: document.querySelector('#share-source-code'), // optional; hidden if unsupported
+  status: document.querySelector('#source-status'), // optional; an accessible live status is created otherwise
+  fallbackContainer: document.querySelector('#source-fallback'), // optional
+  textUrl: '/source-code.txt',
+  manifestUrl: '/source-code.manifest.json',
+  expectedRepository: 'https://github.com/owner/repo',
+  expectedCommit: 'FULL_COMMIT_SHA',
+  filename: 'project-source-code.txt',
+  onError: error => { document.querySelector('#status').textContent = error.message; },
+});
+```
+
+The button says **Print source code**. Both files are fetched with caching disabled during setup, rejecting redirects/cross-origin URLs. Controls remain disabled until bundle and per-file SHA256, byte boundaries, and inventory counts have passed. Clipboard and native sharing are then invoked directly in the click's user gesture, without preceding network/hash awaits, to retain mobile browser activation. `detach.ready` resolves to `{ bytes, manifest }` when ready, or `null` after a preparation error. No download is started before a click.
+
+**Print source code** downloads the original UTF-8 bytes and reports “Text file download requested.” **Copy source code** copies the complete text and reports success only after the clipboard promise resolves; if clipboard access fails, a visible, labeled, read-only text area exposes the entire text for manual select-all/copy. **Share source code** invokes native file sharing only when supported for the actual file. Nothing claims a ChatGPT attachment was sent. Guidance reads: “Attach this text file in ChatGPT, or copy and paste its contents.”
+
+Errors trigger `sourcecodeerror` on the relevant button and the optional `onError` callback. `fetchVerifiedSourceCode(options)` is also available for integrations and returns `{ bytes, manifest }` without downloading. `attachSourceCodeControls` is an alias of `attachPrintSourceCode`. The desktop tests do not establish physical iPhone behavior.
+
+SHA256 verifies consistency, not a cryptographic signature or repository ownership. Supply trusted expected repository/commit values in the integration. Repository-backed verification additionally regenerates the selected committed inventory; supply the expected scopes to detect a self-consistent but incomplete bundle. Deploy the text and manifest together to avoid version mismatch.
+
+Run deterministic temporary-Git-repository tests with `node --test drivers/codex/source-code.test.mjs`. Tests cover byte preservation, dirty/untracked exclusion, binary omissions, pinned revision, scope failure/traversal protection, changed bytes, missing files, wrong revisions, and output round-trip.
+
+===== END FILE "drivers/codex/SOURCE-CODE.md" =====
+
+===== BEGIN FILE "drivers/codex/controls.js" | bytes=3693 | sha256=f178b7a247c560bcd9d830868646aa46adc3091eb65b1558a9205cc1014ab5d6 =====
+import { printScreen } from './print-screen.js';
+import { attachPrintSourceCode } from './print-source-code.js';
+
+/** The app supplies pinned source URLs; both engines remain authored in Teleprinter. */
+export function mountTeleprinter({ manifestUrl, textUrl, expectedCommit, expectedRepository, appName = 'This app' }) {
+  const host = document.createElement('div');
+  host.id = 'codex-teleprinter';
+  const shadow = host.attachShadow({ mode: 'open' });
+  shadow.innerHTML = `<style>
+  :host{position:fixed;right:12px;bottom:64px;z-index:10020;font:16px system-ui;color:#eaf8ff}button{font:inherit;min-height:44px;padding:10px 14px;background:#d6f7ff;color:#102630;border:1px solid #77a4b1;border-radius:6px;cursor:pointer}button:disabled{opacity:.55}dialog{color:#eaf8ff;background:#10232d;border:1px solid #83aaba;border-radius:8px;width:min(560px,calc(100vw - 24px));max-height:85dvh;overflow:auto;padding:18px;font:16px system-ui}dialog::backdrop{background:#0008}h2{margin:0 0 12px;font-size:22px}.actions{display:flex;flex-wrap:wrap;gap:8px}p{line-height:1.45}textarea{font:14px monospace;min-height:160px}input{max-width:100%}summary{min-height:44px;cursor:pointer;padding-top:12px}.close{float:right;margin-left:12px}#status{overflow-wrap:anywhere}
+  </style><button id="open">Teleprinter</button><dialog aria-label="Teleprinter"><button class="close" id="close">Close</button><h2>Teleprinter</h2><p id="name"></p><div class="actions"><button id="screen">Print</button><button id="source">Print source code</button><button id="copy">Copy source code</button><button id="share" hidden>Share source code</button></div><p>Print saves the screen as a digital PDF. Print source code saves a text file: attach it in ChatGPT, or use Copy source code and paste it into your chat.</p><p id="status" role="status" aria-live="polite"></p><details><summary>Print a screenshot</summary><p>On a phone that cannot capture its own screen, take a screenshot first and choose it here.</p><input id="image" aria-label="Choose a screenshot" type="file" accept="image/png,image/jpeg,image/webp"><button id="image-print">Print selected screenshot</button></details><div id="fallback"></div></dialog>`;
+  document.body.append(host);
+  const el = id => shadow.getElementById(id);
+  const dialog = shadow.querySelector('dialog');
+  const status = el('status');
+  el('name').textContent = appName;
+  let sourceControls;
+  el('open').onclick = () => {
+    dialog.showModal();
+    sourceControls ||= attachPrintSourceCode({button:el('source'),copyButton:el('copy'),shareButton:el('share'),status,fallbackContainer:el('fallback'),manifestUrl,textUrl,expectedCommit,expectedRepository,filename:`${appName}-source-code.txt`});
+  };
+  el('close').onclick = () => dialog.close();
+  const capture = window.__codexTeleprinterCapture ? async () => {
+    const value = await window.__codexTeleprinterCapture();
+    return new Blob([Uint8Array.from(atob(value), char => char.charCodeAt(0))],{type:'image/png'});
+  } : undefined;
+  async function print(image) {
+    dialog.close();
+    try {
+      const receipt = await printScreen({capture,image,filename:`${appName}-screen.pdf`});
+      status.textContent = `PDF ready: ${receipt.width} × ${receipt.height} pixels. Check your downloads.`;
+      host.dispatchEvent(new CustomEvent('teleprint',{detail:receipt}));
+    } catch(error) { status.textContent = error.message; dialog.showModal(); }
+  }
+  el('screen').onclick = () => print();
+  el('image-print').onclick = () => {
+    const image = el('image').files[0];
+    if (!image) { status.textContent='Choose a screenshot first.'; return; }
+    print(image);
+  };
+  return () => { sourceControls?.(); host.remove(); };
+}
+
+===== END FILE "drivers/codex/controls.js" =====
+
+===== BEGIN FILE "drivers/codex/demo.html" | bytes=4214 | sha256=b2c078e8ee38d7883c5a477ff714b12c9cfc26a19514597aee431c22a49006a4 =====
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teleprinter — Print and Print source code</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#071820;color:#edf9ff;font:17px system-ui}main{padding:20px;max-width:850px;margin:auto}button,label{font:inherit}button{min-height:44px;padding:10px 14px;background:#d7ffff;color:#102632;border:1px solid #71a7b2;border-radius:5px;cursor:pointer}button:disabled{opacity:.6}nav{display:flex;flex-wrap:wrap;gap:10px}#scene{position:relative;height:170px;border:2px solid #d6aa43;margin:16px 0;overflow:hidden}canvas{width:100%;height:100%}.card{position:absolute;top:20px;left:20px;background:#001e2be8;padding:12px;border:1px solid #90bdc8}p{line-height:1.45}textarea{width:100%;min-height:160px;font:14px monospace}input{max-width:100%}
+</style>
+<main><h1>Teleprinter</h1><p>Print keeps what you see as a digital PDF. Print source code gives you a text file to attach in ChatGPT.</p>
+<label><input id="layer" type="checkbox"> Show grid layer</label>
+<div id="scene"><canvas id="map"></canvas><div class="card">Current view<br><strong id="layer-state">Grid layer hidden</strong></div></div>
+<nav><button id="print">Print</button><button id="print-source">Print source code</button><button id="copy-source">Copy source code</button><button id="share-source" hidden>Share source code</button></nav>
+<p id="status" role="status" aria-live="polite">Choose Print, or take the source code with you.</p>
+<details><summary>Print a screenshot</summary><p>If this browser cannot capture its screen, take a screenshot on your device, then choose it here. Its pixels will be kept at their original size.</p><input id="screenshot" type="file" accept="image/png,image/jpeg,image/webp"><button id="print-image">Print selected screenshot</button></details>
+<div id="source-text"></div>
+</main><script type="module">
+import { printScreen } from './print-screen.js';
+import { attachPrintSourceCode } from './print-source-code.js';
+const status = document.querySelector('#status');
+const canvas = document.querySelector('#map');
+const draw = () => {
+  canvas.width = Math.round(canvas.clientWidth * devicePixelRatio); canvas.height = Math.round(canvas.clientHeight * devicePixelRatio);
+  const gl = canvas.getContext('webgl', { preserveDrawingBuffer: true });
+  if (gl) { gl.clearColor(.09,.29,.35,1); gl.clear(gl.COLOR_BUFFER_BIT); gl.enable(gl.SCISSOR_TEST); gl.scissor(canvas.width/2,0,canvas.width/2,canvas.height); gl.clearColor(...(document.querySelector('#layer').checked ? [.85,.6,.07,1] : [.12,.19,.25,1])); gl.clear(gl.COLOR_BUFFER_BIT); gl.disable(gl.SCISSOR_TEST); }
+  document.querySelector('#layer-state').textContent = document.querySelector('#layer').checked ? 'Grid layer visible' : 'Grid layer hidden';
+};
+draw(); document.querySelector('#layer').addEventListener('change', draw); addEventListener('resize', draw);
+const capture = window.__codexTeleprinterCapture ? async () => {
+  const encoded = await window.__codexTeleprinterCapture();
+  return new Blob([Uint8Array.from(atob(encoded), c => c.charCodeAt(0))], { type: 'image/png' });
+} : undefined;
+for (const [id, useImage] of [['#print',false],['#print-image',true]]) {
+  document.querySelector(id).addEventListener('click', async () => {
+    try {
+      const image = useImage ? document.querySelector('#screenshot').files[0] : undefined;
+      if (useImage && !image) throw new Error('Choose a screenshot first.');
+      const result = await printScreen({ capture, image });
+      status.textContent = `PDF ready: ${result.width} × ${result.height} pixels. Check your downloads.`;
+      window.lastPrintReceipt = result;
+    } catch (error) { status.textContent = error.message; }
+  });
+}
+attachPrintSourceCode({ button: document.querySelector('#print-source'), copyButton: document.querySelector('#copy-source'), shareButton: document.querySelector('#share-source'), status, fallbackContainer: document.querySelector('#source-text'), manifestUrl: './source-code.manifest.json', textUrl: './source-code.txt', filename: 'teleprinter-source-code.txt', onError: e => { status.textContent=e.message; } });
+</script></html>
+
+===== END FILE "drivers/codex/demo.html" =====
+
+===== BEGIN FILE "drivers/codex/driver.mjs" | bytes=2054 | sha256=8b2fa0de776ed9a8d228ed941e278bba09a130cd44d5d9e97f0b6cf54ba5e0e6 =====
+/** Playwright host: capture current compositor pixels in memory, never a screenshot file. */
+export async function attachScreenCapture(page, { onCapture } = {}) {
+  await page.exposeBinding('__codexTeleprinterCapture', async ({ frame }) => {
+    if (frame !== page.mainFrame()) throw new Error('Only the main page can print this screen.');
+    const png = await page.screenshot({ type: 'png', fullPage: false, scale: 'device' });
+    onCapture?.(png);
+    return png.toString('base64');
+  });
+}
+
+/** Every rejection is observed immediately, including when clicking fails first. */
+export async function clickAndReadDownload(page, locator, { timeout = 15000 } = {}) {
+  const downloadPromise = page.waitForEvent('download', { timeout });
+  const results = await Promise.allSettled([downloadPromise, locator.click({ timeout })]);
+  const failed = results.find(result => result.status === 'rejected');
+  if (failed) {
+    if (results[0].status === 'fulfilled') {
+      await results[0].value.cancel().catch(() => {});
+      await results[0].value.delete().catch(() => {});
+    }
+    return { ok: false, error: String(failed.reason) };
+  }
+  const download = results[0].value;
+  let timer, stream;
+  try {
+    return await Promise.race([
+      (async () => {
+        const failure = await download.failure();
+        if (failure) throw new Error(failure);
+        stream = await download.createReadStream();
+        if (!stream) throw new Error('The browser did not provide the downloaded file.');
+        const chunks = [];
+        for await (const chunk of stream) chunks.push(chunk);
+        return { ok: true, filename: download.suggestedFilename(), bytes: Buffer.concat(chunks) };
+      })(),
+      new Promise((_,reject) => { timer=setTimeout(()=>reject(new Error('The downloaded file did not finish in time.')),timeout); })
+    ]);
+  } catch (error) { return { ok: false, error: String(error) }; }
+  finally {
+    clearTimeout(timer); stream?.destroy();
+    await download.cancel().catch(() => {});
+    await download.delete().catch(() => {});
+  }
+}
+
+===== END FILE "drivers/codex/driver.mjs" =====
+
+===== BEGIN FILE "drivers/codex/print-screen.js" | bytes=3412 | sha256=52e2ed9bed96b47716969d5f15277ddc38aa750aa9a3f719580ee62a825ee24c =====
+import { screenPdf } from './screen-pdf.mjs';
+
+export function downloadFile(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+export async function imagePixels(blob) {
+  const url = URL.createObjectURL(blob);
+  const image = new Image();
+  try {
+    await new Promise((resolve, reject) => {
+      image.onload = resolve;
+      image.onerror = () => reject(new Error('This image could not be read. Choose a PNG screenshot.'));
+      image.src = url;
+    });
+    const width = image.naturalWidth, height = image.naturalHeight;
+    if (!width || !height || width * height > 40000000) throw new Error('The screenshot is empty or too large.');
+    const canvas = document.createElement('canvas');
+    canvas.width = width; canvas.height = height;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(image, 0, 0);
+    return { width, height, rgba: ctx.getImageData(0, 0, width, height).data };
+  } finally { URL.revokeObjectURL(url); }
+}
+
+async function displayPixels() {
+  if (!navigator.mediaDevices?.getDisplayMedia) throw new Error('This browser cannot capture its own screen. Take a screenshot on your device, then choose Print a screenshot.');
+  const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false, preferCurrentTab: true });
+  const video = document.createElement('video');
+  let timeout;
+  try {
+    video.muted = true; video.playsInline = true; video.srcObject = stream;
+    await Promise.race([
+      (async () => {
+        await video.play();
+        await new Promise(resolve => {
+          if (video.requestVideoFrameCallback) video.requestVideoFrameCallback(resolve);
+          else requestAnimationFrame(() => requestAnimationFrame(resolve));
+        });
+      })(),
+      new Promise((_,reject) => { timeout = setTimeout(() => reject(new Error('No screen frame arrived. Try Print again.')), 10000); })
+    ]);
+    const width = video.videoWidth, height = video.videoHeight;
+    if (!width || !height || width * height > 40000000) throw new Error('The shared screen has no usable image.');
+    const canvas = document.createElement('canvas');
+    canvas.width = width; canvas.height = height;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(video, 0, 0);
+    return { width, height, rgba: ctx.getImageData(0, 0, width, height).data };
+  } finally {
+    clearTimeout(timeout);
+    stream.getTracks().forEach(track => track.stop());
+    video.pause(); video.srcObject = null;
+  }
+}
+
+/** A host provider must return an actual browser screenshot; no DOM reconstruction. */
+export async function printScreen({ capture, image, filename = 'teleprint-screen.pdf' } = {}) {
+  let frame, method;
+  if (image) { frame = await imagePixels(image); method = 'device-screenshot'; }
+  else if (capture) { frame = await imagePixels(await capture()); method = 'browser-screenshot'; }
+  else { frame = await displayPixels(); method = 'display-capture'; }
+  const data = await screenPdf(frame);
+  const blob = new Blob([data], { type: 'application/pdf' });
+  downloadFile(blob, filename);
+  return { method, width: frame.width, height: frame.height, bytes: data.length, filename, status: 'download-requested' };
+}
+
+===== END FILE "drivers/codex/print-screen.js" =====
+
+===== BEGIN FILE "drivers/codex/print-source-code.js" | bytes=10062 | sha256=443043ec1ead5335a86d0525a288aeac8e51203690c8bedf02f7c0cbbb15babf =====
+/** Browser driver: attach to a button; fetch, verify, and download committed source as UTF-8 text. */
+async function sha256(bytes) {
+  return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)), byte => byte.toString(16).padStart(2, '0')).join('');
+}
+function sameOrigin(url) {
+  const resolved = new URL(url, location.href);
+  if (resolved.origin !== location.origin || !/^https?:$/.test(resolved.protocol)) throw new Error('Print source code requires same-origin HTTP(S) files.');
+  return resolved.href;
+}
+async function get(url) {
+  const response = await fetch(sameOrigin(url), { cache: 'no-store', credentials: 'same-origin', redirect: 'error' });
+  if (!response.ok) throw new Error(`Print source code fetch failed: HTTP ${response.status}`);
+  return response;
+}
+
+export async function fetchVerifiedSourceCode({ manifestUrl, textUrl, expectedRepository, expectedCommit }) {
+  if (!manifestUrl || !textUrl) throw new Error('The source code file has not been set up for this page.');
+  const [manifestResponse, textResponse] = await Promise.all([get(manifestUrl), get(textUrl)]);
+  const manifest = await manifestResponse.json();
+  const bytes = new Uint8Array(await textResponse.arrayBuffer());
+  if (manifest.format !== 'codex-print-source-code-v1' || !/^[a-f0-9]{40,64}$/.test(manifest.commit)) throw new Error('Invalid source code manifest.');
+  if (expectedRepository && manifest.repository !== expectedRepository) throw new Error('Source code repository mismatch.');
+  if (expectedCommit && manifest.commit !== expectedCommit) throw new Error('Source code commit mismatch.');
+  if (bytes.length !== manifest.byteCount || await sha256(bytes) !== manifest.sha256) throw new Error('Source code bundle integrity check failed.');
+  const decoder = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true });
+  const sourceText = decoder.decode(bytes);
+  if (!Array.isArray(manifest.files)) throw new Error('Missing source code inventory.');
+  const framing = [`PRINT SOURCE CODE\nFormat: ${manifest.format}\nRepository: ${manifest.repository}\nCommit: ${manifest.commit}\nTree: ${manifest.tree}\nScopes: ${JSON.stringify(manifest.scopes)}\nPolicy: ${JSON.stringify(manifest.policy)}\nInventory: ${JSON.stringify(manifest.files.map(({ startByte, ...entry }) => entry))}\n\n`];
+  let included = 0, omitted = 0, previousEnd = 0;
+  const seen = new Set();
+  for (const file of manifest.files) {
+    if (typeof file.path !== 'string' || seen.has(file.path)) throw new Error('Invalid source code inventory path.');
+    seen.add(file.path);
+    if (file.status === 'omitted' && file.reason) { omitted++; continue; }
+    if (file.status !== 'included' || !Number.isSafeInteger(file.startByte) || !Number.isSafeInteger(file.byteCount) || file.byteCount < 0 || file.startByte < previousEnd || file.startByte + file.byteCount > bytes.length) throw new Error('Invalid source code file boundary.');
+    if (await sha256(bytes.subarray(file.startByte, file.startByte + file.byteCount)) !== file.sha256) throw new Error(`Source code file integrity check failed: ${file.path}`);
+    framing.push(`===== BEGIN FILE ${JSON.stringify(file.path)} | bytes=${file.byteCount} | sha256=${file.sha256} =====\n`, decoder.decode(bytes.subarray(file.startByte, file.startByte + file.byteCount)), `\n===== END FILE ${JSON.stringify(file.path)} =====\n\n`);
+    previousEnd = file.startByte + file.byteCount;
+    included++;
+  }
+  if (!included || included !== manifest.includedCount || omitted !== manifest.omittedCount) throw new Error('Source code coverage check failed.');
+  framing.push('===== END PRINT SOURCE CODE =====\n');
+  if (framing.join('') !== sourceText) throw new Error('Source code inventory or file boundaries do not match the text.');
+  return { bytes, manifest };
+}
+
+/** Verified download/copy/share controls. Returned cleanup removes listeners and generated fallback. */
+export function attachPrintSourceCode({ button, copyButton, shareButton, status, fallbackContainer, manifestUrl, textUrl, expectedRepository, expectedCommit, filename = 'source-code.txt', onError } = {}) {
+  if (!button || typeof button.addEventListener !== 'function') throw new Error('Print source code requires a button element.');
+  const instructions = 'Attach this text file in ChatGPT, or copy and paste its contents.';
+  const ownedStatus = !status;
+  if (!status) { status = document.createElement('p'); button.insertAdjacentElement('afterend', status); }
+  status.setAttribute('role', 'status');
+  status.setAttribute('aria-live', 'polite');
+  status.textContent = instructions;
+  const controls = [button, copyButton, shareButton].filter(Boolean);
+  const initialDisabled = controls.map(item => item.disabled);
+  const listeners = [];
+  let fallback;
+  let busy = false;
+  let prepared;
+  let detached = false;
+  const safeFilename = `${filename.replace(/\.txt$/i, '').replace(/[\\/:*?"<>|\u0000-\u001f]/g, '_')}.txt`;
+  const manualCopy = text => {
+    if (!fallback) {
+      fallback = document.createElement('div');
+      const label = document.createElement('p');
+      label.textContent = 'Select all the source code below, then copy it and paste it into ChatGPT.';
+      const area = document.createElement('textarea');
+      area.readOnly = true;
+      area.rows = 14;
+      area.style.width = '100%';
+      area.setAttribute('aria-label', 'Complete source code. Select all and copy.');
+      fallback.append(label, area);
+      (fallbackContainer || button.parentElement || document.body).append(fallback);
+    }
+    const area = fallback.querySelector('textarea');
+    area.value = text;
+    area.focus();
+    area.select();
+    status.textContent = 'Automatic copy is unavailable. The complete source code is ready below for you to select and copy.';
+  };
+  const bind = (control, label, action) => {
+    if (!control) return;
+    control.textContent = label;
+    control.setAttribute('aria-label', label);
+    const click = async () => {
+    if (busy || control.disabled || !prepared) return;
+    busy = true;
+    const wasDisabled = controls.map(item => item.disabled);
+    for (const item of controls) { item.disabled = true; item.setAttribute('aria-busy', 'true'); }
+    try {
+      // Preparation finished before the click: clipboard/share runs in this user gesture.
+      const { bytes } = prepared;
+      if (action === 'copy') {
+        const text = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(bytes);
+        try {
+          if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+          await navigator.clipboard.writeText(text);
+          status.textContent = 'Source code copied. Paste it into ChatGPT.';
+        } catch { manualCopy(text); }
+      } else if (action === 'share') {
+        const file = new File([bytes], safeFilename, { type: 'text/plain;charset=utf-8' });
+        if (!navigator.canShare?.({ files: [file] })) {
+          status.textContent = `File sharing is unavailable here. Use Print source code or Copy source code. ${instructions}`;
+        } else {
+          await navigator.share({ files: [file], title: 'Source code' });
+          status.textContent = `Share action completed. ${instructions}`;
+        }
+      } else {
+        const url = URL.createObjectURL(new Blob([bytes], { type: 'text/plain;charset=utf-8' }));
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = safeFilename;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+        status.textContent = `Text file download requested. ${instructions}`;
+      }
+    } catch (error) {
+      if (error.name === 'AbortError') status.textContent = `Sharing cancelled. ${instructions}`;
+      else {
+        status.textContent = `Could not prepare source code: ${error.message}`;
+        control.dispatchEvent(new CustomEvent('sourcecodeerror', { detail: error }));
+        if (onError) onError(error);
+        else console.error('Print source code:', error);
+      }
+    } finally {
+      controls.forEach((item, index) => { item.disabled = wasDisabled[index]; item.removeAttribute('aria-busy'); });
+      busy = false;
+    }
+    };
+    control.addEventListener('click', click);
+    listeners.push([control, click]);
+  };
+  bind(button, 'Print source code', 'download');
+  bind(copyButton, 'Copy source code', 'copy');
+  if (shareButton) {
+    shareButton.hidden = !(typeof navigator.share === 'function' && typeof navigator.canShare === 'function');
+    bind(shareButton, 'Share source code', 'share');
+  }
+  for (const item of controls) { item.disabled = true; item.setAttribute('aria-busy', 'true'); }
+  status.textContent = 'Preparing the complete source code…';
+  const ready = fetchVerifiedSourceCode({ manifestUrl, textUrl, expectedRepository, expectedCommit }).then(result => {
+    if (detached) return null;
+    prepared = result;
+    controls.forEach((item, index) => { item.disabled = initialDisabled[index]; item.removeAttribute('aria-busy'); });
+    status.textContent = `Source code ready: ${result.manifest.includedCount} files, ${result.bytes.length} bytes. ${instructions}`;
+    return result;
+  }).catch(error => {
+    if (!detached) {
+      for (const item of controls) item.removeAttribute('aria-busy');
+      status.textContent = 'The complete source code could not be prepared. Reload the page to try again.';
+      button.dispatchEvent(new CustomEvent('sourcecodeerror', { detail: error }));
+      if (onError) onError(error);
+      else console.error('Print source code:', error);
+    }
+    return null;
+  });
+  const detach = () => {
+    detached = true;
+    for (const [control, listener] of listeners) control.removeEventListener('click', listener);
+    controls.forEach((item, index) => { item.disabled = initialDisabled[index]; item.removeAttribute('aria-busy'); });
+    fallback?.remove();
+    if (ownedStatus) status.remove();
+  };
+  detach.ready = ready;
+  return detach;
+}
+
+export const attachSourceCodeControls = attachPrintSourceCode;
+
+===== END FILE "drivers/codex/print-source-code.js" =====
+
+===== BEGIN FILE "drivers/codex/screen-pdf.mjs" | bytes=2681 | sha256=41d6f27b0975e6eaac969ebc4ed1d05ca9538b6553d0eb573302bc9282e077fd =====
+/** Codex Teleprinter: lossless captured pixels, one page, no drawn furniture. */
+const enc = new TextEncoder();
+const bytes = s => enc.encode(s);
+const join = parts => {
+  const out = new Uint8Array(parts.reduce((n, p) => n + p.length, 0));
+  let at = 0;
+  for (const p of parts) { out.set(p, at); at += p.length; }
+  return out;
+};
+async function deflate(data) {
+  return new Uint8Array(await new Response(new Blob([data]).stream()
+    .pipeThrough(new CompressionStream('deflate'))).arrayBuffer());
+}
+export async function screenPdf({ width, height, rgba }) {
+  if (!Number.isSafeInteger(width) || !Number.isSafeInteger(height) || width < 1 || height < 1
+      || width > 14400 || height > 14400 || width * height > 40000000
+      || !(rgba instanceof Uint8Array || rgba instanceof Uint8ClampedArray)
+      || rgba.length !== width * height * 4) throw new Error('The screen image has invalid dimensions or pixels.');
+  const rgb = new Uint8Array(width * height * 3);
+  const alpha = new Uint8Array(width * height);
+  let transparent = false;
+  for (let p = 0; p < alpha.length; p++) {
+    rgb.set(rgba.subarray(p * 4, p * 4 + 3), p * 3);
+    alpha[p] = rgba[p * 4 + 3];
+    if (alpha[p] !== 255) transparent = true;
+  }
+  const stream = (dict, data) => join([bytes(`<< ${dict} /Length ${data.length} >>\nstream\n`), data, bytes('\nendstream')]);
+  const objects = [
+    bytes('<< /Type /Catalog /Pages 2 0 R >>'),
+    bytes('<< /Type /Pages /Kids [3 0 R] /Count 1 >>'),
+    bytes(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${width} ${height}] /Resources << /XObject << /Screen 4 0 R >> >> /Contents 5 0 R >>`),
+    stream(`/Type /XObject /Subtype /Image /Width ${width} /Height ${height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Interpolate false /Filter /FlateDecode${transparent ? ' /SMask 6 0 R' : ''}`, await deflate(rgb)),
+    stream('', bytes(`q\n${width} 0 0 ${height} 0 0 cm\n/Screen Do\nQ\n`))
+  ];
+  if (transparent) objects.push(stream(`/Type /XObject /Subtype /Image /Width ${width} /Height ${height} /ColorSpace /DeviceGray /BitsPerComponent 8 /Filter /FlateDecode`, await deflate(alpha)));
+  const chunks = [bytes('%PDF-1.4\n%Teleprinter\n')];
+  const offsets = [0];
+  let length = chunks[0].length;
+  objects.forEach((object, i) => {
+    offsets.push(length);
+    const chunk = join([bytes(`${i + 1} 0 obj\n`), object, bytes('\nendobj\n')]);
+    chunks.push(chunk); length += chunk.length;
+  });
+  chunks.push(bytes(`xref\n0 ${offsets.length}\n0000000000 65535 f \n${offsets.slice(1).map(n => `${String(n).padStart(10, '0')} 00000 n \n`).join('')}trailer\n<< /Size ${offsets.length} /Root 1 0 R >>\nstartxref\n${length}\n%%EOF\n`));
+  return join(chunks);
+}
+
+===== END FILE "drivers/codex/screen-pdf.mjs" =====
+
+===== BEGIN FILE "drivers/codex/source-code.mjs" | bytes=10435 | sha256=4247c52add7ef1bd3e776770f481bbeb1b3df623bc31bb113e3f4595fe8d79ed =====
+/** Print source code from committed Git objects. No working-tree files are read. */
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { createHash } from 'node:crypto';
+import { writeFile, mkdir } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+const exec = promisify(execFile);
+const FORMAT = 'codex-print-source-code-v1';
+const POLICY = Object.freeze({
+  source: 'Committed Git blobs only; working-tree changes are never substituted.',
+  inclusion: 'All regular files and symlink target blobs under each literal scope, including dotfiles and generated files, if valid UTF-8 text.',
+  omission: 'NUL-containing or non-UTF-8 blobs and Git submodules are explicitly listed as omitted. No truncation.',
+  boundaries: 'File startByte and byteCount identify exact original UTF-8 bytes in the bundle; offsets are zero-based. No newline normalization.',
+});
+const digest = bytes => createHash('sha256').update(bytes).digest('hex');
+const utf8 = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true });
+function fail(message) { throw new Error(`Print source code: ${message}`); }
+async function git(repoDir, args) {
+  try {
+    return (await exec('git', ['-C', repoDir, ...args], {
+      encoding: 'buffer', maxBuffer: 256 * 1024 * 1024, windowsHide: true,
+    })).stdout;
+  } catch (error) {
+    fail(`Git command failed (${args[0]}): ${String(error.stderr || error.message).trim()}`);
+  }
+}
+function scopesOf(paths) {
+  if (!Array.isArray(paths) || paths.length === 0) fail('at least one path scope is required');
+  return [...new Set(paths.map(path => {
+    if (typeof path !== 'string' || !path || path.includes('\\') || path.includes('\0') || path.startsWith('/') || /^[A-Za-z]:/.test(path)) fail('invalid path scope');
+    if (path === '.') return path;
+    if (path.split('/').some(part => !part || part === '.' || part === '..')) fail(`unsafe path scope: ${path}`);
+    return path;
+  }))].sort();
+}
+function githubIdentity(value) {
+  const match = /^(?:https:\/\/github\.com\/|git@github\.com:|ssh:\/\/git@github\.com\/)([\w.-]+\/[\w.-]+?)(?:\.git)?\/?$/.exec(value.trim());
+  if (!match) fail('repository identity must be a GitHub HTTPS or SSH repository URL');
+  return `https://github.com/${match[1]}`;
+}
+function header(manifest) {
+  return `PRINT SOURCE CODE\nFormat: ${FORMAT}\nRepository: ${manifest.repository}\nCommit: ${manifest.commit}\nTree: ${manifest.tree}\nScopes: ${JSON.stringify(manifest.scopes)}\nPolicy: ${JSON.stringify(POLICY)}\nInventory: ${JSON.stringify(manifest.files.map(({ startByte, ...entry }) => entry))}\n\n`;
+}
+function begin(file) { return `===== BEGIN FILE ${JSON.stringify(file.path)} | bytes=${file.byteCount} | sha256=${file.sha256} =====\n`; }
+function end(file) { return `\n===== END FILE ${JSON.stringify(file.path)} =====\n\n`; }
+
+/** revision is required and resolved once to a full immutable commit SHA. */
+export async function createSourceCodeBundle({ repoDir, revision, paths = ['.'], repository } = {}) {
+  if (!repoDir || typeof revision !== 'string' || !revision.trim() || revision.startsWith('-')) fail('repoDir and an explicit revision are required');
+  const scopes = scopesOf(paths);
+  const commit = (await git(repoDir, ['rev-parse', '--verify', '--end-of-options', `${revision}^{commit}`])).toString('utf8').trim();
+  const tree = (await git(repoDir, ['rev-parse', '--verify', `${commit}^{tree}`])).toString('utf8').trim();
+  const identity = githubIdentity(repository ?? (await git(repoDir, ['remote', 'get-url', 'origin'])).toString('utf8').trim());
+  const listing = await git(repoDir, ['ls-tree', '-r', '-z', '--full-tree', commit]);
+  let records;
+  try { records = utf8.decode(listing).split('\0').filter(Boolean); } catch { fail('Git paths must be valid UTF-8'); }
+  const entries = records.map(record => {
+    const match = /^(\d+) (blob|commit) ([a-f0-9]+)\t([\s\S]+)$/.exec(record);
+    if (!match) fail('unsupported Git tree entry');
+    return { mode: match[1], type: match[2], blobOid: match[3], path: match[4] };
+  });
+  const matches = (entry, scope) => scope === '.' || entry.path === scope || entry.path.startsWith(`${scope}/`);
+  for (const scope of scopes) if (!entries.some(entry => matches(entry, scope))) fail(`scope not found at ${commit}: ${scope}`);
+  const selected = entries.filter(entry => scopes.some(scope => matches(entry, scope)));
+  const bodies = new Map();
+  const files = [];
+  for (const { type, ...entry } of selected) {
+    if (type === 'commit') { files.push({ ...entry, status: 'omitted', reason: 'Git submodule; contents belong to another repository' }); continue; }
+    const bytes = await git(repoDir, ['cat-file', 'blob', entry.blobOid]);
+    const metadata = { ...entry, byteCount: bytes.length, sha256: digest(bytes) };
+    let reason;
+    if (bytes.includes(0)) reason = 'Binary blob (contains NUL)';
+    else { try { utf8.decode(bytes); } catch { reason = 'Non-UTF-8 blob'; } }
+    if (reason) files.push({ ...metadata, status: 'omitted', reason });
+    else { files.push({ ...metadata, status: 'included' }); bodies.set(entry.path, bytes); }
+  }
+  if (!bodies.size) fail('zero text-file coverage for the requested scopes');
+  const manifest = { format: FORMAT, repository: identity, commit, tree, scopes, policy: POLICY, files };
+  const parts = [Buffer.from(header(manifest))];
+  let offset = parts[0].length;
+  for (const file of files.filter(file => file.status === 'included')) {
+    const prefix = Buffer.from(begin(file));
+    const suffix = Buffer.from(end(file));
+    file.startByte = offset + prefix.length;
+    const bytes = bodies.get(file.path);
+    parts.push(prefix, bytes, suffix);
+    offset += prefix.length + bytes.length + suffix.length;
+  }
+  parts.push(Buffer.from('===== END PRINT SOURCE CODE =====\n'));
+  const bytes = Buffer.concat(parts);
+  manifest.byteCount = bytes.length;
+  manifest.sha256 = digest(bytes);
+  manifest.includedCount = bodies.size;
+  manifest.omittedCount = files.length - bodies.size;
+  const text = bytes.toString('utf8');
+  verifySourceCodeBundle(text, manifest);
+  return { text, manifest };
+}
+
+/** Integrity validation; repository-backed validation below also proves inventory coverage. */
+export function verifySourceCodeBundle(text, manifest, { expectedRepository, expectedCommit } = {}) {
+  if (!manifest || manifest.format !== FORMAT || typeof text !== 'string') fail('unsupported bundle');
+  if (expectedRepository && manifest.repository !== expectedRepository) fail('repository mismatch');
+  if (expectedCommit && manifest.commit !== expectedCommit) fail('commit mismatch');
+  if (!/^[a-f0-9]{40,64}$/.test(manifest.commit) || !/^[a-f0-9]{40,64}$/.test(manifest.tree)) fail('invalid commit/tree identity');
+  if (JSON.stringify(manifest.policy) !== JSON.stringify(POLICY)) fail('policy mismatch');
+  if (!Array.isArray(manifest.files) || !manifest.files.length) fail('missing inventory');
+  const bytes = Buffer.from(text, 'utf8');
+  if (bytes.length !== manifest.byteCount || digest(bytes) !== manifest.sha256) fail('bundle byte count or SHA256 mismatch');
+  const chunks = [Buffer.from(header(manifest))];
+  let offset = chunks[0].length;
+  let included = 0;
+  let omitted = 0;
+  const seen = new Set();
+  for (const file of manifest.files) {
+    if (typeof file.path !== 'string' || seen.has(file.path)) fail('invalid or duplicate inventory path');
+    seen.add(file.path);
+    if (file.status === 'omitted') { if (!file.reason) fail('omission without reason'); omitted++; continue; }
+    if (file.status !== 'included') fail('invalid inventory status');
+    included++;
+    const prefix = Buffer.from(begin(file));
+    if (!Number.isSafeInteger(file.byteCount) || file.byteCount < 0 || file.startByte !== offset + prefix.length) fail(`invalid boundary: ${file.path}`);
+    const body = bytes.subarray(file.startByte, file.startByte + file.byteCount);
+    if (body.length !== file.byteCount || digest(body) !== file.sha256) fail(`file integrity mismatch: ${file.path}`);
+    const suffix = Buffer.from(end(file));
+    chunks.push(prefix, body, suffix);
+    offset += prefix.length + body.length + suffix.length;
+  }
+  chunks.push(Buffer.from('===== END PRINT SOURCE CODE =====\n'));
+  if (!included || included !== manifest.includedCount || omitted !== manifest.omittedCount || !Buffer.concat(chunks).equals(bytes)) fail('inventory, framing, or coverage mismatch');
+  return true;
+}
+
+/** Re-read Git objects and require the entire canonical bundle, including omissions, to match. */
+export async function verifySourceCodeBundleAgainstRepository(text, manifest, options) {
+  verifySourceCodeBundle(text, manifest, { expectedCommit: options.expectedCommit, expectedRepository: options.expectedRepository });
+  const expected = await createSourceCodeBundle({ repoDir: options.repoDir, revision: options.expectedCommit ?? manifest.commit, repository: options.expectedRepository ?? manifest.repository, paths: options.paths ?? manifest.scopes });
+  if (text !== expected.text || JSON.stringify(manifest) !== JSON.stringify(expected.manifest)) fail('bundle does not match committed repository inventory');
+  return true;
+}
+
+/** Explicit output locations; text and manifest should be hosted together on one origin. */
+export async function writeSourceCodeBundle(options) {
+  const { textPath, manifestPath } = options;
+  if (!textPath || !manifestPath || resolve(textPath) === resolve(manifestPath)) fail('distinct textPath and manifestPath are required');
+  const bundle = await createSourceCodeBundle(options);
+  await mkdir(dirname(resolve(textPath)), { recursive: true });
+  await mkdir(dirname(resolve(manifestPath)), { recursive: true });
+  await writeFile(textPath, bundle.text, 'utf8');
+  await writeFile(manifestPath, `${JSON.stringify(bundle.manifest, null, 2)}\n`, 'utf8');
+  return bundle.manifest;
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  const [repoDir, revision, textPath, manifestPath, ...paths] = process.argv.slice(2);
+  try {
+    const result = await writeSourceCodeBundle({ repoDir, revision, textPath, manifestPath, paths: paths.length ? paths : ['.'] });
+    process.stdout.write(`Print source code: ${result.includedCount} included, ${result.omittedCount} omitted; commit ${result.commit}\n`);
+  } catch (error) { process.stderr.write(`${error.message}\n`); process.exitCode = 1; }
+}
+
+===== END FILE "drivers/codex/source-code.mjs" =====
+
+===== END PRINT SOURCE CODE =====

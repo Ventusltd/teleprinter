@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-09-05T14:18:00Z",
+  "instrument": "Connected Chrome browser UI, followed by downloaded file and clipboard comparison",
+  "url": "http://127.0.0.1:8885/drivers/codex/demo.html",
+  "source_commit": "9a8b644a747ec5243abcde7b260abbfb77fc4535",
+  "print_source_code": {"clicked": true, "download_bytes": 50425, "download_sha256_matches_bundle": true},
+  "copy_source_code": {"clicked": true, "status": "Source code copied. Paste it into ChatGPT.", "complete_text_matches_after_windows_newline_normalization": true, "expected_characters": 50411, "clipboard_characters": 51165, "windows_added_carriage_returns": 754},
+  "visual_inspection": "Readable Print, Print source code, Copy source code and Share source code controls. Image inspected in memory only.",
+  "not_measured": ["Physical iPhone attachment", "Native share sheet completion", "Interactive display-capture chooser"],
+  "screenshots_retained": 0
+}

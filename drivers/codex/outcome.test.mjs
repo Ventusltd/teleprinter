@@ -57,6 +57,12 @@ try {
           const pixels = JSON.parse(inspected.stdout);
           assert.equal(pixels.width,viewport.width*viewport.dpr);
           assert.equal(pixels.height,viewport.height*viewport.dpr);
+          await page.locator('details').evaluate(node=>{node.open=true;});
+          await page.locator('#screenshot').setInputFiles({name:'device-screenshot.png',mimeType:'image/png',buffer:captured});
+          const uploaded = await clickAndReadDownload(page,page.getByRole('button',{name:'Print selected screenshot',exact:true}));
+          assert.ok(uploaded.ok,uploaded.error);
+          const uploadedCheck = spawnSync('python',[path.join(root,'inspect-pdf.py')],{input:JSON.stringify({pdf:uploaded.bytes.toString('base64'),png:captured.toString('base64')}),encoding:'utf8',maxBuffer:4000000});
+          assert.equal(uploadedCheck.status,0,uploadedCheck.stderr);
           const text = await clickAndReadDownload(page,page.getByRole('button',{name:'Print source code',exact:true}));
           assert.ok(text.ok,text.error);
           assert.deepEqual(text.bytes,sourceBytes,'downloaded source differs from committed bundle');
@@ -66,7 +72,7 @@ try {
           await page.getByRole('button',{name:'Copy source code',exact:true}).click();
           await page.waitForFunction(()=>document.querySelector('textarea')?.value.length>0);
           assert.equal(await page.locator('textarea').inputValue(),sourceBytes.toString('utf8'));
-          reports.push({browser:name,version:browser.version(),viewport:viewport.name,ok:true,...pixels,sourceBytes:text.bytes.length,sourceDownloadIdentical:true,copyFallbackComplete:true});
+          reports.push({browser:name,version:browser.version(),viewport:viewport.name,ok:true,...pixels,uploadedScreenshotPixelsIdentical:true,sourceBytes:text.bytes.length,sourceDownloadIdentical:true,copyFallbackComplete:true});
           console.log(`PASS ${name} ${viewport.name}: PDF ${pixels.width}x${pixels.height}, source ${text.bytes.length} bytes, complete copy fallback`);
         } catch(error) { reports.push({browser:name,viewport:viewport.name,ok:false,error:String(error)}); console.log(`FAIL ${name} ${viewport.name}: ${error.message}`); }
         finally { captured=undefined; await context.close().catch(error=>{reports.push({browser:name,case:'context cleanup',ok:false,error:String(error)});}); }
@@ -74,6 +80,21 @@ try {
       const context=await browser.newContext({acceptDownloads:true});
       try {
         const page=await context.newPage(); await page.goto(base);
+        if (name === 'Chrome') {
+          const timeoutCleanup = await page.evaluate(async()=>{
+            const {printScreen}=await import('./print-screen.js');
+            let stopped=0;
+            Object.defineProperty(navigator.mediaDevices,'getDisplayMedia',{configurable:true,value:async()=>({getTracks:()=>[{stop(){stopped++;}}]})});
+            const original=document.createElement.bind(document);
+            document.createElement=(tag,...args)=>tag==='video'?{play:()=>new Promise(()=>{}),pause(){}}:original(tag,...args);
+            try { await printScreen(); return {stopped,error:null}; }
+            catch(error) { return {stopped,error:error.message}; }
+            finally { document.createElement=original; }
+          });
+          assert.equal(timeoutCleanup.stopped,1,'stalled playback must stop capture');
+          assert.match(timeoutCleanup.error,/No screen frame/);
+          reports.push({browser:name,case:'stalled display playback stops capture',ok:true});
+        }
         const absent=await clickAndReadDownload(page,page.locator('#nonexistent'),{timeout:500});
         assert.equal(absent.ok,false,'missing control must fail');
         await page.route('**/source-code.txt',route=>route.fulfill({body:'corrupt source',contentType:'text/plain'}));
