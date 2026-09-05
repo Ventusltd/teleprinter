@@ -52,6 +52,17 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
     try {await route.fulfill({body:await fs.readFile(path.join(producer,name)),contentType:name.endsWith('.html')?'text/html':name.endsWith('.css')?'text/css':'text/javascript'});}catch{return route.continue();}
    });
   }
+  if(process.argv.includes('--gis-preview')) {
+   record.gisProducerPreview=true;
+   const root='C:/Users/vikra/OneDrive/Documents/GitHub/gis-sld-sandbox';
+   const pointer=JSON.parse(await fs.readFile(path.join(root,'derived-latest.json'),'utf8'));
+   const producer=path.join(root,'releases',pointer.generation,'solar-bess-topology-v7/gis-sld-financial-sandbox');
+   await page.route('**/gis-sld-financial-sandbox/*',async route=>{
+    const name=new URL(route.request().url()).pathname.split('/').at(-1);
+    if(!/^[a-zA-Z0-9_.-]+$/.test(name))return route.continue();
+    try {await route.fulfill({body:await fs.readFile(path.join(producer,name)),contentType:name.endsWith('.html')?'text/html':name.endsWith('.css')?'text/css':'text/javascript'});}catch{return route.continue();}
+   });
+  }
   if(process.argv.includes('--guard')) {
    record.moduleStyleGate=true;const gate=new Promise(resolve=>releaseModuleStyle=resolve);
    await page.route('https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',async route=>{
@@ -102,6 +113,29 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
 
     if(tool.id==='gis-sld-financial-sandbox') {
      await frame.locator('#btn_draw').waitFor({state:'attached',timeout:60000});
+     if(process.argv.includes('--route-state')) {
+      const realm=page.frames().find(f=>f.url().includes('/gis-sld-financial-sandbox/index.html'));
+      await realm.waitForFunction(()=>typeof map!=='undefined'&&map?.isStyleLoaded()&&map.getSource('topology'),null,{timeout:60000});
+      assert.equal(await realm.evaluate(()=>GisSldRoute.getSnapshot().status),'empty');
+      await frame.locator('#btn_draw').click();
+      await realm.waitForFunction(()=>GisSldRoute.getSnapshot().status==='available',null,{timeout:15000});
+      const direct=await realm.evaluate(()=>GisSldRoute.getSnapshot());assert.equal(direct.route.geometry.coordinates.length,2);
+      await frame.locator('#btn_map_drop_pins').click();
+      assert.equal(await realm.evaluate(()=>GisSldRoute.getSnapshot().status),'editing');
+      assert.equal(await realm.evaluate(()=>GisSldRoute.getSnapshot().route),null);
+      const canvas=frame.locator('#map canvas');await canvas.scrollIntoViewIfNeeded();
+      const points=await canvas.evaluate(canvas=>{const r=canvas.getBoundingClientRect(),hits=[];for(let y=Math.max(r.top+20,20);y<Math.min(r.bottom-20,innerHeight-20);y+=30)for(let x=Math.max(r.left+20,20);x<Math.min(r.right-20,innerWidth-20);x+=30)if(document.elementFromPoint(x,y)===canvas)hits.push({x:x-r.left,y:y-r.top});return hits;});
+      assert.ok(points.length>=2,'The original map must expose space for route drawing');
+      await canvas.click({position:points[Math.floor(points.length*.3)]});
+      await canvas.click({position:points[Math.floor(points.length*.7)]});
+      await frame.locator('#btn_map_draw_route').click();
+      const manual=await realm.evaluate(()=>GisSldRoute.getSnapshot());
+      assert.equal(manual.status,'available');assert.equal(manual.pins.length,2);assert.equal(manual.route.geometry.coordinates.length,4);assert.equal(manual.committed,true);
+      assert.equal(await realm.evaluate(()=>{const snapshot=GisSldRoute.getSnapshot();const original=JSON.stringify(state.currentGeoJSON);try{snapshot.route.geometry.coordinates[0][0]=0;}catch{}return Object.isFrozen(snapshot.route.geometry.coordinates[0])&&original===JSON.stringify(state.currentGeoJSON);}),true,'Read-only adapter must not expose mutable original state');
+      await page.screenshot({path:path.join(output,`${viewport.width}-manual-route.png`)});
+      await frame.locator('#btn_map_clear_route').click();const cleared=await realm.evaluate(()=>GisSldRoute.getSnapshot());assert.equal(cleared.pins.length,0);assert.equal(cleared.route.geometry.coordinates.length,2);
+      record.gisRoute={direct,manual,clearRestoresDirect:true,immutableCopy:true};
+     }
      await frame.locator('#mod_wp').fill('665');
      await frame.locator('#mod_wp').press('Tab');
      await page.screenshot({path:path.join(output,`${viewport.width}-${tool.id}-open.png`)});
