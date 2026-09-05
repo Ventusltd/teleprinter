@@ -7,6 +7,7 @@ import { spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
 import { attachScreenCapture, clickAndReadDownload } from './driver.mjs';
 
+const appRender = process.argv.includes('--app-render');
 const here = path.dirname(fileURLToPath(import.meta.url));
 const base = process.argv[2];
 assert.ok(base, 'Usage: node fifty-prints.mjs BASE_URL [OFFLINE_ROOT] [--limit=25]');
@@ -54,7 +55,7 @@ const scenarios = Array.from({ length: 25 }, (_, i) => {
     search: kind === 'pipeline' ? pipelineSearches[i - 15] : null,
     pdfRoute: 'File > Print PDF' };
 });
-const receipt = { createdAt: new Date().toISOString(), base, candidate, output, browser: 'installed Chrome', physicalDevices: false,
+const receipt = { createdAt: new Date().toISOString(), base, candidate, output, browser: 'installed Chrome', printRoute:appRender?'app-render, no host capture':'host screenshot', physicalDevices: false,
   requestedScenarios: limit, expectedVisits: limit * 2, expectedDownloads: limit * 2, scenarios: [] };
 const receiptPath = path.join(here, 'fifty-prints-results.json');
 async function saveReceipt() { await fs.writeFile(receiptPath, JSON.stringify(receipt, null, 2) + '\n'); }
@@ -169,12 +170,14 @@ for (const scenario of scenarios.slice(0, limit)) {
       page.on('console', message => { if (['error', 'warning'].includes(message.type()) && visit.console.length < 150) visit.console.push({ type: message.type(), text: message.text() }); });
       page.on('pageerror', error => visit.console.push({ type: 'pageerror', text: String(error) }));
       page.on('requestfailed', request => { if (visit.networkFailures.length < 150) visit.networkFailures.push({ url: request.url(), error: request.failure()?.errorText }); });
-      await attachScreenCapture(page, { onCapture: png => {
+      if (!appRender) await attachScreenCapture(page, { onCapture: png => {
         captured = png;
         // driver.mjs does not await onCapture: observe rejection immediately, await below.
         if (scenario.kind === 'atlas') captureStatePromise = readAtlasState(page).then(value => ({ value }), error => ({ error }));
       } });
+      if(appRender) await page.addInitScript(()=>{window.__forbiddenPrintCalls=0;const forbid=()=>{window.__forbiddenPrintCalls++;throw Error('Forbidden screen/browser capture');};if(navigator.mediaDevices)navigator.mediaDevices.getDisplayMedia=forbid;window.print=forbid;window.__codexTeleprinterCapture=forbid;});
       visit.state = await prepare(page, scenario, progress);
+      if(appRender)await page.evaluate(()=>document.querySelector('#codex-teleprinter').addEventListener('teleprint',e=>window.__appPrintReceipt=e.detail));
       let downloaded;
       if (mode === 'pdf') {
         progress(`download PDF via ${scenario.pdfRoute}`);
@@ -189,7 +192,14 @@ for (const scenario of scenarios.slice(0, limit)) {
         visit.bytes = downloaded.bytes.length;
         visit.sha256 = sha256(downloaded.bytes);
         visit.suggestedFilename = downloaded.filename;
-        assert.ok(captured, 'Print did not call the viewport capture binding.');
+        if(appRender){
+          visit.appReceipt=await page.evaluate(()=>window.__appPrintReceipt);
+          assert.equal(visit.appReceipt.method,'app-render');
+          assert.equal(await page.evaluate(()=>window.__forbiddenPrintCalls),0);
+          captured=await page.screenshot({type:'png',scale:'device'});
+          if(scenario.kind==='atlas')captureStatePromise=readAtlasState(page).then(value=>({value}));
+        }
+        assert.ok(captured, 'Missing independent viewport comparison.');
         if (scenario.kind === 'atlas') {
           assert.ok(captureStatePromise, 'Capture-time layer snapshot was not scheduled.');
           const snapshot = await captureStatePromise;
@@ -203,7 +213,7 @@ for (const scenario of scenarios.slice(0, limit)) {
         visit.pngSha256 = sha256(captured);
         await fs.writeFile(visit.pngPath, captured, { flag: 'wx' });
         progress('inspect embedded and rendered PDF pixels');
-        const inspected = spawnSync('python', [path.join(here, 'inspect-pdf.py')], {
+        const inspected = spawnSync('python', [path.join(here, appRender ? 'inspect-app-pdf.py' : 'inspect-pdf.py')], {
           input: JSON.stringify({ pdf: downloaded.bytes.toString('base64'), png: captured.toString('base64') }), encoding: 'utf8', maxBuffer: 2000000, timeout: 60000
         });
         assert.equal(inspected.status, 0, inspected.stderr || String(inspected.error));
