@@ -77,3 +77,9 @@ PDFs, screenshots and actual source TXT downloads offline; only code and finding
 
 These are automated browser tests, not physical Android/iPhone tests. The screen
 sharing chooser and native mobile share sheet require separate device validation.
+
+## Five-version cartridge campaign, 5 September 2026
+
+Maintained source cartridges are enumerated in `cartridges.json`: capture geometry, visible UI clone, Grid/Subs quick controls, Layers arrival policy, and the independent Layout command. These are small ES modules extracted from existing behavior, loaded through the Codex bootstrap. They do not replace the whole Atlas application or its calculations. Testcode build.mjs copies their exact committed bytes into each immutable sandbox generation and pins the source; publication copies those candidates under testcode/<generation>.
+
+Authoritative per-release receipts and test downloads remain offline under `offline-screenshots/architecture-reload-20260905/five-version-campaign`. Spiders `codex/reload/plan-tracker` owns the Git/CI progress ledger. A deployed candidate is not automatically accepted.
