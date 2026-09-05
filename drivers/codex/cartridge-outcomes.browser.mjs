@@ -79,8 +79,13 @@ for(const viewport of [{width:1400,height:900},{width:393,height:852}]) {
      assert.ok(record.cableCanvases.every(c=>c.opaque>100&&c.colors>4),'Cable canvases must contain drawn geometry');
      await page.screenshot({path:path.join(output,`${viewport.width}-${tool.id}-open.png`)});
     }
-    await dialog.getByRole('button',{name:/Close.*return to GridAtlas/}).click();
-    record.tools.push({id:tool.id,opened:true,closed:true});
+    if(process.argv.includes('--escape')) {
+     await frame.locator('body').press('Escape');
+     await dialog.waitFor({state:'hidden'});
+     assert.equal(await page.locator('#codex-tool-layers').getByRole('button',{name:tool.title,exact:true}).evaluate(n=>n===document.activeElement),true,'Escape must return focus');
+     assert.deepEqual(await states(),beforePanel,'Escape changed Atlas layers');
+    } else await dialog.getByRole('button',{name:/Close.*return to GridAtlas/}).click();
+    record.tools.push({id:tool.id,opened:true,closed:true,escape:process.argv.includes('--escape')});
    }
   } else if(Number(release.generation)>=202609051850) {
    await page.locator('.neon-layout').first().waitFor({state:'attached',timeout:30000});
