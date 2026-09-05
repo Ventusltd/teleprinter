@@ -71,7 +71,7 @@ async function readAtlasState(page) {
         checked: input.checked, label: (label?.textContent || input.getAttribute('aria-label') || '').trim(),
         bounds, intersectsViewport: onscreen(bounds)
       }; });
-    const panel = ['fs-curtain-keys', 'gridatlas-dash'].map(id => document.getElementById(id)).find(node => onscreen(rect(node)));
+    const panel = ['scada-ui-container', 'fs-curtain-keys', 'gridatlas-dash'].map(id => document.getElementById(id)).find(node => onscreen(rect(node)));
     const panelBounds = rect(panel);
     const map = window.__GRIDATLAS_V9_MAP__;
     return { url: location.href, visibleText: document.body.innerText, controls,
@@ -256,7 +256,8 @@ for (const scenario of scenarios.slice(0, limit)) {
             assert.equal(mapLayer.layout?.visibility !== 'none', snapshot.selectedLayerKeys.includes(`engine:${layer}`));
           }
           for (const control of snapshot.controls.filter(input => input.checked && input.intersectsViewport)) {
-            assert.ok(manifest.state.visibleText.includes(control.label), `Source visible text is missing selected legend ${control.label}.`);
+            const legendName = control.label.replace(/\s*\[(?:OK|LOAD|WAIT|ERROR)\]/g, '').trim();
+            assert.ok(manifest.state.visibleText.includes(legendName), `Source visible text is missing selected legend ${legendName}.`);
           }
           visit.sourceCapturedLayerKeys = [...new Set(snapshot.controls.filter(control => manifest.state.forms.find(form => form.root === 'document' && form.index === control.index)?.checked).map(control => control.key))].sort();
         }
