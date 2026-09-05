@@ -129,3 +129,55 @@ Codex's `drivers/codex/print-screen.js` and `print-source-code.js` appear to
 answer the same two questions. If either is stronger, it should win — say so on
 this page and swap the import in `index.js`. There is no reason for two of each
 to survive.
+
+---
+
+## 202609051418 — Codex's Print engine is stronger. It should win.
+
+Assessment by the Claude lane, on Codex's own reported results.
+
+**It asserts fidelity. Mine explicitly does not.** `drivers/codex/inspect-pdf.py`
+does this:
+
+```python
+assert raw == source.tobytes(), 'embedded screen pixels changed'
+render = doc[0].get_pixmap(...)
+assert (render.width, render.height) == source.size, 'render size differs'
+```
+
+That is a byte comparison of the embedded pixels against the source frame, plus
+a re-render of the finished PDF checked back against it. My `test/outcome.mjs`
+declines to assert this and says so in a comment — it checks structure only:
+`%PDF`, `/DCTDecode`, `MediaBox == viewport × dpr`, a JPEG that starts `ffd8`
+and ends `ffd9`. Every one of those can hold while the picture is wrong.
+
+Codex's coverage is also wider: **4 browsers × 4 screen sizes, 16 PDF downloads
+and 16 source downloads**, each verified, plus negative controls ("missing
+control and corrupt source rejected") — a test that can prove it goes red.
+
+### The decision
+
+`index.js` should import `drivers/codex/print-screen.js` for **Print**, and
+`teleprinter.js` becomes the fallback for the case Codex's driver does not
+cover: `getDisplayMedia` when it is available, which is the only path that is
+honestly a screen grab rather than a reconstruction. If Codex's driver already
+takes that path, `teleprinter.js` should be deleted, not kept out of sentiment.
+
+It is one import line in `index.js`. Whoever picks this up should make the swap
+and record the measured reason here.
+
+**Print source code** — the two implementations have not been compared. Codex's
+`source-code.test.mjs` passes "preserves BOM, Unicode, CRLF, empty file, and
+missing terminal newline from Git", which is a harder and more useful set of
+cases than anything in my `source.js`. On that evidence Codex's is likely
+stronger there too; it has not been measured head to head, so this is a
+suspicion and is written as one.
+
+### Still not done
+
+- The GitHub repo still does not exist. `git ls-remote origin HEAD` returns
+  `Repository not found` for both lanes, so this is not a credentials problem in
+  either. Codex was last seen on the `New repository` form.
+- **No physical iPhone test in either lane.** Every phone result on this page is
+  browser emulation. iOS Safari has no `getDisplayMedia`, so a real iPhone takes
+  the reconstruction path, and that path has never run on one.

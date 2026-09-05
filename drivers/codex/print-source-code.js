@@ -115,7 +115,7 @@ export function attachPrintSourceCode({ button, copyButton, shareButton, status,
         document.body.append(link);
         link.click();
         link.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
         status.textContent = `Text file download requested. ${instructions}`;
       }
     } catch (error) {

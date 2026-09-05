@@ -31,15 +31,19 @@ async function displayPixels() {
   if (!navigator.mediaDevices?.getDisplayMedia) throw new Error('This browser cannot capture its own screen. Take a screenshot on your device, then choose Print a screenshot.');
   const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: false, preferCurrentTab: true });
   const video = document.createElement('video');
+  let timeout;
   try {
     video.muted = true; video.playsInline = true; video.srcObject = stream;
-    await video.play();
-    await new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => reject(new Error('No screen frame arrived. Try Print again.')), 10000);
-      const ready = () => { clearTimeout(timeout); resolve(); };
-      if (video.requestVideoFrameCallback) video.requestVideoFrameCallback(ready);
-      else requestAnimationFrame(() => requestAnimationFrame(ready));
-    });
+    await Promise.race([
+      (async () => {
+        await video.play();
+        await new Promise(resolve => {
+          if (video.requestVideoFrameCallback) video.requestVideoFrameCallback(resolve);
+          else requestAnimationFrame(() => requestAnimationFrame(resolve));
+        });
+      })(),
+      new Promise((_,reject) => { timeout = setTimeout(() => reject(new Error('No screen frame arrived. Try Print again.')), 10000); })
+    ]);
     const width = video.videoWidth, height = video.videoHeight;
     if (!width || !height || width * height > 40000000) throw new Error('The shared screen has no usable image.');
     const canvas = document.createElement('canvas');
@@ -48,6 +52,7 @@ async function displayPixels() {
     ctx.drawImage(video, 0, 0);
     return { width, height, rgba: ctx.getImageData(0, 0, width, height).data };
   } finally {
+    clearTimeout(timeout);
     stream.getTracks().forEach(track => track.stop());
     video.pause(); video.srcObject = null;
   }
